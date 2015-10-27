@@ -1,0 +1,171 @@
+<header ng-include="'views/header.html'"></header>
+<!--script type="text/javascript" src="assets/vendor/theme/js/moment-2.4.0.js"></script> 
+<script type="text/javascript" src="assets/vendor/theme/js/bootstrap-datetimepicker.js"></script> 
+<script type="text/javascript" src="assets/vendor/theme/js/bootstrap-datetimepicker.ru.js"></script-->
+
+
+<div class="container">
+  <div class="well">
+    <div ng-include="'views/progressBar.html'" class="row"></div>
+	<form rc-submit="next();"> 
+	<div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+        <div class="">
+            <div class="form-group">
+              <div class="row">
+                <label for="inputEmail3" class="col-sm-2 col-sm-offset-8 text-right">File No.</label>
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" readonly="readonly"  ng-model="fileNr" >
+                </div>
+              </div>
+            </div>          
+        </div>
+      </div>
+    </div>
+    <div class="bg-info" ng-repeat="form in goodsForm track by $index">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+                   
+            <div class="row" >
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">Supplier:</label>
+                  <div class="col-md-8">
+					<input type="text" ng-model="goodsData[$index].supplier" typeahead-select-on-exact="true" typeahead-select-on-blur="true" ng-blur="checkValue(goodsData[$index].supplier, $index);" typeahead="supplier as supplier[1] for supplier in suppliers | filter:$viewValue | limitTo:8" class="form-control" validator="[required]">
+					<!--ui-select id="supplier_{{$index}}" ng-model="goodsData[$index].supplier" theme="selectize"  title="Choose a Supplier" validator="[required]">
+					  <ui-select-match placeholder="Select Supplier">{{$select.selected[1]}}</ui-select-match>
+					  <ui-select-choices repeat="supplier in suppliers | filter: $select.search">
+						<span ng-bind-html="supplier[1] | highlight: $select.search"></span>
+					  </ui-select-choices>
+					</ui-select-->
+					<!--select class="form-control" ng-model="goodsData[$index].supplier"  ng-options = "supplier[1] for supplier in suppliers track by supplier[0]" validator="[required]">
+					  <option value="">Select Supplier</option>
+					</select-->
+					
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">P.O. Number:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="goodsData[$index].po_number" maxlength="30">
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">Description:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="goodsData[$index].description"  validator="[required]">
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">Cargo Ready Date:</label>
+                  <div class="col-md-8">
+                    <div class="input-group date">
+					  
+                      <input cs-date-to-iso type="text" class="form-control" id="goodsData[$index].cargo_date" name="goodsData[$index].cargo_date" ng-model="goodsData[$index].cargo_date" show-weeks="false" datepicker-popup="yyyy-MM-dd" is-open="goodsData[$index].Opened" validator="[required,date]">
+					  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"  ng-click="open($event,$index);"></span></span> </div>
+					
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">Quantity:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control text-inline" ng-model="goodsData[$index].quantity"  validator="[numeric]">
+                    <!--select class="form-control select-inline" ng-model="goodsData[$index].unit" validator="{{goodsData[$index].quantity ? '[required]' : ''}}" ng-options = "unit[1] for unit in units track by unit[0]">
+                      <option value="">Select Unit</option>
+                    </select-->
+					<ui-select class="select-inline" ng-model="goodsData[$index].unit" theme="selectize"  title="Choose a Unit" validator="{{goodsData[$index].quantity ? '[required]' : ''}}">
+					  <ui-select-match placeholder="Select Unit">{{$select.selected[1]}}</ui-select-match>
+					  <ui-select-choices repeat="unit in units | filter: $select.search">
+						<span ng-bind-html="unit[1] | highlight: $select.search"></span>
+					  </ui-select-choices>
+					</ui-select>
+					
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">Gross Weight:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="goodsData[$index].weight"  validator="[float]">
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">Cargo Value:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control text-inline" ng-model="goodsData[$index].cargo_value"  validator="[float]">
+                    <!--select class="form-control select-inline" validator="{{goodsData[$index].cargo_value ? '[required]' : ''}}" ng-model="goodsData[$index].currency" ng-options = "currency.currency for currency in currencies track by currency.currency">
+                      <option value="">Select Currency</option>
+					</select-->
+					
+					<ui-select class="select-inline" ng-model="goodsData[$index].currency" theme="selectize"  title="Choose a Currency" validator="{{goodsData[$index].cargo_value ? '[required]' : ''}}">
+					  <ui-select-match placeholder="Select Currency">{{$select.selected.currency}}</ui-select-match>
+					  <ui-select-choices repeat="currency in currencies | filter: $select.search">
+						<span ng-bind-html="currency.currency | highlight: $select.search"></span>
+					  </ui-select-choices>
+					</ui-select>
+					
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">Net Weight:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="goodsData[$index].net_weight"  validator="[float]">
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">HS Code:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="goodsData[$index].hs_code" maxlength="6"  validator="[numeric]">
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">Volume:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control" ng-model="goodsData[$index].volume"  validator="[numeric]">
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+      <!--i ng-if="goodsForm.length == ($index + 1)" class="fa fa-plus" ng-click="addGoods();"></i>
+	  <i ng-if="(goodsForm.length -1) != $index &&  goodsForm.length > 1" class="fa fa-minus" ng-click="removeGoods($index);"></i-->
+	  
+	  <i ng-if="$index == 0" class="fa fa-plus" ng-click="addGoods();"></i> 
+	  <i ng-if="$index == 0 &&  goodsForm.length > 1" class="fa fa-minus" ng-click="removeGoods($index);" style="left:100px;"></i>
+	  <i ng-if="$index != 0 &&  (goodsForm.length -1) != $index &&  goodsForm.length > 1" class="fa fa-minus" ng-click="removeGoods($index);"></i>
+	  </div>
+    <div class="text-right">
+      <button type="button" class="btn btn-default" ng-click="cancel();">Cancel</button>
+	  <input type="submit" name="next" value="Next" class="btn btn-success">
+      <!--a href="javascript:void(0);" ng-click="next();" >Next</a--> 
+	</div>
+	</form>
+   </div>
+</div>
+
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" class="no-bg" ng-if="isProcessing">
+  <img src="assets/vendor/theme/img/loading-image.gif">
+</div>
+
+ <footer ng-include src="'views/footer.html'" class="text-right"></footer>

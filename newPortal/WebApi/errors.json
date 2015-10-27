@@ -1,0 +1,10 @@
+{
+  "REQUIRED": { "code" : "R0101" , "text" : " can't be blank."},
+  "USERIDREQUIRED": { "code" : "R0102" , "text" : "User ID can't be blank."},   
+  "TOKENREQUIRED": { "code" : "300" , "text" : "Token can't be blank."},
+  "INVALID": { "code" : "R0120" , "text" : "Invalid input parameters."},
+  "EMAILEXIST": { "code" : "R0121" , "text" : "Email already exists in system."},  
+  "INVALIDUSER": { "code" : "R0122" , "text" : "Invalid Email/Password."},
+  "INVALIDORG": { "code" : "R0123" , "text" : "Invalid organization."}
+  
+}

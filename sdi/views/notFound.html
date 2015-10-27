@@ -1,0 +1,33 @@
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <!--Select exam date and time start -->
+            <div class="schedule-your-appointment">
+                <div class="row">
+                    <div class="medium-9 columns">
+                        <!--Schedule your appointment start -->
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <div class="title">
+                                    <div class="sub-heading" style="padding:150px 0;padding-bottom: 10px; text-align:center; font-size:30px">{{'404NotFound' | translate}}<br/>{{'ClickToContinue' | translate}}</div>
+                                    <div class="sub-heading" style="text-align:center;padding-bottom: 150px; font-size:30px"><a href="/" class="btn btn-large btn-green" >{{'Home' | translate}}</a></div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="isProcessing">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray">{{'isProcessing' | translate}}</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+  <div class="container">
+    <nav class="navbar navbar-default"> 
+      
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      </div>
+      
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="javascript:void(0);" ng-click="logout();">Logout </a></li>
+          <li><a href="#">Contact</a></li>
+          <!--<li><a href="#">Help</a></li>-->
+        </ul>
+      </div>
+      <!-- /.navbar-collapse --> 
+    </nav>
+    <div class="label-default">
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4"> 
+			<a href="#/" class="logo"><img src="assets/vendor/theme/img/logo.jpg" alt=""></a> 
+		</div>
+        <div class="col-xs-12 col-sm-8 col-md-8 text-right buttons"> 
+			<a href="javascript:void(0);" ng-click="createFile()" class="btn btn-primary">Create File</a> 
+			<a href="#/" class="btn btn-default">My Files</a> 
+		</div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+<div class="process-overlay" ng-if="mainLoader"></div>
+<div id="process-loading" class="no-bg" ng-if="mainLoader">
+  <img src="assets/vendor/theme/img/loading-image.gif">
+</div>
+
+<div class="process-overlay popup-bg" ng-show="showCancelPopup"></div>
+<div ng-class="showCancelPopup ? 'modal show' : 'modal'" ng-show="showCancelPopup">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="closeCancelPopup()"><span>&times;</span></button>
+        <h4 class="modal-title">Confirm</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to cancel this file?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="closeCancelPopup();">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="cancelFile();">Ok</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

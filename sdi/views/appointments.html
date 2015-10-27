@@ -1,0 +1,147 @@
+<script src="../app/script/services/dateFormatService.js"></script>
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="upcoming-appointment">
+                
+                <div class="row">
+                    <div class="medium-9 columns">
+
+                        <div class="row">
+                            <div class="medium-4 small-7 push-8 columns small-right"><a href="#/" class="btn btn-green btn-large full-width m-t20">{{'NewAppointment' | translate}}</a></div>
+                            <div class="medium-8 pull-4 columns"><div class="title"><h1 class="ng-binding">{{'UpcomingAppointments' | translate}}</h1></div></div>
+                        </div>
+
+                        <div ng-if="appointmentError" class="error">{{appointmentError | translate}}</div>
+                        <div class="appointment-list">
+                            <ul>
+                                <li id="{{appointment.GroupId}}" ng-repeat="appointment in upcomingAppointments"  ng-if="upcomingAppointments.length > 0 && !appointment.IsCompleted">
+                                    <div class="appointment_date">
+                                        <figure>{{showFormatedDate(appointment.ScheduleTime,'dddd') | translate}} <span>{{showFormatedDate(appointment.ScheduleTime,'m/d/yy')}}</span> {{showFormatedDate(appointment.ScheduleTime,'h:MM TT')}}</figure>
+                                    </div>
+
+                                    <div class="appointment_desc">
+                                        <div ng-repeat="examDetails in appointment.Appointment">
+                                              <h4>{{examDetails.ExamDescription}}</h4>
+                                        </div>
+                                        <p class="upperCase">{{appointment.Address}},<br />{{appointment.City}}, {{appointment.State}} {{appointment.Zipcode}}</p>
+                                        <p ng-if="appointment.IsOutSideAppointment" class="fr one_half">
+                                            {{'thisAppointmentScheduledOurSide' | translate}}<br/><b>(602) 955-4734</b>
+                                        </p>
+                                        
+                                        <p ng-if="!appointment.IsOutSideAppointment && appointment.IsPending" class="fr one_half">
+                                            {{'AppointmentPendingPleaseCall' | translate}}<br/><b>(602) 955-4734</b>
+                                        </p>
+                                        
+                                        <div class="action">
+                                            <div class="action-lnk fl"><a href="javascript:void(0);" ng-click="showMap(appointment)">{{'ShowMap' | translate}} </a>
+                                            <a ng-if="!appointment.IsOutSideAppointment" href="javascript:void(0)" ng-click="showInstructions($index)">{{'ExamInstructions' | translate}} </a></div>
+                                            <div class="action-btn" ng-if="!appointment.IsOutSideAppointment && !appointment.IsPending">
+                                                <input type="button" class="btn btn-blue" ng-click="confirmPopUp(appointment, 'toggleRescheduleAppointment')" value="{{'Reschedule' | translate}}"> 
+                                                <input type="button" class="btn m-l5" ng-click="confirmPopUp(appointment, 'toggleCancelAppointment')" value="{{'Cancel' | translate}}">
+                                            </div>
+                                        </div>
+                                       
+                                        <div ng-if="!appointment.IsOutSideAppointment" class="instructions" style="display:none" id="instructions_{{$index}}" >
+                                            <p>{{getExamInstruction(appointment) | translate}}</p>
+                                            <p><strong>{{'Note' | translate}}:</strong> {{'checkInTime15Minut' | translate}}.</p>
+                                            <!--<p ng-repeat="examDetails in appointment.Appointment" ng-if="examDetails.ExamType"><b>{{examDetails.ExamType | translate}}:</b> {{instructions[examDetails.ExamType] | translate}}</p>-->
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="clr"></div>
+                                    
+                                </li>
+                                <li ng-if="!isProcessing && upcomingAppointments.length == 0">{{'NoUpcommingAppointments' | translate}}</li>
+
+                                 
+                            </ul>
+                        </div>
+                        <hr class="m-tb25" />
+                        
+                        <div class="post-appointment">
+                            <div class="title"><h1>{{'PastAppointments' | translate}}</h1></div>
+                            <div class="row">
+                                <div class="medium-6 columns" ng-repeat="appointment in pastAppointments" ng-if="pastAppointments.length > 0 && $index < 2" >
+                                    <div class="grid first">
+                                        <div class="row">
+                                            <div class="medium-4 small-12 columns date">
+                                            <div class="appointment_date">
+                                                <figure>{{showFormatedDate(appointment.ScheduleTime,'dddd') | translate}} <span>{{showFormatedDate(appointment.ScheduleTime,'m/d/yy')}}</span> {{showFormatedDate(appointment.ScheduleTime,'h:MM TT')}}</figure>
+                                            </div>
+                                            </div>
+                                            <div class="medium-8 small-12 columns">
+                                                <div class="appointmentAdd">
+                                                <h4 ng-repeat="examDetails in appointment.Appointment">{{examDetails.ExamDescription}}</h4>
+                                                <p class="upperCase">{{appointment.Address}}, {{appointment.City}}, {{appointment.State}} {{appointment.Zipcode}}</p>
+                                                <div class="action"><input ng-click="scheduleAnother(appointment);" type="button" class="btn btn-blue" value="{{'ScheduleAnother' | translate}}" /></div>
+                                            </div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="medium-12 columns" ng-if="!isProcessing && !pastAppointments || pastAppointments.length ==0">{{'NoPastAppointment' | translate}}</div>
+                            </div>
+                            
+                            <div class="row" ng-if="pastAppointments.length > 2">
+                                <div class="medium-12 columns"><div class="action"><a href="#/pastAppointment"  class="btn btn-large btn-green">{{'AllPastAppointments' | translate}}</a></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="medium-3 columns">
+                        <section class="announcement set-margin notifications">
+                            <h4>{{'Notifications' | translate}}</h4>
+                            <ul class="list none">
+                                <li>
+                                    <p>{{notificationText}}</p>
+                                </li>
+                                
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a id="toggleCancelAppointment" style="display:none;" href="javascript:void(0);" data-reveal-id="cancelAppointment"></a>
+<div id="cancelAppointment" class="reveal-modal small" data-reveal>
+    <div class="row">
+        <div class="medium-12 columns">
+            <h4 class="text-center"> <span>{{'AreYouSureWantCancelAppointment' | translate}}</span> </h4>
+            <div class="action text-center">
+                <input type="button" ng-click="cancelAppointment(appointmentDetails)" value="{{'Yes' | translate}}" class="btn btn-blue">
+                <input type="button" ng-click="closePopup('cancelAppointment')" value="{{'No' | translate}}" class="btn btn-gray m-l5">
+            </div>
+        </div>
+    </div>
+</div>
+
+<a id="toggleRescheduleAppointment" style="display:none;" href="javascript:void(0);" data-reveal-id="rescheduleAppointment"></a>
+<div id="rescheduleAppointment" class="reveal-modal small" data-reveal>
+    <div class="row">
+        <div class="medium-12 columns">
+            <h4 class="text-center"> <span>{{'AreYouSureWantRescheduleAppointment' | translate}}</span> </h4>
+            <div class="action text-center">
+                <input type="button" ng-click="rescheduleAppointment(appointmentDetails)" value="{{'Yes' | translate}}" class="btn btn-blue">
+                <input type="button" ng-click="closePopup('rescheduleAppointment')" value="{{'No' | translate}}" class="btn btn-gray m-l5">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="map_model" class="reveal-modal medium" data-reveal>
+    <div class="close right"><a class="close-reveal-modal">X</a></div>
+    <div class="row" >
+        <div id="map-canvas"></div>
+    </div>
+</div>
+
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="isProcessing">
+        <div class="spinner">
+            <h2 class="h-20x dark-gray">{{isProcessing | translate}}</h2>
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+</div>
+<script src="/Scripts/jquery.reveal.js"></script>

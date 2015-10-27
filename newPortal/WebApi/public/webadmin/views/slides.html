@@ -1,0 +1,53 @@
+<section class="container">
+   <div ng-if="success">{{success}}</div>
+   <div ng-if="error">{{error}}</div>
+   
+   <div class="form-group" align="center">
+		Module  <select ng-model="modulesObj" ng-options='module.NAME for module in modules track by module.ID' ng-change="getSlidesList(modulesObj)"></select>
+   </div>
+   
+  <button class="btn" ng-click="addSlidesModel()">Add Sldes</button>
+   <div>
+		<div class="gridStyle" ng-grid="gridOptions"></div>
+        
+
+	</div>
+</section>
+
+<script type="text/ng-template" id="editSlidesTemplate" >
+    <h1>Edit Slide</h1>
+    <form method="post" id="updateSlideForm" name="updateSlideForm" rc-submit="updateSlide()" novalidate>
+		 <input type="hidden" name="id" id="id" value="" ng-model="selectslideData.id" validator="[required]" placeholder="name">
+        <div class="form-group"><input type="text" name="title" id="title" value="" ng-model="selectslideData.title" validator="[required]" placeholder="Name"></div>
+		<div class="form-group"><select ng-model="selectslideData.template_id" ng-change="getContent(selectslideData.template_id)" ng-options='template.TITLE for template in templates track by template.ID' validator="[required]"><option value="">Select Template</option></select></div>
+		<div class="form-group"><textarea cols="50" name="title" id="title" ng-model="selectslideData.content" placeholder="Content JSON"></textarea></div>
+		<div class="form-group">
+			<select ng-model="selectslideData.status" validator="[required]">
+			   <option value="">Select Status</option>
+			   <option value="A">Active</option>
+			   <option value="I">Inactive</option>
+			</select>
+		</div>	
+       <div class="form-group"><input type="number" name="seq" id="seq" value="" min="0" max="99" ng-model="selectslideData.seq" validator="[number]" placeholder="Sequence"></div>
+        <p class="submit"><input type="submit" name="updateSlide" value="Update"></p>
+      </form>
+</script>
+<script type="text/ng-template" id="addSlideTemplate">
+    <h1>Add Slide</h1>
+    <form method="post" id="addSlideForm" name="addSlideForm" rc-submit="addSlide(slideData)" novalidate>
+        <div class="form-group"><input type="text" name="title" id="title" value="" ng-model="slideData.title" validator="[required]" placeholder="Name"></div>
+		<div class="form-group"><select ng-model="slideData.template_id" ng-change="getContent(slideData.template_id)" ng-options='template.TITLE for template in templates track by template.ID' validator="[required]"><option value="">Select Template</option></select></div>
+		<div class="form-group"><textarea cols="50" name="title" id="title" ng-model="slideData.content"  placeholder="Content JSON"></textarea></div>
+		<div class="form-group">
+			<select ng-model="slideData.status" validator="[required]">
+			   <option value="">Select Status</option>
+			   <option value="A">Active</option>
+			   <option value="I">Inactive</option>
+			</select>
+		</div>	
+		
+		<div class="form-group"><input type="number" name="seq" id="seq" value="" min="0" max="99" ng-model="slideData.seq" validator="[number]" placeholder="Sequence"></div>
+
+        <p class="submit"><input type="submit" name="submitSlide" value="Save"></p>
+      </form>
+</script>

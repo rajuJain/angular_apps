@@ -1,0 +1,395 @@
+<!-- Steps Start-->
+ <div ng-include="src='app/views/progress_bar.html'"></div>
+ <!-- Steps End-->
+
+  
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="Medical-history"><form id="examForm" name="examForm" method="POST" rc-submit="answerMedicalHistory(answer)" novalidate enctype="multipart/form-data">
+    <div class="row">
+        <div class="medium-9 columns">
+
+            <div class="title">
+                <h1 class="ng-binding">{{'MedicalHistory' | translate}}</h1>
+                <div class="sub-heading">{{'JustAFewQuestionForYou' | translate}}.</div>
+            </div>
+
+            <div ng-repeat="questionObj in questions">
+                <hr class="m-tb25" />
+                <div class="field" id="feildGroup_{{questionObj.questionId}}">
+                    <h5 id="label_{{questionObj.questionId}}">{{questionObj.question | translate}}</h5>
+
+                    <p ng-if="answer[14] != 'Yes' && questionObj.note!=''">{{questionObj.note | translate}}.</p>
+                    <p ng-if="questionObj.questionId == 14" ng-show="answer[14] == 'Yes'">{{'3dLoc' | translate}}</p>
+                    <div class="row">
+                        <div ng-class="questionObj.childQuestion_yes.length > 0 || questionObj.childQuestion_no.length > 0 ? 'large-3 medium-5 columns m-t15' : 'medium-12 columns'" id="feildGroup_{{questionObj.questionId}}">
+
+                            <textarea ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" ng-if="questionObj.answerType == 'textarea'" maxlength="500" name="question_{{questionObj.questionId}}" id="question_{{questionObj.questionId}}" ng-model="answer[questionObj.questionId]" rows="3"></textarea>
+
+                            <span ng-if="questionObj.answerType == 'text'" data-maxlength="100" form-input data-type="text" data-name="question_{{questionObj.questionId}}" data-id="question_{{questionObj.questionId}}" data-ngmodel="answer[questionObj.questionId]"></span>
+
+                            <span ng-if="childQuestion.answerType == 'datePicker'">
+                                <input ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" kendo-date-picker k-options="datePickerOptions" onkeypress="javascript:return false;" onkeydown="javascript:return false;" type="text" maxlength="25" name="question_{{questionObj.questionId}}" id="question_{{questionObj.questionId}}" ng-model="answer[questionObj.questionId]" k-rebind="datePickerOptions.culture">
+                            </span>
+
+                            <div class="medium-12 columns select-box" ng-if="questionObj.answerType == 'date'" ng-init="answer[questionObj.questionId] = answer[questionObj.questionId] || {}">
+                                <div class="selectParent one_half">
+                                    <span form-input data-type="select" data-options='option.name | translate for option in monthNames track by option.id' data-name="question_{{questionObj.questionId}}_month" data-id="question_{{questionObj.questionId}}_month" data-ngmodel="answer[questionObj.questionId]['month']"></span>
+                                </div>
+                                <div class="selectParent one_half">
+                                    <span form-input data-type="select" data-options='option.name for option in year track by option.id' data-name="question_{{questionObj.questionId}}_year" data-id="question_{{questionObj.questionId}}_year" data-ngmodel="answer[questionObj.questionId]['year']"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="row checkbox global-checkbox" ng-if="questionObj.answerType == 'checkbox'">
+                                <div ng-repeat="option in questionObj.answerOption" ng-init="answer[questionObj.questionId] = answer[questionObj.questionId] || {}">
+                                    <div class="medium-4 columns">
+                                        <div class="field">
+                                            <span ng-class="answer[questionObj.questionId][option] ? 'inactive active' : 'inactive'" form-input data-type="checkbox" data-name="question_{{questionObj.questionId}}_{{$index}}" data-id="question_{{questionObj.questionId}}_{{$index}}" data-ngmodel="answer[questionObj.questionId][option]" data-ngchecked="answer[questionObj.questionId][option]" data-value="{{option}}" data-required="false"></span>
+                                            <label for="question_{{questionObj.questionId}}_{{$index}}" class="label">{{option | translate}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="medium-8 columns set-margin-top-mob" ng-show="answer[questionObj.questionId][option]" ng-if="option == 'Other'">
+                                        <div class="outer-border">
+                                            <input ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" type="text" maxlength="100" id="other_{{questionObj.questionId}}" ng-model="answer[questionObj.questionId][option + '_text']">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="radio-btn global-radio" ng-if="questionObj.answerType == 'radio'">
+                                <div ng-repeat="option in questionObj.answerOption">
+                                    <span ng-if="questionObj.questionId != 4" ng-class="answer[questionObj.questionId] == option ? 'inactive active' : 'inactive'">
+                                        <input type="radio" value="{{option}}" name="question_{{questionObj.questionId}}" id="question_{{questionObj.questionId}}_{{$index}}" ng-model="answer[questionObj.questionId]">
+                                    </span>
+                                    <span ng-if="questionObj.questionId == 4" ng-class="answer[questionObj.questionId] == option ? 'inactive active' : 'inactive'">
+                                        <input type="radio" ng-click="convertMammo(option)" value="{{option}}" name="question_{{questionObj.questionId}}" id="question_{{questionObj.questionId}}_{{$index}}" ng-model="answer[questionObj.questionId]">
+                                    </span>
+                                    <label for="question_{{questionObj.questionId}}_{{$index}}">{{option | translate}}</label>
+                                </div>
+                            </div>
+                        </div> <!-- 12 or 3 column -->
+                        <!-- Child in case of yes -->
+                        <div class="large-9 medium-7 columns childNode child_question_{{questionObj.questionId}}" ng-if="answer[questionObj.questionId] == 'Yes'">
+                            <div ng-repeat="childQuestion in questionObj.childQuestion_yes">
+                                <label class="small-note">{{childQuestion.note | translate}}</label>
+                                <div ng-if="checkExistense(childQuestion.questionExistFor);">
+                                    <div ng-if="childQuestion.answerType == 'date'" id="feildGroup_{{childQuestion.questionId}}" class="large-6 columns breast-exam-detail">
+                                        <div id="label_{{childQuestion.questionId}}" class=" m-b5">{{childQuestion.question | translate}}</div>
+                                        <div class="clr"></div>
+                                        <div class="field">
+                                            <div class="outer-border" ng-init="answer[childQuestion.questionId] = answer[childQuestion.questionId] || {}">
+                                                <div class="row ">
+                                                    <div class="medium-12 columns select-box">
+                                                        <div class="selectParent one_half">
+                                                            <span form-input data-type="select" data-options='option.name | translate for option in monthNames track by option.id' data-name="question_{{childQuestion.questionId}}_month" data-id="question_{{childQuestion.questionId}}_month" data-ngmodel="answer[childQuestion.questionId]['month']"></span>
+                                                        </div>
+                                                        <div class="selectParent one_half">
+                                                            <span form-input data-type="select" data-options='option.name for option in year track by option.id' data-name="question_{{childQuestion.questionId}}_year" data-id="question_{{childQuestion.questionId}}_year" data-ngmodel="answer[childQuestion.questionId]['year']"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div ng-if="childQuestion.answerType == 'datePicker'" id="feildGroup_{{childQuestion.questionId}}" class="large-6 columns">
+                                        <div class="field">
+                                            <div id="label_{{childQuestion.questionId}}" class=" m-b5">{{childQuestion.question | translate}}</div>
+                                            <div class="clr"></div>
+                                            <div class="outer-border">
+                                                <div class="row ">
+                                                    <div class="medium-12 columns">
+                                                        <input ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" kendo-date-picker k-options="datePickerOptions" onkeydown="javascript:return false;" onkeydown="javascript:return false;" type="text" maxlength="25" name="question_{{childQuestion.questionId}}" id="question_{{childQuestion.questionId}}" ng-model="answer[childQuestion.questionId]" k-rebind="datePickerOptions.culture">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div ng-if="childQuestion.answerType == 'text'" id="feildGroup_{{childQuestion.questionId}}" class="large-6 columns">
+                                        <div class="field">
+                                            <div id="label_{{childQuestion.questionId}}" class=" m-b5">{{childQuestion.question | translate}}</div>
+                                            <div class="clr"></div>
+                                            <div class="outer-border">
+                                                <div class="row ">
+                                                    <div class="medium-12 columns">
+                                                        <span ng-if="childQuestion.answerType == 'text'" form-input data-type="text" data-maxlength="100" data-name="question_{{childQuestion.questionId}}" data-id="question_{{childQuestion.questionId}}" data-ngmodel="answer[childQuestion.questionId]" data-value=""></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div ng-if="childQuestion.answerType == 'radio'" id="feildGroup_{{childQuestion.questionId}}" class="large-12 columns breast-exam-detail ">
+                                        <div class="outer-border">
+                                            <div class="row ">
+                                                <div class="large-7 medium-12 columns">
+                                                    <label class="set-verticle" id="label_{{childQuestion.questionId}}">{{childQuestion.question | translate}}</label>
+                                                </div>
+                                                <div class="large-5 medium-12 columns">
+                                                    <div class="radio-btn global-radio">
+                                                        <div ng-repeat="option in childQuestion.answerOption">
+                                                            <span ng-class="answer[childQuestion.questionId] == option ? 'inactive active' : 'inactive'">
+                                                                <input type="radio" value="{{option}}" name="question_{{childQuestion.questionId}}" id="question_{{childQuestion.questionId}}_{{$index}}" ng-model="answer[childQuestion.questionId]">
+                                                            </span>
+                                                            <label for="question_{{childQuestion.questionId}}_{{$index}}">{{option | translate}}</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--yes click -->
+                                    <div class="row checkbox yes-section global-checkbox" id="feildGroup_{{childQuestion.questionId}}" ng-if="childQuestion.answerType == 'checkbox'">
+                                        <div class="medium-12 columns m-b10" id="label_{{childQuestion.questionId}}">{{childQuestion.question | translate}}</div>
+                                        <div ng-repeat="option in childQuestion.answerOption" ng-init="answer[childQuestion.questionId] = answer[childQuestion.questionId] || {}">
+                                            <div class="large-4 medium-12 columns">
+                                                <div class="field">
+                                                    <span ng-class="answer[childQuestion.questionId][option] ? 'inactive active' : 'inactive'" form-input data-type="checkbox" data-name="question_{{childQuestion.questionId}}_{{$index}}" data-id="question_{{childQuestion.questionId}}_{{$index}}" data-ngmodel="answer[childQuestion.questionId][option]" data-ngchecked="answer[childQuestion.questionId][option]" data-value="{{option}}" data-required="false"></span>
+                                                    <label for="question_{{childQuestion.questionId}}_{{$index}}" class="label">{{option | translate}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="large-4 medium-12 columns set-margin-top-mob" ng-show="answer[childQuestion.questionId][option]" ng-if="option == 'Other'">
+                                                <div class="outer-border">
+                                                    <input type="text" ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" maxlength="100" id="other_{{childQuestion.questionId}}" ng-model="answer[childQuestion.questionId][option + '_text']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div ng-if="childQuestion.answerType == 'textarea'" id="feildGroup_{{childQuestion.questionId}}" class="large-12 columns">
+                                        <div class="field">
+                                            <div id="label_{{childQuestion.questionId}}" class=" m-b5">{{childQuestion.question | translate}}</div>
+                                            <div class="clr"></div>
+                                            <div class="outer-border">
+                                                <div class="row ">
+                                                    <div class="medium-12 columns">
+                                                        <textarea ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" ng-if="childQuestion.answerType == 'textarea'" maxlength="500" name="question_{{childQuestion.questionId}}" id="question_{{childQuestion.questionId}}" ng-model="answer[childQuestion.questionId]" rows="3"></textarea>    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                    
+                                </div>
+                            </div>
+
+                        </div><!-- 9 column for yes -->
+
+                        <div class="row" ng-if="questionObj.questionId == 14">
+                            <div class="medium-12 columns map-size m-t20">
+                                <div  ng-show="answer[14] == 'Yes'">
+                                    <!-- <img class="map-size" src="https://maps.googleapis.com/maps/api/staticmap?center=33.4910411,-111.92422390000002&zoom=10&size=600x300&maptype=roadmap&markers=color:red%7Clabel:M%7C33.5763314,-111.87977739999997&markers=color:red%7Clabel:S%7C33.4910411,-111.92422390000002&markers=color:red%7Clabel:T%7C33.6096704,-112.1825781"> -->
+                                    <img src="images/3D map.jpg" style="height:300px;">
+                                    <br /><br />
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Child in case of No -->
+                        <div class="large-9 columns set-margin-top-ipad-mob childNode child_question_{{questionObj.questionId}}" ng-if="answer[questionObj.questionId] == 'No'">
+
+                            <div ng-repeat="childQuestion in questionObj.childQuestion_no">
+                                <label>{{childQuestion.note | translate}}</label>
+                                <div ng-if="checkExistense(childQuestion.questionExistFor);">
+                                    <div ng-if="childQuestion.answerType == 'date'" id="feildGroup_{{childQuestion.questionId}}" class="large-6 columns">
+                                        <div id="label_{{childQuestion.questionId}}" class=" m-b5">{{childQuestion.question | translate}}dffds sd sdf ds fsd</div>
+                                        <div class="clr"></div>
+                                        <div class="outer-border" ng-init="answer[childQuestion.questionId] = answer[childQuestion.questionId] || {}">
+                                            <div class="medium-12 columns select-box">
+                                                <div class="selectParent one_half">
+                                                    <span form-input data-type="select" data-options='option.name | translate for option in monthNames track by option.id' data-name="question_{{childQuestion.questionId}}_month" data-id="question_{{childQuestion.questionId}}_month" data-ngmodel="answer[childQuestion.questionId]['month']"></span>
+                                                </div>
+                                                <div class="selectParent one_half">
+                                                    <span form-input data-type="select" data-options='option.name for option in year track by option.id' data-name="question_{{childQuestion.questionId}}_year" data-id="question_{{childQuestion.questionId}}_year" data-ngmodel="answer[childQuestion.questionId]['year']"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="childQuestion.answerType == 'datePicker'" id="feildGroup_{{childQuestion.questionId}}" class="large-6 columns">
+                                    <div id="label_{{childQuestion.questionId}}" class=" m-b5">{{childQuestion.question | translate}}</div>
+                                    <div class="clr"></div>
+                                    <div class="outer-border">
+                                        <div class="row ">
+                                            <div class="medium-12 columns set-margin-top-mob ">
+                                                <input ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" kendo-date-picker k-options="datePickerOptions" onkeypress="javascript:return false;" onkeydown="javascript:return false;"  type="text" name="question_{{childQuestion.questionId}}" id="question_{{childQuestion.questionId}}" ng-model="answer[childQuestion.questionId]" k-rebind="datePickerOptions.culture">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="childQuestion.answerType == 'text'" id="feildGroup_{{childQuestion.questionId}}" class="large-6 columns">
+                                    <div id="label_{{childQuestion.questionId}}" class=" m-b5">{{childQuestion.question | translate}}</div>
+                                    <div class="clr"></div>
+                                    <div class="outer-border">
+                                        <div class="row ">
+                                            <div class="medium-12 columns set-margin-top-mob ">
+                                                <span ng-if="childQuestion.answerType == 'text'" form-input data-type="text" data-maxlength="100" data-name="question_{{childQuestion.questionId}}" data-id="question_{{childQuestion.questionId}}" data-ngmodel="answer[childQuestion.questionId]" data-value=""></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="childQuestion.answerType == 'radio'" id="feildGroup_{{childQuestion.questionId}}" class="breast-exam-detail " class="large-12 columns">
+                                    <div class="outer-border">
+                                        <div class="row ">
+                                            <div class="large-7 medium-7 columns">
+                                                <label class="set-verticle mob-m-b5" id="label_{{childQuestion.questionId}}">{{childQuestion.question | translate}}</label>
+                                            </div>
+                                            <div class="large-5 medium-5 columns">
+                                                <div class="radio-btn global-radio">
+                                                    <div ng-repeat="option in childQuestion.answerOption">
+                                                        <span ng-class="answer[childQuestion.questionId] == option ? 'inactive active' : 'inactive'">
+                                                            <input type="radio" value="{{option}}" name="question_{{childQuestion.questionId}}" id="question_{{childQuestion.questionId}}_{{$index}}" ng-model="answer[childQuestion.questionId]">
+                                                        </span>
+                                                        <label for="question_{{childQuestion.questionId}}_{{$index}}">{{option | translate}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row checkbox global-checkbox" id="feildGroup_{{childQuestion.questionId}}" ng-if="childQuestion.answerType == 'checkbox'">
+                                    <div class="medium-12 columns" id="label_{{childQuestion.questionId}}" class=" m-b5">{{childQuestion.question | translate}}</div>
+                                    <div ng-repeat="option in childQuestion.answerOption" ng-init="answer[childQuestion.questionId] = answer[childQuestion.questionId] || {}">
+                                        <div class="medium-4 columns">
+                                            <div class="field">
+                                                <span ng-class="answer[childQuestion.questionId][option] ? 'inactive active' : 'inactive'" form-input data-type="checkbox" data-name="question_{{childQuestion.questionId}}_{{$index}}" data-id="question_{{childQuestion.questionId}}_{{$index}}" data-ngmodel="answer[childQuestion.questionId][option]" data-ngchecked="answer[childQuestion.questionId][option]" data-value="{{option}}" data-required="false"></span>
+                                                <label for="question_{{childQuestion.questionId}}_{{$index}}" class="label">{{option | translate}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="medium-4 columns set-margin-top-mob" ng-show="answer[childQuestion.questionId][option]" ng-if="option == 'Other'">
+                                            <div class="outer-border">
+                                                <input type="text" ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" maxlength="100" id="other_{{childQuestion.questionId}}" ng-model="answer[childQuestion.questionId][option + '_text']">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                
+                                <div ng-if="childQuestion.answerType == 'textarea'" id="feildGroup_{{childQuestion.questionId}}" class="large-12 columns">
+                                    <div class="field">
+                                        <div id="label_{{childQuestion.questionId}}" class=" m-b5">{{childQuestion.question | translate}}</div>
+                                        <div class="clr"></div>
+                                        <div class="outer-border">
+                                            <div class="row ">
+                                                <div class="medium-12 columns">
+                                                    <textarea ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" ng-if="childQuestion.answerType == 'textarea'" maxlength="500" name="question_{{childQuestion.questionId}}" id="question_{{childQuestion.questionId}}" ng-model="answer[childQuestion.questionId]" rows="3"></textarea>    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div><!-- 9 column for No -->
+                    </div><!-- Row -->
+                </div> <!-- Field -->
+            </div> <!-- Question Wrapper -->
+            <div ng-show="examError && examError != ''" class="error">{{examError | translate}}</div>
+            <div class="row">
+                <div ng-show="SuccessMsg != ''" class="medium-12 columns">
+                    <label>
+                        <strong><b><span class="success">{{SuccessMsg | translate}}</span></b></strong>
+                    </label>
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+
+        <div class="medium-3 columns">
+            <section class="selected-tests set-margin" ng-show="exam.length > 0">
+
+                <h4>{{'YouHaveSelected' | translate}}</h4>
+                <ul>
+                    <li ng-repeat="examType in exam" ng-if="examType != ''">{{examType | translate}}</li>
+                </ul>
+            </section>
+        </div>
+
+    </div>
+
+                                             <div class="row">
+                                                 <div class="large-3 medium-4 small-4 columns">
+                                                     <div class="m-t10 m-b40">
+                                                         <input type="submit" class="btn btn-large btn-green" value="{{'Continue' | translate}}">
+                                                     </div>
+                                                 </div>
+                                             </div>
+</form>
+            </div>
+        </div>
+    </div>
+    <a id="togglePregnancyCheck" style="display:none;" href="javascript:void(0);" data-reveal-id="checkPregnency">is Pregnant</a>
+    <div id="checkPregnency" class="reveal-modal smallest" data-reveal>
+        <div class="row">
+            <div class="medium-12 columns">
+                <h4 class="text-center"> <span>{{'IsThereAChanceYouArePregnant' | translate}}</span></h4>
+                <div class="action text-center">
+                    <input type="button" value="{{'NoIAmNot' | translate}}" ng-click="setPregnancy('No')" ng-class="serviceGlobal.userSession.isPregnant == 'No' ? 'btn btn-blue m-r10' : 'btn btn-blue m-r10'">
+                    <input type="button" value="{{'Yes' | translate}}" ng-click="setPregnancy('Yes')" ng-class="serviceGlobal.userSession.isPregnant == 'Yes' ? 'btn btn-blue' : 'btn'">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a id="togglePregnent" style="display:none;" href="javascript:void(0);" data-reveal-id="pregnent"></a>
+<div id="pregnent" class="reveal-modal tiny" data-reveal>
+    <div class="row">
+        <div class="medium-12 columns">
+            <h4 class="text-center"> <div>{{'SinceThereChancePregnant'|translate}}</div><div>{{'StopPleaseCallSdi'|translate}}</div><div class="phone-no">{{'schedulingDepartmentNumber'|translate}}</div></h4>
+            <div class="action text-center">
+                <input type="button" value="{{'NotPregnant' | translate}}" ng-click="setPregnancy('cancel')" ng-class="serviceGlobal.userSession.isPregnant == 'No' ? 'btn btn-blue m-r10' : 'btn btn-blue m-r10'">
+                <input type="button" value="{{'Ok' | translate}}" ng-click="setPregnancy('ok')" ng-class="serviceGlobal.userSession.isPregnant == 'Yes' ? 'btn btn-blue' : 'btn'">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a id="changeMammo" style="display:none;" href="javascript:void(0);" data-reveal-id="conversionMsg"></a>
+<div id="conversionMsg" class="reveal-modal tiny" data-reveal>
+    <div class="row">
+        <div class="medium-12 columns">
+            <h4 class="text-center"> <span>{{'mammoConversion' | translate}}</span> </h4>
+            <div class="action text-center">
+                <input type="button" value="{{'Ok' | translate}}" ng-click="makeDiagnosticMammo(1)" class="btn btn-blue m-r10">
+                <input type="button" value="Cancel" ng-click="makeDiagnosticMammo(0)" class="btn">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkVisiblity($this) {
+        if ($($this).attr('data-condition') != '' && $($this).attr('data-condition') == $($this).val()) {
+            $(".child_"+$this.name).show();
+        }else{
+            $(".child_"+$this.name).hide();
+        }
+    }
+</script>
+
+<script src="/Scripts/jquery.reveal.js"></script>
+
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="isProcessing">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray">{{isProcessing | translate}}</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>

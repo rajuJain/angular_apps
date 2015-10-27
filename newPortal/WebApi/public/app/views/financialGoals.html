@@ -1,0 +1,56 @@
+<div id="containerColors" style="height:50px;">
+<a ng-if="isLoggedIn" href="javascript:void(0)" ng-click="logout()">Logout</a>
+&nbsp;
+</div>
+<div class="logo-goals"><img src="script/vendor/images/logo.png" width="45" height="55" />
+</div>
+<div class="goal-wrapper">
+ 
+<form ng-submit="submitFinGoals(results, sessionData)">
+ <!-- magic starts -->
+  <div ng-repeat="result in results | orderBy:reverse">
+  <!-- <div id="Band{{$index}}" class="band" style="z-index:{{$index*5}};background:{{result.COLOR}}"></div> -->
+  <!-- <div id="Band{{$index}}" class="band" style="z-index:{{$index*5}};background:{{result.COLOR}};-webkit-transform: translate(-{{totalWidth}}%, 0%);-moz-transform: translate({{totalWidth}}%, 0%);-o-transform: translate({{totalWidth}}%, 0%);-ms-transform: translate({{totalWidth}}%, 0%);transform: translate(-{{totalWidth}}%, 0%);"></div> -->
+
+  <div id="Band{{$index}}" class="band" style="z-index:{{$index*5}};background:{{result.COLOR}};"></div>
+  
+  <!-- <div id="Band{{$index}}" class="band" style="z-index:{{$index*5}};background:{{result.COLOR}};-webkit-transform: translate(-0%, 0%);-moz-transform: translate(0%, 0%);-o-transform: translate(0%, 0%);-ms-transform: translate(0%, 0%);transform: translate(-0%, 0%);"></div> --> 
+  
+    <div id="goal{{$index}}" class="goalin" ng-if="$last" style="background-image: url(script/vendor/images/{{result.BKG_IMAGE}});">
+      <!-- <pre ng-bind="results | json"></pre> -->
+      <div class="question-text">{{result.SUPPORTED_TITLE}} <span>{{result.TITLE}}</span></div>
+      <div class="radio-no">
+        <input id="radio{{$index}}No" type="radio" name="radio{{$index}}" ng-model="result.ANS" ng-click="changeslides($index, result, results, 'No')" value="N">
+        <label for="radio{{$index}}No">No</label>
+      </div>
+      <div class="radio-yes">
+        <input id="radio{{$index}}Yes" type="radio" name="radio{{$index}}" ng-model="result.ANS" ng-click="changeslides($index, result, results,'Yes')" value="Y">
+        <label for="radio{{$index}}Yes">Yes</label>
+      </div>
+    </div>
+
+    <div id="goal{{$index}}" class="goalparked" ng-if="!last" ng-if="$last" style="background-image: url(script/vendor/images/{{result.BKG_IMAGE}});">
+      <!-- <pre ng-bind="results | json"></pre> -->
+      <div class="question-text">{{result.SUPPORTED_TITLE}} <span>{{result.TITLE}}</span></div>
+      <div class="radio-no">
+        <input id="radio{{$index}}No" type="radio" name="radio{{$index}}" ng-model="result.ANS" ng-click="changeslides($index, result, results, 'No')" value="N">
+        <label for="radio{{$index}}No">No</label>
+      </div>
+      <div class="radio-yes">
+        <input id="radio{{$index}}Yes" type="radio" name="radio{{$index}}" ng-model="result.ANS" ng-click="changeslides($index, result, results, 'Yes')" value="Y">
+        <label for="radio{{$index}}Yes">Yes</label>
+      </div>
+    
+    </div>  
+  </div>
+ <!-- magic starts -->
+ <div id="submitSlide" class="goalparked" style="background-image: url(script/vendor/images/lastslide.jpg);">
+    <div class="radio-yes">
+      <!-- <input id="radio11Yes" type="radio" name="radio" value="1" >
+      <label for="radio11Yes">Yes</label> -->
+      <button type="submit" class="btn3show">Next</button>
+    </div>
+</div>
+</form>  
+</div>
+</div>

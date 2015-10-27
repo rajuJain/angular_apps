@@ -1,0 +1,171 @@
+
+<link href="../app/script/vendor/kendo/css/kendo.common.min.css" rel="stylesheet" />
+<link href="../app/script/vendor/kendo/css/kendo.rtl.min.css" rel="stylesheet" />
+<link href="../app/script/vendor/kendo/css/kendo.silver.min.css" rel="stylesheet" />
+
+
+<!-- Steps Start-->
+ <div ng-include="src='app/views/progress_bar.html'"></div>
+ <!-- Steps End-->
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="find-doctor">
+                <div class="row">
+                    <div class="medium-9 columns">
+                        <div class="title"><h1 class="ng-binding">{{'FindYourDoctor' | translate}}</h1></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-9 columns">
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <div class="sub-heading">{{'WeWillSendYourResult' | translate}}</div>
+                                <hr class="m-tb20" />
+                            </div>
+                        </div>
+                        <form id="doctorSearchForm" name="doctorSearchForm" method="POST" rc-submit="searchDoctor(searchData)" novalidate>
+                            <div class="row">
+                                <div class="large-6 medium-12 columns">
+                                    <div class="divider">
+                                        <h4>{{'DoctorsName' | translate}}</h4>
+                                        <div class="row">
+                                            <div class="small-6 columns">
+
+                                                <div class="field">
+
+                                                    <label>{{'LastName' | translate}}</label>
+                                                    <span form-input data-type="text" data-maxlength="25" data-name="LastName" data-id="LastName" data-ngmodel="searchData.LastName" data-required="false"></span>
+                                                </div>
+                                            </div>
+                                            <div class="small-6 columns">
+                                                <div class="field">
+
+                                                    <label>{{'FirstName' | translate}}</label>
+                                                    <span form-input data-type="text" data-maxlength="25" data-name="FirstName" data-id="FirstName" data-ngmodel="searchData.FirstName" data-required="false"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="large-6 medium-12 columns">
+                                    <h4>{{'FilterByLocation' | translate}}</h4>
+                                    <div class="row">
+                                        <div class="small-6 columns">
+                                            <div class="field">
+                                                <label>{{'City' | translate}}</label>
+                                                <span form-input data-type="text" data-maxlength="20" data-name="City" data-id="City" data-ngmodel="searchData.City" data-required="false"></span>
+                                            </div>
+                                        </div>
+                                        <div class="medium-3 small-6 columns">
+                                            <div class="field">
+                                                <label>{{'Zip' | translate}}</label>
+                                                <span form-input data-type="text" data-maxlength="7" data-name="Zip" data-id="Zip" data-ngmodel="searchData.Zip" data-required="false"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="medium-3 small-12 columns">
+                                            <div class="action">
+                                                <input ng-disabled="global_process != '' && global_process != undefined || isProcessing" type="submit" value="{{'Search' | translate}}" class="btn btn-green">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="medium-12 columns"><h4 class="medium">{{'PleaseNoteWemusthaveanorder' | translate}}</h4></div>
+                            </div>
+                          <div class="row" ng-if="isDoctorFound" >
+                                        <div class="medium-12 columns"><h4 class="medium blue">{{'ClickYourDoctorFromResults' | translate}}</h4></div>
+                                    </div>
+                            
+                           
+                        </form>
+                        
+                        <!--<hr class="m-b5" />-->
+
+                        <div class="row" id="doctorData">
+                             <hr class="m-tb10" />
+                            <div class="medium-12 columns">
+                               
+                                <kendo-grid id="doctorList" options="mainGridOptions" k-rebind="mainGridOptions.language"></kendo-grid>
+                                <!--div ng-if="emptyDoctor && emptyDoctor != ''" class="error">{{emptyDoctor | translate}}</div-->
+                                <span ng-if="emptyDoctor && emptyDoctor != '' && isSkipShow" class="error">
+                                    <div class="row">
+                                       <div class="medium-9 columns text-right"><div class="not-match"><div>{{'NoResultFoundRefineYourSearch' | translate}}</div><h4 class="color-black medium">{{'CantFindDocSkipToContinue' | translate}}</h4></div></div>
+                                       <div class="medium-3 columns text-left">
+                                           <input type="button" ng-click="skipDoctor()" class="btn btn-blue" value="{{'Skip' | translate}}" />
+                                       </div>
+                                   </div>
+                               </span>
+
+                            </div>
+                            <div class="spinner" ng-cloak ng-if="isProcessing">
+                                <h2 class="h-20x dark-gray">{{'SearchingDoctors' | translate}}</h2>
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="medium-12 columns">
+                                <div class="bottom-paination">
+                                    <ul class="no-list none">
+                                        <li ng-repeat="page in pages" ng-class="selectedPageNumber==page.id ? 'active' : ''" >
+                                            <a ng-if="selectedPageNumber != page.id" ng-click="searchDoctor(searchData, page.id)" href="javascript:void(0)">{{page.id}}</a>
+                                            <a ng-if="selectedPageNumber == page.id" href="javascript:void(0)">{{page.id}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="medium-3 columns">
+                        <section class="selected-tests set-margin" ng-show="selectedDoctorData.length > 0">
+                            <h4>{{'YouHaveSelected' | translate}}:</h4>
+                            <ul class="list none">
+                                <!--  ng-if="selectedDoctor.ProviderID != '245169'" -->
+                                <li ng-repeat="selectedDoctor in selectedDoctorData"> 
+                                    <a href="javascript:void(0)">
+                                        <span class="delete-icon" ng-click="removeSelectedDoctor();"><img src="images/icon-delete.png"></span>
+                                    </a>
+                                    <h5 class="uppercase">{{selectedDoctor.LastName}}, {{selectedDoctor.FirstName}}</h5>
+                                    <p>
+                                        <span class="address-field" ng-if="selectedDoctor.AddressLine1">{{selectedDoctor.AddressLine1}},</span>
+                                        <span class="address-field" ng-if="selectedDoctor.AddressLine2">{{selectedDoctor.AddressLine2}},</span>
+                                        <span class="address-field">
+                                            <span ng-if="selectedDoctor.City">{{selectedDoctor.City}},</span> 
+                                            <span ng-if="selectedDoctor.StateCode">{{selectedDoctor.StateCode}},</span> 
+                                            <span ng-if="selectedDoctor.PostalCode">{{selectedDoctor.PostalCode}}</span></span>
+                                    </p>
+                                    
+                                </li>
+                            </ul>
+                            
+                        </section>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-3 medium-3 small-6 columns">
+                        <div class="action">
+                            <input class="btn btn-green large full-width" ng-disabled="emptyDoctor && emptyDoctor != ''" ng-if="selectedDoctorData.length > 0" ng-click="goToLocation(selectedDoctor)" type="button" value="{{'Continue' | translate}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- <div class="overlay" ng-if="isProcessing"></div>
+<div id="process-loading" class="no-bg" ng-if="isProcessing">
+<img src="Images/loading-image.gif" />
+</div> -->

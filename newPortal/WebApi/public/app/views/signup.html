@@ -1,0 +1,41 @@
+<!-- <pre ng-bind="userData | json"></pre> -->
+<div class="logo"><img src="script/vendor/images/logo.png" width="45" height="55" /></div>
+<div>
+  <div class="validation_error" style="width:100%; position:absolute; bottom:12%;font-family: 'sinkin_sans400_regular'; text-align:center; color:#f00">
+  <p></p>
+  </div>
+  <form id="msform" class="form-horizontal panel-body" method="post" name="signForm" rc-submit="signup(userData)" novalidate>
+    <!--Registration Slide 1-->
+    <div id="slide1" class="slide1in">
+      <div class="home1">Welcome to LearnLux!! We're glad you are here...</div>
+      <div class="home2">My name is  
+      
+      <input type="text" name="firstName" ng-model="userData.firstName" class="firstName" placeholder="first & last"  onclick="this.placeholder = ''" onblur="this.placeholder = 'first & last'" oninput="this.style.width = ((this.value.length + 2) * 20) + 'px';" autocomplete="off" />
+
+      </div>
+      <!-- <input id="txt" type="text" > -->
+    </div>
+    <a id="btn1" class="btn1show">Next</a>
+
+    <!--Registration Slide 2-->
+    <div id="slide2"  class="slide2parked">
+      <div class="register21">Hi {{userData.firstName}}!!! <br />What's the best way to keep in touch? </div>
+      <div class="register22">
+      
+      <input type="text" name="email" ng-model="userData.email" placeholder="Email" onclick="this.placeholder = ''" onblur="this.placeholder = 'Email'" oninput="this.style.width = ((this.value.length + 5) * 20) + 'px';" autocomplete="off" />
+
+      </div> 
+    </div>
+    <a id="btn2" class="btn2show">Next</a>
+
+    <!--Registration Slide 3-->
+    <div id="slide3" class="slide3parked">
+      <div class="register31">Perfect! To save your information and<br /> get back into your account what password do you want to use?</div>
+      <div class="register32">
+      <input type="text" placeholder="Password" onclick="this.placeholder = ''" onblur="this.placeholder = 'Password'" ng-model="userData.password" ng-change="checkPassStrength(userData.password)"  data-autosize-input='{ "space": 0 }' oninput="this.style.width = ((this.value.length + 5) * 20) + 'px';" style="color:{{color}}" />
+      <div class="register33" >Remember to make it secure!</div></div> 
+    </div>
+    <!-- <a id="btn3" class="btn3show">Next</a>  -->
+    <button id="btn3" type="submit" class="btn3hide">Next</button> 
+  </form>
+</div>  

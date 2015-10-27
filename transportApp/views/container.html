@@ -1,0 +1,104 @@
+<header ng-include="'views/header.html'"></header>
+<div class="container">
+  <div class="well">
+    <div ng-include="'views/progressBar.html'" class="row"></div>
+ 	<form rc-submit="next();">
+    <div class="text-right">
+        <div class="form-group">
+          <div class="row">
+            <label for="inputEmail3" class="col-sm-2 col-sm-offset-8 text-right">File No.</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" readonly="readonly" placeholder="File No." ng-model="fileNr" >
+            </div>
+          </div>
+        </div>
+    </div>
+    <div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="bg-info radio-option">
+            <div class="row">
+			  <div class="col-xs-12 col-sm-4 col-md-4 text-right">
+                <div class="form-group">
+                  <label class="checkbox-inline">
+                    <input type="radio" name="contaionerLoad" ng-change="checkContainerLoad();" id="contaionerLoad1"  ng-model="containerLoad" ng-checked="containerLoad == 'FCL'" value="FCL">
+                    FCL </label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-4 col-md-4 text-center">
+                <div class="form-group">
+                  <label class="checkbox-inline">
+                    <input type="radio" name="contaionerLoad" ng-change="checkContainerLoad();" id="contaionerLoad2" ng-model="containerLoad" ng-checked="containerLoad == 'LCL'" value="LCL">
+                    LCL </label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-4 col-md-4 text-left">
+                <div class="form-group">
+                  <label class="checkbox-inline">
+                    <input type="radio" name="contaionerLoad" ng-change="checkContainerLoad();" id="contaionerLoad3" ng-model="containerLoad" ng-checked="containerLoad == 'NC'" value="NC">
+                    Not Containerized </label>
+                </div>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="row" ng-repeat="form in containerForm track by $index" ng-if="containerLoad == 'FCL' || containerLoad == 'LCL'">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="bg-info">
+          
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-5 text-left">Type Container:</label>
+                  <div class="col-md-7">
+                    <!--select class="form-control" ng-model="containerData[$index].typeOfContainer" ng-options = "container[1] for container in containerTypes track by container[0]" validator="[required]">
+                      <option value="">Select Container Type</option>
+                    </select-->
+					<ui-select ng-model="containerData[$index].typeOfContainer" theme="selectize"  title="Choose a Container Type" validator="[required]">
+					  <ui-select-match placeholder="Select Container Type">{{$select.selected[1]}}</ui-select-match>
+					  <ui-select-choices ui-disable-choice="disableChoices(container, $index);" repeat="container in containerTypes | filter: $select.search">
+						<span ng-bind-html="container[1] | highlight: $select.search"></span>
+					  </ui-select-choices>
+					</ui-select>
+					<!--input type="text" ng-model="containerData[$index].typeOfContainer" typeahead-select-on-exact="true" typeahead-select-on-blur="true" ng-blur="checkValue(containerData[$index].typeOfContainer, $index);" typeahead="container as container[1] for container in containerTypes | filter:$viewValue | limitTo:8" class="form-control" validator="[required]"-->
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="col-md-4 text-right">Number of ctrs:</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control" ng-disabled="containerLoad == 'LCL'" ng-model="containerData[$index].amount" validator="[required,numeric]">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--i ng-if="containerForm.length == ($index + 1)" class="fa fa-plus" ng-click="addContainer();"></i> 
+	  		<i ng-if="(containerForm.length -1) != $index && $index > goodsForm.length && containerForm.length > 1" class="fa fa-minus" ng-click="removeContainer($index);"></i-->
+			<i ng-if="$index == 0 && containerLoad == 'FCL' " class="fa fa-plus" ng-click="addContainer();"></i> 
+	  		<i ng-if="$index == 0 && containerForm.length > 1 && containerLoad == 'FCL'" class="fa fa-minus" ng-click="removeContainer($index);" style="left:100px;"></i>
+	  	<i ng-if="$index != 0 && (containerForm.length -1) != $index  && containerForm.length > 1" class="fa fa-minus" ng-click="removeContainer($index);"></i>
+		  </div>
+      </div>
+    </div>
+	<div ng-if="containerLoad == 'NC'"><br><br></div>
+    </div>
+    <div class="text-right">
+      <button type="button" ng-click="cancel();" class="btn btn-default">Cancel</button>
+      <a href="#/goods" class="btn btn-success">Back</a> 
+	  <!--a href="javascript:void(0);" ng-click="next();" class="btn btn-success">Next</a-->
+	  <input type="submit" name="next" value="Next" class="btn btn-success">
+	  </div>
+  </form>
+  </div>
+</div>
+
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" class="no-bg" ng-if="isProcessing">
+  <img src="assets/vendor/theme/img/loading-image.gif">
+</div>
+
+<footer ng-include src="'views/footer.html'" class="text-right"></footer>

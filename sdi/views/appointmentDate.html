@@ -1,0 +1,152 @@
+<script src="../app/script/services/dateFormatService.js"></script>
+<!-- Steps Start-->
+ <div ng-include="src='app/views/progress_bar.html'"></div>
+ <!-- Steps End-->
+ 
+ 
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <!--Select exam date and time start -->
+            <div class="select-exam-date-time">
+                <div class="row">
+                    <div class="medium-9 columns">
+                        <div class="title"><h1 class="ng-binding">{{'SelectExamDateTime' | translate}}</h1><div class="sub-heading">{{'ChooseAppointmentDateTime' | translate}}</div></div>
+
+
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <h4>{{'Location' | translate}}</h4>
+                                <div class="locations">
+                                    <div class="location-icon">
+                                        <!--img src="images/location-icon-small-green.png" border="0" /-->
+                                        <img ng-if="location.LocationType != 'SMIL'" src="images/location-icon-small-blue.png" border="0" />
+                                        <img ng-if="location.LocationType == 'SMIL'" src="images/location-icon-small-cyan.png" border="0" />
+                                    </div>
+                                    <div class="location-address">
+                                        <h5>{{addressLine1}}</h5>
+                                        <p>{{addressLine2}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="no-margin-top" />
+                        <div class="next-available-date">
+                            
+                            <div class="field">
+                                <div class="row select-box">
+                                    <div class="medium-4 columns"><input type="submit" ng-disabled="isSearchProcessing" value="{{'ShowNextAvailable' | translate}}" ng-click="getAppointment('current');" class="btn btn-green btn-large full-width"></div>
+                                    <div class="medium-1 columns"><div class="or set-width"><span>{{'OR' | translate}}</span></div></div>
+                                    <div class="medium-7 columns">
+                                        <label for="FirstName" class="ng-binding">{{'SelectAppointmentOn' | translate}}:</label>
+                                        <div class="date"><input kendo-date-picker onkeypress="javascript:return false;" onkeydown="javascript:return false;" k-options="DatePickerOptions" type="text" maxlength="25" name="appointmentDate" id="appointmentDate" ng-model="appointmentDate" k-rebind="DatePickerOptions.culture"></div>
+                                        <div class="time m-l10">
+                                            <input kendo-time-picker onkeypress="javascript:return false;" k-options="TimePickerOptions"  name="appointmentTime" maxlength="25" id="appointmentTime" ng-model="appointmentTime" />    
+                                        </div>
+                                        <input type="submit" ng-disabled="isSearchProcessing" ng-click="getAppointment('datePicker');" value="{{'Search' | translate}}" class="btn btn-blue m-l10">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <h4>{{'PleaseNote' | translate}}: {{'checkInTime15Minut' | translate}}.</h4>
+                         <!--Select exam date and time end -->
+                        <div class="row" id="slotError">
+                           <div ng-show="searchError && searchError != ''" class="error">{{searchError | translate}}</div>
+                        </div>
+                        <div class="overlay" ng-if="isSearchProcessing"></div>
+                        <div class="spinner" ng-cloak ng-show="isSearchProcessing">
+                            <h2 class="h-20x dark-gray">{{'SearchingExams' | translate}} </h2>
+                            <div class="bounce1"></div>
+                            <div class="bounce2"></div>
+                            <div class="bounce3"></div>
+                        </div>
+                        <div class="appointment-available" ng-if="allAvailableAppointment.length > 0">
+                            <h3 class="times-held">{{'theseExamHeldFor' | translate}}<span id="counter" class="txt-red">2:00</span></h3>
+                            <div class="row">
+                                <div class="medium-4 columns end" ng-if="exam.length == rowValueMatrix[$index].length" ng-repeat="appointment in allAvailableAppointment[0].Appointments" >
+                                    <!--h5>{{availableAppointment.ExamName | translate}}</h5><br-->
+
+                                    <div class="block bg-blue">
+                                        <h4>{{appointment.day | translate}}<br />{{appointment.month | translate}} {{appointment.dateYear}}
+
+                                        <span  ng-repeat="text in exam"><span ng-if="allAvailableAppointment[$index].Appointments[$parent.$index].time == null">N/A</span> {{allAvailableAppointment[$index].Appointments[$parent.$index].time}}</span></h4>
+                                        <input type="button" ng-disabled="parentIndex==$index" ng-click="showNote($index);" class="btn btn-white full-width m-t15" value="{{'SelecteAppointment' | translate}}" />
+                                        <div class="popup" id="appointmentNote_{{$index}}" style="display:none;">
+                                            <p>{{'YouHaveMostArriveScheduleAppointment' | translate}}</p>
+                                            <div class="tc">
+                                                <input type="button" class="btn btn-green" ng-disabled="isProcessing" value="{{'IAgree' | translate}}" ng-click="checkAppointment($index);" />
+                                                <span class="cancel-lnk" ng-if="!isProcessing"><a href="javascript:void(0);" ng-click="cancelAppointmentSlot($index);">{{'Cancel' | translate}}</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    
+                                </div>
+                            </div>                            
+                        </div>
+                        
+                        <div ng-if="NextAvailableTime != ''" class="action text-right"><!-- {{'NoThanks' | translate}}, --> <a ng-if="!isSearchProcessing" href="javascript:void(0)" ng-click="getAppointment('next3Appointment');"><b class="ng-binding">{{'ShowNextThreeAppointments' | translate}}</b><img src="/images/arrow-right.png" class="right-icon"></a></div>
+                        
+                        <!-- <div class="appointment-available" ng-show="rowValueMatrix.length > 0" ng-if="rowValueMatrix.length > 0">
+                            <h3>{{'WehaveFollowinfAppointment' | translate}}</h3>
+                           
+                                <div class="row" ng-repeat="availableAppointment in rowValueMatrix">
+                                    
+                                    <div class="medium-4" ng-repeat="appointment in rowValueMatrix[$index] track by $index" style="float:left;">
+                                        <!-- h5>{{appointment.ExamDescription | translate}}</h5><br --/>
+                                        <div class="block bg-blue">
+                                            <h4>{{appointment.day}}<br />{{appointment.date}}<span>{{appointment.time}}</span></h4>
+                                            <div class="popup" id="appointmentNote_{{$parent.$index}}_{{$index}}" style="display:none;">
+                                                <p>{{'YouHaveMostArriveScheduleAppointment' | translate}}</p>
+                                                <div class="tc">
+                                                    <input type="button" class="btn btn-green" ng-disabled="isProcessing" value="{{'IAgree' | translate}}" ng-click="checkAppointment($parent.$index);" />
+                                                    <span class="cancel-lnk" ng-if="!isProcessing"><a href="javascript:void(0);" ng-click="cancelAppointmentSlot($parent.$index);">{{'Cancel' | translate}}</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <input type="button" ng-disabled="parentIndex==$index" ng-click="showNote($index);" class="btn btn-green full-width" value="{{'SelecteAppointment' | translate}}" />
+                                    <br/><br>
+                                </div>
+                            
+                            <div class="action text-right"><!-- {{'NoThanks' | translate}}, --/> <a href="javascript:void(0)" ng-click="getAppointment();"><b class="ng-binding">{{'ShowNextThreeAppointments' | translate}}</b><img src="/images/arrow-right.png" class="right-icon"></a></div>
+                        </div> -->
+                    </div>
+
+                    <div class="medium-3 columns">
+                        <section class="selected-tests set-margin" ng-show="exam.length > 0">
+                           
+                            <h4>{{'YouHaveSelected' | translate}}</h4>
+                            <ul>
+                                <li ng-repeat="examType in exam" ng-if="examType != ''">{{examType | translate}}</li>
+                            </ul>
+                            <!-- <input class="btn btn-green large full-width" ng-disabled="selectedAppointments.length == 0" ng-click="goToScheduleAppointment()" type="button" value="{{'Next' | translate}}"> -->
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="overlay" style="display:none"></div>
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="isProcessing">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray">{{isProcessing | translate}}</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+<style>
+    .k-weekend.k-state-hover a, .k-weekend a {
+        cursor: not-allowed;
+        color: #9f9e9e !important;
+    }
+
+    .k-weekend.k-state-hover:hover {
+        background: #DADADA;
+    }
+</style>

@@ -1,0 +1,322 @@
+<!-- Steps Start-->
+<!--  <div ng-include="src='app/views/progress_bar.html'"></div> -->
+ <!-- Steps End-->
+
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="wrap">
+                <form id="returningPatientForm" name="returningPatientForm" method="post" rc-submit="submitReturningPatient(patientData)" novalidate>
+                    <div class="returning-patient">
+                        <div class="title">
+                            <h1>
+                                {{'AppointmentRequest' | translate}}
+                            </h1>
+                        </div>
+                       
+                        <div class="field">
+                           <h5>{{'WhatExamWouldYouLikeToSchedule' | translate}}</h5>
+                           <div class="row">
+                               <div class="large-12 medium-8 columns">
+                                   <textarea ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" maxlength="500" name="wishingExamText" id="wishingExamText" ng-model="patientData.wishingExamText" ng-class="{'has-error': rc.returningPatientForm.needsAttention(patientData.wishingExamText)}" rows="3" required></textarea>
+                               </div>
+                               <div class="large-12 medium-4 columns"></div>
+                               </div>
+                        </div>
+                        <hr class="m-b30 hide-for-small-only hide-for-medium-only">
+                       <div ng-if="!isAuthenticated">
+                        <div class="field">
+                            <div class="row">
+                                <div class="medium-12 columns">
+                                    <h5>{{'Gender' | translate}}</h5>
+                                    
+                                    <ul class="gender radio-btn">
+                                        <li>
+                                            <span ng-class="patientData.Gender == 1 ? 'inactive active' : 'inactive'"  ng-click="makeVisibleFindMyInfoButton(patientData.Gender)">
+                                                <input type="radio" checked="checked" ng-model="patientData.Gender" id="Male" name="Gender" ng-value="1" value="1">
+                                            </span>
+                                            <label for="Male" class="no-bdr">{{'Male' | translate}}</label>
+                                        </li>
+                                        <li>
+                                            <span ng-class="patientData.Gender == 2 ? 'inactive active' : 'inactive'" ng-click="makeVisibleFindMyInfoButton(patientData.Gender)">
+                                                <input type="radio" ng-model="patientData.Gender" id="Female" name="Gender" value="2" ng-value="2">
+                                            </span>
+                                            <label for="Female">{{'Female' | translate}}</label>
+                                        </li>
+                                        <li class="p-l10 left-bdr" ng-if="patientData.Gender == 2"> <span>{{'IsThereAChanceYouArePregnant' | translate}}</span> </li>
+                                        <li ng-if="patientData.Gender == 2" class="last">
+                                            <div class="action">
+                                                <input type="button" value="{{'NoIAmNot' | translate}}" ng-click="setChancePregnancy('No')" ng-class="patientData.ChancePregnancy == 'No' ? 'btn btn-blue' : 'btn'">
+                                                <input type="button" value="{{'Yes' | translate}}" ng-click="setChancePregnancy('Yes')" ng-class="patientData.ChancePregnancy == 'Yes' ? 'btn btn-blue m-r10' : 'btn m-r10'">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="field">
+                            <div class="row">
+                               <div class="medium-12 columns">
+                                    <h5>{{'Phone' | translate}}</h5>
+                                </div>
+                                <div class="medium-6 columns">
+                                    <div class="field">
+                                        <phonenumber-directive change="makeVisibleFindMyInfoButton(patientData.FindPhoneNumber);"  model='patientData.FindPhoneNumber'></phonenumber-directive>
+                                    </div>
+                                </div>
+                                <div class="medium-6 columns">
+                                    <div class="field">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="row">
+                                <div class="medium-12 columns">
+                                    <h5>{{'WhatsYourName' | translate}}</h5>
+                                </div>
+                                <div class="medium-6 columns">
+                                    <div class="field">
+                                        <label for="FirstName">{{'First' | translate}}</label>
+                                        <span form-input data-type="text" data-ngclass="{'has-error': rc.returningPatientForm.needsAttention(patientData.FirstName)}" data-name="FirstName" data-id="FirstName" data-ngmodel="patientData.FirstName" data-maxlength="25" data-ngblur="makeVisibleFindMyInfoButton(patientData.FirstName);" data-change="makeVisibleFindMyInfoButton(patientData.FirstName);" data-required="true"></span>
+                                    </div>
+                                </div>
+                                <div class="medium-6 columns">
+                                    <div class="field">
+                                        <label for="LastName">{{'Last' | translate}}</label>
+                                        <span form-input data-type="text" data-ngclass="{'has-error': rc.returningPatientForm.needsAttention(patientData.LastName)}" data-name="LastName" data-id="LastName" data-ngmodel="patientData.LastName" data-maxlength="25" data-ngblur="makeVisibleFindMyInfoButton(patientData.LastName);" data-change="makeVisibleFindMyInfoButton(patientData.FirstName);" data-required="true"></span>
+                                    </div>
+                                </div>
+                            </div></div>
+
+
+                            <div class="field birthdate">
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <h5>{{'WhatsYourBirthDate' | translate}}</h5>
+                                    </div>
+                                </div>
+
+                                <div class="row select-box">
+                                    <div class="medium-6 columns">
+                                        <div class="selectParent month" ng-class="{'has-error': rc.returningPatientForm.needsAttention(patientData.Month)}">
+                                            <span form-input data-type="select" data-firstoption="{{'Month' | translate}}" data-options='option.name  | translate for option in monthNames track by option.id' data-name="Month" data-id="Month" data-ngmodel="patientData.Month" data-change="getDays(patientData.Month, patientData.Year)" data-required="true"></span>
+                                        </div>
+                                        <div class="selectParent day" ng-class="{'has-error': rc.returningPatientForm.needsAttention(patientData.Day)}">
+                                            <span form-input data-type="select" data-firstoption="{{'Day' | translate}}" data-options='option.name for option in days track by option.id' data-name="Day" data-id="Day" data-ngmodel="patientData.Day" data-change="makeVisibleFindMyInfoButton(patientData.Day)" data-required="true"></span>
+                                        </div>
+                                        <div class="selectParent year" ng-class="{'has-error': rc.returningPatientForm.needsAttention(patientData.Year)}">
+                                            <span form-input data-type="select" data-firstoption="{{'Year' | translate}}" data-options='option.name for option in year track by option.id' data-name="Year" data-id="Year" data-ngmodel="patientData.Year" data-change="getDays(patientData.Month, patientData.Year)" data-required="true"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="medium-6 columns">
+                                        
+<!--                                         <input type="submit" class="btn btn-green btn-large" ng-disabled="((global_process || verify_process || findInfoError) || !buttonVisible) " value="{{'FindMyInfo' | translate}}">
+ -->                                        <input type="submit" class="btn btn-green btn-large" value="{{'FindMyInfo' | translate}}">
+                                        <!-- <span class="m-t5 m-l5" ><img ng-show="global_process != '' && global_process != undefined" src="/images/wait.gif"></span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <!-- <span ng-show="global_process != undefined && global_process != ''" class="error">{{global_process | translate}}</span> -->
+                        <span ng-if="findInfoError && !continueGuestError" class="error">
+                             <div class="row">
+                                <div class="medium-9 columns text-right"><div class="not-match"><div>{{findInfoError | translate}}</div><div class="color-black h-22x">{{'WouldYouLikeToContinue' | translate}}</div></div></div>
+                                <div class="medium-3 columns text-left">
+                                     <input type="button" ng-click="continueAsGuest(patientData, 'Yes')" class="btn btn-green" value="{{'Yes' | translate}}" />
+                                    <input type="button" ng-click="continueAsGuest(patientData, 'No')" class="btn btn-light-grey m-l5" value=" {{'No' | translate}}" />
+                                </div>
+                            </div>
+                        </span>
+                        
+                        <span ng-show="resendSuccess" class="success">{{'EMAIL_SENT_FOR_ACCOUNT_ACTIVATION' | translate}}</span>
+                        <span ng-if="resendEmail" class="success">
+                             <div class="row">
+                                <div class="medium-9 columns text-right">
+                                    <div class="not-match">
+                                        <div class="color-black h-10x">{{'YOU_ALREADY_VERIFY_EMAIL_PLEASE_CONFIRM_EMAIL' | translate}}</div>
+                                    </div>
+                                </div>
+                                <div class="medium-3 columns text-right findResendButton">
+                                    <input type="button" ng-click="resendVerificationEmail()" class="btn btn-green" value="{{'ResendEmail' | translate}}" />
+                                </div>
+                            </div>
+                        </span>
+
+                        <span ng-if="continueGuestError" class="error">
+                            <div class="row">
+                                <div class="medium-9 columns text-right"><div class="not-match">{{AnErrorOccurred | translate}}</div></div>
+                                <!-- <div class="medium-3 columns text-left">
+                                    <input type="button" ng-click="continueAsGuest(patientData, 'Yes')" class="btn btn-green" value="{{'Continue' | translate}}" />
+                                    <input type="button" ng-click="continueAsGuest(patientData, 'No')" class="btn btn-light-grey m-l5" value="{{'No' | translate}}" />
+                                </div> -->
+                            </div>
+                        </span>
+                       
+                    </div>
+                        <div class="medium-6 columns" ng-if="isAuthenticated">
+                                 <input type="submit" class="btn btn-green btn-large" value="{{'Continue' | translate}}">
+                        </div>
+                            <span ng-show="validationError" class="error">{{validationError | translate}}</span>
+                            <div>
+                                <div ng-if="verificationType == 'Email' && (responceEmailData != '' && responceEmailData != undefined)">
+                                    <div class="field">
+                                        <div class="row">
+                                            <div class="medium-12 columns">
+                                                <h4><b>{{'WeFoundMatch' | translate}}.</b></h4>
+                                                <label>
+                                                    <div class="field">{{'FollowingEmailAddressAre' | translate}}</div>
+                                                    <div class="field">
+                                                        <b>
+                                                            {{'DontRecognizationEmail' | translate}}
+                                                            <a ng-if="responcePhoneData.length > 0" href="javascript:void(0);" ng-click="showPhoneNumberVerification()">{{'TryPhoneNumber' | translate}} 
+                                                                <img src="/images/arrow-right.png" class="right-icon">
+                                                            </a>
+                                                        </b>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div><h5><b>{{responceEmailData.length}} {{'EmailAddressMatches' | translate}}</b></h5></div>
+
+                                    <div class="field varification">
+                                        <span ng-show="emailError != undefined && emailError != ''" class="error">{{emailError | translate}}</span>
+                                        <!-- <span ng-show="verify_process != undefined && verify_process != ''" class="error">{{verify_process | translate}}</span> -->
+                                        <div class="row radio-btn" ng-repeat="emailData in responceEmailData">
+                                            <div class="medium-5 columns">
+                                                <div class="hint-data">
+                                                    <div class="field">
+                                                        <span ng-class="emailData == thisEmail  || responceEmailData.length == 1 ? 'inactive active' : 'inactive'">
+                                                            <input type="radio">
+                                                        </span>
+                                                        <label ng-click="verifyThis(emailData);">{{emailData.EmailAddress}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="medium-4 columns" ng-show="emailData == thisEmail || responceEmailData.length == 1">
+                                                <div class="field">
+                                                    <input type="text" ng-blur="protectFields()" maxlength="50" placeholder="{{'InputEmailPlaceHolder' | translate}}" ng-model="emailData.Email" name="emailid" id="emailid">
+                                                </div>
+                                            </div>
+                                            <div class="medium-2 columns" ng-show="emailData == thisEmail || responceEmailData.length == 1">
+                                                <div class="field">
+                                                    <input type="button" ng-disabled="verify_process != '' && verify_process != undefined" ng-click="verifyUserEmailData(emailData)" class="btn btn-green btn-medium full-width" value="{{'Verify' | translate}}">
+                                                </div>
+                                            </div>
+                                            <div class="medium-1 columns" ng-show="emailData == thisEmail"><div class="field loader"><!-- <img ng-show="verify_process != '' && verify_process != undefined" src="/images/wait.gif"> --></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="verificationType == 'Phone' && (responcePhoneData)">
+                                    <div class="field">
+                                        <div class="row">
+                                            <div class="medium-12 columns">
+                                                <h4><b>{{'WeFoundMatch' | translate}}.</b></h4>
+                                                <label>
+                                                    <div class="field">{{'FollowingPhoneAre' | translate}}</div>
+                                                    <strong><b>{{'DontRecognizationPhone' | translate}}</b></strong>
+                                                    <a ng-if="responceEmailData.length > 0" href="javascript:void(0);" ng-click="showPhoneNumberVerification('1')"> <b>{{'TryEmailAddress' | translate}}</b> </a> 
+                                                    <span ng-if="responceEmailData.length > 0">{{'OR' | translate}}</span>
+                                                    <a href="javascript:void(0);" ng-click="continueAsGuest(patientData)"><b>{{'ContinueAsAGuest' | translate}}</b> 
+                                                        <img src="/images/arrow-right.png" class="right-icon">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="responcePhoneData!=''"><h5><b>{{responcePhoneData.length}} {{'PhoneNumberMatches' | translate}}</b></h5></div>
+                                    <div class="field varification">
+                                        <span ng-show="phoneNumber != undefined && phoneNumber != ''" class="error">{{phoneNumber | translate}}</span>
+                                        <!-- <span ng-show="verify_process != undefined && verify_process != ''" class="error">{{verify_process | translate}}</span> -->
+                                        <div class="row radio-btn" ng-repeat="phoneData in responcePhoneData">
+                                            <div class="medium-5 columns">
+                                                <div class="hint-data">
+                                                    <div class="field">
+                                                        <span ng-class="phoneData == thisEmail || responcePhoneData.length == 1? 'inactive active' : 'inactive'">
+                                                            <input type="radio">
+                                                        </span>
+                                                        <label ng-click="verifyThis(phoneData);">{{ phoneData.PhoneArea+phoneData.PhoneExchange+phoneData.PhoneLast4 | phonenumber }}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="medium-4 columns" ng-show="phoneData == thisEmail || responcePhoneData.length == 1">
+                                                <div class="field">
+                                                    <phonenumber-directive placeholder="'InputPhonePlaceHolder'" model='phoneData.PhoneNumber'></phonenumber-directive>
+                                                </div>
+                                            </div>
+                                            <div class="medium-2 columns" ng-show="phoneData == thisEmail || responcePhoneData.length == 1">
+                                                <div class="field">
+                                                    <input type="button" ng-disabled="verify_process !='' && verify_process != 'undefined'" ng-click="verifyUserPhoneData(phoneData)" class="btn btn-green full-width" value="{{'Verify' | translate}}">
+                                                </div>
+                                            </div>
+                                            <div class="medium-1 columns" ng-show="phoneData == thisEmail"><div class="field loader"><!-- <img ng-show="verify_process != '' && verify_process != undefined" src="/images/wait.gif"> --></div></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                           
+                           <div ng-if="createAccountError && createAccountError != ''" class="error">{{createAccountError | translate}}</div>
+                           <div class="success" ng-if="isVerified && verificationType != 'verifyCompleted'">
+                                    <div class="row">
+                                        <div class="medium-12 columns">
+                                            <p>{{'emailVeriWeCanSendYouLink' | translate}}</p>
+                                            <div class="row">
+                                               <div class="medium-5 columns text-right"> <a href="javascript:void(0)" ng-click="createAnAccount(verifyEmailData)" class="btn btn-green">{{'CreateAnAccount' | translate}}</a></div>
+                                               <div class="medium-1 columns"></div>
+                                               <div class="medium-5 columns text-left">  <a href="javascript:void(0)" ng-click="continueAsGuest(patientData)" class="btn btn-gray">{{'ContinueAsAGuest' | translate}}</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div ng-if="verificationType == 'verifyCompleted'">
+                                <div class="field">
+                                    <div class="row">
+                                        <div class="medium-12 columns">
+                                            <h4></h4>
+                                            <p>{{'Thanks' | translate}} {{userFirstName}}, {{'ItsAMatchNowLetScheduleExam' | translate}}</p>
+                                        </div>
+                                        <div class="medium-12 columns">
+                                            <label>
+                                                <strong><b><span ng-show="verifySuccessMsg" class="success">{{verifySuccessMsg | translate}}</span></b></strong>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<a id="togglePregnent" style="display:none;" href="javascript:void(0);" data-reveal-id="pregnent"></a>
+    <div id="pregnent" class="reveal-modal tiny" data-reveal>
+        <div class="row">
+            <div class="medium-12 columns">
+                <h4 class="text-center"> <div>{{'SinceThereChancePregnant'|translate}}</div><div>{{'StopPleaseCallSdi'|translate}}</div><div class="phone-no">{{'schedulingDepartmentNumber'|translate}}</div></h4>
+                <div class="action text-center">
+                    <input type="button" value="{{'NotPregnant' | translate}}" ng-click="setPregnancy('No')" ng-class="serviceGlobal.userSession.isPregnant == 'No' ? 'btn btn-blue m-r10' : 'btn btn-blue m-r10'">
+                    <input type="button" value="{{'Ok' | translate}}" ng-click="setPregnancy('Yes')" ng-class="serviceGlobal.userSession.isPregnant == 'Yes' ? 'btn btn-blue' : 'btn'">
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="process-overlay" ng-if="verify_process || global_process"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="verify_process || global_process">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray" ng-if="verify_process">{{verify_process | translate}}</h2>
+        <h2 class="h-20x dark-gray" ng-if="global_process">{{global_process | translate}}</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+<script src="/Scripts/jquery.reveal.js"></script>

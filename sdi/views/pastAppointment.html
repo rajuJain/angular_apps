@@ -1,0 +1,68 @@
+<script src="../app/script/services/dateFormatService.js"></script>
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="upcoming-appointment">
+                
+                <div class="row">
+                    <div class="medium-9 columns">
+
+                        <div class="row">
+                            <div class="medium-4 small-7 push-8 columns small-right"><a href="#/" class="btn btn-green btn-large full-width m-t20">{{'NewAppointment' | translate}}</a></div>
+                            <div class="medium-8 pull-4 columns"><div class="title"><h1 class="ng-binding">{{'PastAppointments' | translate}}</h1></div></div>
+                        </div>
+
+                        <div class="appointment-list">
+                            <ul>
+                                <li ng-repeat="appointment in pastAppointments">
+                                    <div class="appointment_date">
+                                        <!--figure>{{showFormatedDate(appointment.AppointmentDateTime,'dddd')}} <span>{{showFormatedDate(appointment.AppointmentDateTime,'m/d/yy')}}</span> {{showFormatedDate(appointment.AppointmentDateTime,'h:MM TT')}}</figure-->
+                                        <figure>{{showFormatedDate(appointment.ScheduleTime,'dddd') | translate}} <span>{{showFormatedDate(appointment.ScheduleTime,'m/d/yy')}}</span> {{showFormatedDate(appointment.ScheduleTime,'h:MM TT')}}</figure>
+                                    </div>
+
+                                    <div class="appointment_desc">
+                                        <div ng-repeat="examDetails in appointment.Appointment">
+                                              <h4>{{examDetails.ExamDescription}}</h4>
+                                        </div>
+                                        
+                                        <p class="upperCase">{{appointment.Address}},<br />{{appointment.City}}, {{appointment.State}} {{appointment.Zipcode}}</p>
+                                        <div class="action">
+                                            <div class="action-btn">
+                                                <input ng-click="scheduleAnother(appointment);" type="button" class="btn btn-blue" value="{{'ScheduleAnother' | translate}}"> 
+                                            </div>
+                                        </div>
+                                       
+                                       
+                                    </div>
+                                    <div class="clr"></div>
+                                    
+                                </li>
+                                <li ng-if="!isProcessing && !pastAppointments || pastAppointments.length ==0">{{'NoPastAppointment' | translate}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="medium-3 columns">
+                        <section class="announcement set-margin">
+                            <h4>{{'Notifications' | translate}}</h4>
+                            <ul class="list none">
+                               <li>
+                                    <p>{{notificationText}}</p>
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="isProcessing">
+        <div class="spinner">
+            <h2 class="h-20x dark-gray">{{isProcessing | translate}}</h2>
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+</div>

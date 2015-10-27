@@ -1,0 +1,345 @@
+<link href="script/vendor/kendo/css/kendo.common.min.css" rel="stylesheet" />
+<link href="script/vendor/kendo/css/kendo.rtl.min.css" rel="stylesheet" />
+<link href="script/vendor/kendo/css/kendo.silver.min.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+        var first = true;
+        // Hide menu once we know its width
+        $('#filter-btn').click(function () {
+            if ($(".k-loading-mask").length == 0) {
+                var $filter = $('#filter-div');
+                if ($filter.is(':visible')) {
+                    // Slide away
+                    $("#filter-div").animate({ "left": "-750px", opacity: "hide" }, 500);
+                }
+                else {
+                    // Slide in
+                    $("#filter-div").animate({ "left": "7px", opacity: "show" }, 500);
+                }
+            }
+        });
+    });
+</script>
+<div class="main">
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="dashboard">
+                <div class="row">
+                    <div ng-show="error && error != ''" class="error">{{error}}</div>
+                    <div class="large-4 medium-6 columns no-pad-right">
+                        <div class="filter" style="position:relative; overflow:hidden">
+                            <div id="filter-div" style="display: none; position: absolute;">
+                                <div class="row checkbox global-checkbox">
+                                    <div class="medium-12 columns">
+                                        <h3>Division</h3>
+                                        <ul class="large-block-grid-2 medium-block-grid-2 small-block-grid-1">
+                                            <li>
+                                                <span ng-class="div.SMIL ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" ng-model="div.SMIL" id="div_smil" name="div_smil" ng-click="div.ShowAll=false;"></span>
+                                                <label class="label" for="div_smil">SMIL</label>
+                                            </li>
+                                            <li>
+                                                <span ng-class="div.VR ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" id="div_vr" name="div_vr" ng-model="div.VR" ng-click="div.ShowAll=false;"></span>
+                                                <label class="label" for="div_vr">VRL</label>
+                                            </li>
+                                            <li>
+                                                <span ng-class="div.ShowAll ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" id="div_all" name="div_all" ng-model="div.ShowAll" ng-click="div.SMIL=false;div.VR=false;"></span>
+                                                <label class="label" for="div_all">Show All</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row checkbox global-checkbox">
+                                    <div class="medium-12 columns">
+                                        <h3>Modality</h3>
+                                        <span ng-class="combination ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" id="combination" name="combination" ng-model="combination" ng-click="exam.all='';"></span>
+                                        <label class="label m-b10" for="combination">Include Combination</label>
+                                        <ul class="medium-block-grid-2 small-block-grid-1">
+                                            <li>
+                                                <span ng-class="exam.dexa ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" id="exam_dexa" name="exam_dexa" ng-model="exam.dexa" ng-true-value="Dexa" ng-false-value="" ng-click="exam.all='';"></span>
+                                                <label class="label" for="exam_dexa">DEXA</label>
+                                            </li>
+                                            <li>
+                                                <span ng-class="exam.ultrasound ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" id="exam_ultrasound" name="exam_ultrasound" ng-model="exam.ultrasound" ng-true-value="Ultrasound" ng-false-value="" ng-click="exam.all='';"></span>
+                                                <label class="label" for="exam_ultrasound">Ultrasound</label>
+                                            </li>
+                                            <li>
+                                                <span ng-class="exam.mammogram ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" id="exam_mammogram" name="exam_mammogram" ng-model="exam.mammogram" ng-true-value="Mammogram" ng-false-value="" ng-click="exam.all='';"></span>
+                                                <label class="label" for="exam_mammogram">Mammogram</label>
+                                            </li>
+                                            <li>
+                                                <span ng-class="exam.all ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" id="exam_all" name="exam_all" ng-model="exam.all" ng-true-value="All" ng-false-value="" ng-click="exam.mammogram='';exam.ultrasound='';exam.dexa='';combination=false;"></span>
+                                                <label class="label" for="exam_all">Show All</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row checkbox global-checkbox">
+                                    <div class="medium-12 columns">
+                                        <h3>Status</h3>
+                                        <span ng-class="appointmentStatus ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" id="appointmentStatus" name="appointmentStatus" ng-model="appointmentStatus"></span>
+                                        <label class="label m-b10" for="appointmentStatus">Completed</label>
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="action">
+                                        <div class="medium-6 columns">
+                                            <input type="button" value="Show All" class="btn btn-black btn-large" ng-click="filterAppointments('showAll')">
+                                        </div>
+                                        <div class="medium-6 columns text-right">
+                                            <input type="button" value="Done" class="btn btn-green btn-large" ng-click="filterAppointments()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="medium-12 columns">
+                                    <form id="patientSearchForm" method="POST" novalidate>
+                                        <div class="enter-location">
+                                            <div class="search-area">
+                                                <span form-input data-type="text" data-placeholder="Search by Name" data-ngkeyup="$event.keyCode == 13 ? filterAppointments() : ''" data-maxlength="50" data-ngenter="filterAppointments()" data-name="searchKey" data-id="searchKey" data-ngmodel="searchKey" data-required="false"></span>
+                                                <input type="button" ng-disabled="isDisabled" ng-click="filterAppointments()" class="search-btn" />
+                                            </div>
+                                            <div class="refresh-grid">
+                                                <img ng-click="filterAppointments('refresh')" width="32px" src="../../Images/refresh.png" title="Grid Refresh" alt="Refresh" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="wrap">
+
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <div class="filter-btn">
+                                            <div class="medium-5 small-6 columns no-pad-left"><input type="submit" ng-disabled="isDisabled" class="btn btn-blue btn-large" id="filter-btn" value="Filter"></div>
+
+                                            <div class="medium-7 small-6 columns">
+                                                <div class="filter-lbl">
+
+                                                    <div class="lbl">
+
+                                                        <b>Division:  </b><span ng-repeat="(key, value) in divSelected" ng-if="value"><span ng-if="key=='VR'">VRL</span><span ng-if="key!='VR'">{{key}}</span> </span>
+                                                    </div>
+                                                    <div class="lbl">
+                                                        <b>Exams:  </b><span ng-repeat="examType in examSelected">{{examType}} </span>
+                                                    </div>
+                                                    <div class="lbl">
+                                                        <b>Status:  </b><span ng-if="appointmentStatusSeleted">Completed</span><span ng-if="!appointmentStatusSeleted">Incomplete</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <div style="position:relative">
+                                            <kendo-grid id="patientExamList" class="patientList" options="patientGridOptions"></kendo-grid>
+                                            <div class="spinner" ng-if="isSearching" style="height: 600px">
+                                                <h2 class="h-20x dark-gray">Searching Patients</h2>
+                                                <div class="bounce1"></div>
+                                                <div class="bounce2"></div>
+                                                <div class="bounce3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="medium-12 columns">
+                                    <div class="bottom-paination">
+                                        <ul class="no-list none">
+                                            <li ng-repeat="page in pages" ng-class="selectedPageNumber==page.id ? 'active' : ''">
+                                                <a ng-if="selectedPageNumber != page.id" ng-click="searchDoctor(searchData, page.id)" href="javascript:void(0)">{{page.id}}</a>
+                                                <a ng-if="selectedPageNumber == page.id" href="javascript:void(0)">{{page.id}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-8 medium-6 columns no-pad-left">
+                        <div class="result">
+                            <div class="spinner" ng-if="isProcessing">
+                                <h2 class="h-20x dark-gray">Loading Information </h2>
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                            </div>
+                            <div class="heading">
+                                <div class="row">
+                                    <div class="medium-12 columns" ng-if="selectedPatient != ''">
+                                        <h1 ng-if="selectedPatient.User.isAnonymous"><i><img src="script/vendor/theme/Images/patient-icon.png" /></i>Anonymous Patient</h1>
+                                        <h1 ng-if="!selectedPatient.User.isAnonymous"><span class="green-txt">Verified</span> Patient</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-if="selectedPatient != ''">
+                                <div class="large-8 medium-12 columns no-pad-right">
+                                    <div class="wrapper">
+                                        <!-- Patient Information -->
+                                        <div class="patient-info">
+                                            <div class="white-bg">
+                                                <div class="row">
+                                                    <div class="medium-12 columns">
+                                                        <h2>Patient Information</h2>
+                                                        <h4 class="patient-name">{{selectedPatient.User.LastName}} {{selectedPatient.User.FirstName}} <span class="gen">({{selectedPatient.User.Gender}})</span></h4>
+                                                        <div class="row">
+                                                            <div class="medium-6 columns">
+
+                                                                <p>
+                                                                    <b ng-if="selectedPatient.User.PhoneNumber">{{makePhoneFormated(selectedPatient.User.PhoneNumber)}}</b><br />
+                                                                    {{selectedPatient.User.DateOfBirth}}<br />
+                                                                    <a href="">{{selectedPatient.User.Email}}</a><br />
+                                                                </p>
+                                                            </div>
+                                                            <div class="medium-6 columns" ng-repeat="doctor in selectedPatient.Doctor">
+                                                                <h5 class="doctor-name">dr. {{doctor.LastName}} {{doctor.FirstName}} {{doctor.TitleName}}</h5>
+                                                                {{doctor.AddressLine1}}  {{doctor.AddressLine2}}<br />
+                                                                {{doctor.City}}, {{doctor.StateCode}} {{doctor.PostalCode}}
+                                                            </div>
+                                                        </div>
+
+                                                        <h5>MRN: <span> {{selectedPatient.User.MRN}} </span></h5>
+                                                    </div>
+                                                    <br>
+                                                    <div class="medium-12 columns" ng-if="selectedPatient.Insurance">
+                                                        <h2>Insurance Information</h2>
+                                                        <div class="row">
+                                                            <div class="medium-12 columns">
+                                                                <p ng-if="selectedPatient.Insurance.InsuranceType != ''">
+                                                                    <b>Insurance type: </b>
+                                                                    <span>{{selectedPatient.Insurance.InsuranceType}}</span>
+
+                                                                </p>
+                                                                <p ng-if="selectedPatient.Insurance.PhoneNo != ''">
+                                                                    <b>Phone Number: </b> {{selectedPatient.Insurance.PhoneNo}}
+                                                                </p>
+                                                            </div>
+
+                                                            <div class="medium-12 columns" ng-if="selectedPatient.Insurance.InsuranceSubscribers.length > 0">
+                                                                <div class="k-grid">
+                                                                    <table class="tbl">
+                                                                        <tr>
+                                                                            <td>Full Name</td>
+                                                                            <td>Subscriber Id</td>
+                                                                            <td>Provider Name</td>
+                                                                            <td>Group Number</td>
+                                                                        </tr>
+                                                                        <tr ng-repeat="subInfo in selectedPatient.Insurance.InsuranceSubscribers">
+                                                                            <td>{{subInfo.FullName}}</td>
+                                                                            <td class="middle">{{subInfo.SubscriberId}}</td>
+                                                                            <td class="middle">{{subInfo.ProviderName}}</td>
+                                                                            <td width="30%" class="last">{{subInfo.GroupNumber}}</td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Exam Information -->
+                                        <div class="patient-info">
+                                            <div class="white-bg">
+                                                <div class="row">
+                                                    <div class="medium-12 columns">
+                                                        <h2>Exams</h2>
+
+                                                        <h4>{{selectedPatient.xLocation.LocationDescription}}</h4>
+                                                        <p>
+                                                            {{selectedPatient.xLocation.Address}}<br />
+                                                            {{selectedPatient.xLocation.City}}, {{selectedPatient.xLocation.State}} {{selectedPatient.xLocation.Zipcode}}
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid verified-patient">
+                                            <div class="row">
+                                                <div class="medium-12 columns">
+                                                    <div class="k-grid">
+                                                        <table class="tbl">
+                                                            <tr>
+                                                                <td><strong>Exam</strong></td>
+                                                                <td class="middle"><strong>Accession Number</strong></td>
+                                                                <td class="middle"><strong>Exam Code</strong></td>
+                                                                <td class="middle"><strong>Date</strong></td>
+                                                                <td width="30%" class="last"><strong>Time</strong></td>
+                                                            </tr>
+                                                            <tr ng-repeat="exam in selectedPatient.Appointments">
+                                                                <td>{{exam.PatientExams[0].ExamDescription}}</td>
+                                                                <td class="middle">{{exam.AccessionNumber}}</td>
+                                                                <td class="middle">{{exam.PatientExams[0].Code}}</td>
+                                                                <td class="middle">{{showFormatedDate(exam.AppointmentDateTime)}}</td>
+                                                                <td width="30%" class="last">{{exam.AppointmentStartTime}} <span ng-if="exam.AppointmentEndTime"> - {{exam.AppointmentEndTime}}</span></td>
+                                                            </tr>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="large-4 medium-12 columns no-pad-left">
+                                    <!-- Question Summary -->
+                                    <div class="question-summary white-bg bdr">
+
+                                        <h2>Question Summary</h2>
+                                        <p ng-repeat="summary in QuestionSummary"><span class="ques">{{summary.question}}</span><br /><i>{{summary.answer}}</i></p>
+
+                                        <div class="action text-center" ng-if="selectedPatient.Appointments[0].Status == 'OPEN'">
+                                            <input type="button" onclick="$('#showCompleteNote').click();" value="Complete" class="btn btn-green btn-large">
+                                        </div>
+                                        <div class="action text-center" ng-if="selectedPatient.Appointments[0].Status == 'COMPLETE'">
+                                            <input type="button" ng-click="closeDetails();" value="Close" class="btn btn-green btn-large">
+                                        </div>
+                                        <div class="clr"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<a id="showCompleteNote" style="display:none;" href="javascript:void(0);" data-reveal-id="completeNote"></a>
+<div id="completeNote" class="reveal-modal tiny" data-reveal>
+    <div class="row">
+        <div class="medium-12 columns">
+            <h4 class="text-center"> <span>Are you sure you want to complete this patient?</span> </h4>
+            <div class="action text-center">
+                <input type="button" value="No" onclick="$('#completeNote').trigger('reveal:close');" class="btn">
+                <input type="button" value="Yes" ng-click="markComplete();" class="btn btn-blue m-l5">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script/vendor/theme/Scripts/jquery.reveal.js"></script>

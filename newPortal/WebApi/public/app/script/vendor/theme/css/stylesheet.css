@@ -1,0 +1,361 @@
+html { width:100%; height:100%;}
+body { width:100%; height:100%; background:#2f3543; color:#fff; overflow:visible; margin:0; padding:0; overflow:hidden;}
+​​a:focus { outline: none; }
+input:focus { outline:none;}
+select:focus { outline:none;}
+textarea:focus { outline:none;}
+
+.container-main { width:100%; height:100%; display:table; }
+.container-td { width:100%; display:table-cell;  vertical-align:middle;}
+.logo { display:block; height:8%; position:absolute; top: 5%; left:10%;}
+.logo img { height:100%; width:auto;}
+
+.logo-goals { display:block; height:6%; position:absolute; top: 2%; left:10%;  z-index:9999; background:#2f3543; padding:10px;}
+.logo-goals img { height:100%; width:auto;}
+
+.slider-wrapper1 { width:100%; display:block;  margin: auto; float:none; position:absolute; top:30%; left:0%;}
+.slider-wrapper2 { width:100%; display:block;  margin: auto; float:none; position:absolute; top:30%; left:25%;  transform: translate(150%, 0%);}
+.slider-wrapper3-hide { width:60%; display:block;  margin: auto; float:none; position:absolute; top:30%; left:25%; z-index:999;  transform: translate(150%, 0%); 
+-webkit-transform: translate(100%, 0%);
+-moz-transform: translate(100%, 0%);
+-o-transform: translate(100%, 0%);
+-ms-transform: translate(100%, 0%);
+transform: translate(-150%, 0%);
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;}
+
+.slider-wrapper3-show { width:60%; display:block;  margin: auto;  position:absolute; top:30%; left:25%; z-index:999;  transform: translate(150%, 0%); 
+display:block; 
+-webkit-transform: translate(0%, 0%);
+-moz-transform: translate(0%, 0%);
+-o-transform: translate(0%, 0%);
+-ms-transform: translate(0%, 0%);
+transform: translate(0%, 0%);
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;}
+
+.slide1in {width:100%; display:block;  margin: auto; float:none; position:absolute; top:30%; left:0%; }
+.slide1out {width:100%; display:block;  margin: auto; float:none; position:absolute; top:30%; left:0%; 
+-webkit-transform: translate(100%, 0%);
+-moz-transform: translate(100%, 0%);
+-o-transform: translate(100%, 0%);
+-ms-transform: translate(100%, 0%);
+transform: translate(-150%, 0%);
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;}
+
+.slide2parked {width:100%; display:block;  margin: auto; float:none; position:absolute; top:28%; left:0%; transform: translate(150%, 0%);}
+.slide2in { width:100%; display:block;  margin: auto; float:none; position:absolute; top:28%; left:0%;
+-webkit-transform: translate(0%, 0%);
+-moz-transform: translate(0%, 0%);
+-o-transform: translate(0%, 0%);
+-ms-transform: translate(0%, 0%);
+transform: translate(0%, 0%);
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;}
+.slide2out {width:100%; display:block;  margin: auto; float:none; position:absolute; top:28%; left:0%; 
+-webkit-transform: translate(100%, 0%);
+-moz-transform: translate(100%, 0%);
+-o-transform: translate(100%, 0%);
+-ms-transform: translate(100%, 0%);
+transform: translate(-150%, 0%);
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;}
+
+.slide3parked {width:100%; display:block;  margin: auto; float:none; position:absolute; top:25%; left:0%; transform: translate(150%, 0%);}
+.slide3in { width:100%; display:block;  margin: auto; float:none; position:absolute; top:25%; left:0%;
+-webkit-transform: translate(0%, 0%);
+-moz-transform: translate(0%, 0%);
+-o-transform: translate(0%, 0%);
+-ms-transform: translate(0%, 0%);
+transform: translate(0%, 0%);
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;}
+.slide3out {width:100%; display:block;  margin: auto; float:none; position:absolute; top:25%; left:0%; 
+-webkit-transform: translate(100%, 0%);
+-moz-transform: translate(100%, 0%);
+-o-transform: translate(100%, 0%);
+-ms-transform: translate(100%, 0%);
+transform: translate(-150%, 0%);
+-webkit-transition: all 0.5s ease;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;}
+
+
+/*dynamic goals*/
+
+.goalin { width:100%; height:64%; background:#20242d; position:absolute; top:18%; background-size: cover;  z-index:991;
+-webkit-transform: translate(0%, 0%);
+-moz-transform: translate(0%, 0%);
+-o-transform: translate(0%, 0%);
+-ms-transform: translate(0%, 0%);
+transform: translate(0%, 0%);
+-webkit-transition: transform 4.0s ease-out;
+-moz-transition: transform 4.0s ease;
+-o-transition: transform 4.0s ease;
+transition: transform 4.0s ease;
+transition-delay: .5s;
+-moz-transition-delay: .5s; /* Firefox 4 */
+-webkit-transition-delay: .5s; /* Safari and Chrome */
+-o-transition-delay: .5s; /* Opera */}
+.goalout {width:100%; height:64%; background:#20242d; position:absolute; top:18%; background-size: cover;  z-index:991; 
+-webkit-transform: translate(-100%, 0%);
+-moz-transform: translate(100%, 0%);
+-o-transform: translate(100%, 0%);
+-ms-transform: translate(100%, 0%);
+transform: translate(-100%, 0%);
+-webkit-transition: transform 4.0s ease;
+-moz-transition: transform 4.0s ease;
+-o-transition: transform 4.0s ease;
+transition: transform 4.0s ease;
+transition-delay: .5s;
+-moz-transition-delay: .5s; /* Firefox 4 */
+-webkit-transition-delay: .5s; /* Safari and Chrome */
+-o-transition-delay: .5s; /* Opera */
+}
+.goalparked {width:100%; height:64%; background:#20242d; position:absolute; top:18%; background-size: cover;  transform: translate(100%, 0%); z-index:991;}
+
+/*dynamic goals*/
+/*Dynamic Bands*/
+.band { height:100%; width:100%; position:absolute; transform: translate(0%, 0%); }
+
+.bandYes {height:100%;  width:100%;  position:absolute; 
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+
+.bandNo {height:100%;  width:100%;  position:absolute;  z-index:109; 
+    -webkit-opacity: 0.0;
+    -moz-opacity: 0.0;
+    opacity: 0.0;
+    -ms-transform-origin: 0% 0%; /* IE 9 */
+    -webkit-transform-origin: 0% 0%; /* Chrome, Safari, Opera */
+    transform-origin: 0% 0%;
+
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
+  }
+/*Dynamic Bands*/
+
+
+
+ 
+
+
+
+.goal-wrapper { width:100%; height:93%; position:absolute; bottom:0; z-index:998; display:block; background: #282d39; }
+
+.goal-items-box { width:100%; height:64%; background:#F00; position:absolute; top:18%; background-size: cover;}
+.question-text { width:600px; position:absolute; top:20%; left:10%;   font-family: 'sinkin_sans100_thin'; font-size:52px;}
+.question-text Span { display:block; font-size:145px; line-height:100px;   font-family: 'sinkin_sans400_regular';}
+.radio-no { width:58px; display:block; position:absolute; left:14%; bottom:13%; font-family: 'sinkin_sans100_thin'; font-size:70px; }
+.radio-yes { width:58px; display:block; position:absolute; right:14%; bottom:13%; font-family: 'sinkin_sans100_thin'; font-size:70px;}
+
+input[type=checkbox]:not(old),
+input[type=radio   ]:not(old){
+  width   : 116px;
+  margin  : 0;
+  padding : 0;
+  opacity : 0;
+}
+
+ 
+input[type=radio   ]:not(old) + label{
+  display      : inline-block;
+  margin-left  : -74px;
+  padding-left : 74px;
+  background   : url('images/checkmark.png') no-repeat 0 0; background-position : 0 -0px;
+  line-height  : 58px;
+}
+
+input[type=radio]:not(old):checked + label{
+  background-position : 0 -58px;
+}
+
+.goal1in {width:100%; height:64%; background:#F00; position:absolute; top:18%; background-size: cover; z-index:990; }
+.goal1out {width:100%; height:64%; background:#F00; position:absolute; top:18%; background-size: cover; z-index:990; 
+-webkit-transform: translate(100%, 0%);
+-moz-transform: translate(100%, 0%);
+-o-transform: translate(100%, 0%);
+-ms-transform: translate(100%, 0%);
+transform: translate(-100%, 0%);
+-webkit-transition: all 0.5s linear;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;}
+
+.goal2parked {width:100%; height:64%; background:#F00; position:absolute; top:18%; background-size: cover;  transform: translate(100%, 0%); z-index:991;}
+.goal2in { width:100%; height:64%; background:#F00; position:absolute; top:18%; background-size: cover;  z-index:991;
+-webkit-transform: translate(0%, 0%);
+-moz-transform: translate(0%, 0%);
+-o-transform: translate(0%, 0%);
+-ms-transform: translate(0%, 0%);
+transform: translate(0%, 0%);
+-webkit-transition: all 0.5s linear;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;}
+
+.bandCar { height:100%; position:relative; background: #e4c048;  transform: translate(0%, 100%);}
+.bandCarin {height:100%; position:relative; background: #e4c048;  z-index:5;
+-webkit-transform: translate(0%, 0%);
+-moz-transform: translate(0%, 0%);
+-o-transform: translate(0%, 0%);
+-ms-transform: translate(0%, 0%);
+transform: translate(0%, 0%);
+-webkit-transition: all 0.5s linear;
+-moz-transition: all 0.5s ease;
+-o-transition: all 0.5s ease;
+transition: all 0.5s ease;}
+
+
+@media screen and (min-width: 1025px) and (max-width: 1366px) {
+.home1 {font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:37px; line-height: 63px; width:47%; margin:0 auto; float:none; text-align:center;}
+.home2 { font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:37px; width:100%; margin:0 auto; padding:50px 0 50px 0; float:none; text-align:center;}
+.home2 input { font-family: 'sinkin_sans200_x_light'; color:#646d83; border-bottom:dashed 2px #646d83; border-left:0; border-right:0; border-top:0; font-size:37px;  min-width: 192px; max-width: 700px; transition: width 0.25s; text-align:center; background:none; padding-bottom: 2px; width:192px;}
+
+.btn1show {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:37px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; z-index:99999}
+.btn1hide {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:52px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; display:none;}
+
+.btn2show {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:37px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; z-index:9999}
+.btn2hide {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:37px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; display:none;}
+
+.btn3show {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:37px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; z-index:999; background: none; border:none;}
+.btn3hide {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:37px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; display:none;}
+
+.register21 {font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:37px; line-height: 115px; width:90%; margin:0 auto; float:none; text-align:center;}
+.register22 { font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:37px; width:100%; margin:0 auto; padding:50px 0 50px 0; float:none; text-align:center;}
+.register22 input { font-family: 'sinkin_sans200_x_light'; color:#646d83; border-bottom:dashed 2px #646d83; border-left:0; border-right:0; border-top:0; font-size:37px;  min-width: 101px; max-width: 700px; transition: width 0.25s; text-align:center; background:none; padding-bottom: 2px; width: 146px;}
+
+.register31 {font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:37px; line-height: 67px; width:60%; margin:0 auto; float:none; text-align:center;}
+.register32 { font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:37px; width:100%; margin:0 auto; padding:50px 0 50px 0; float:none; text-align:center;}
+.register32 input { font-family: 'sinkin_sans200_x_light'; color:#646d83; border-bottom:dashed 2px #646d83; border-left:0; border-right:0; border-top:0; font-size:37px;  min-width: 187px; max-width: 700px; transition: width 0.25s; text-align:center; background:none; padding-bottom: 2px; width: 130px}
+.register33 {font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:16px; margin-top:80px;}
+	
+}
+
+@media screen and (min-width: 1367px) and (max-width: 1920px) {
+	.home1 {font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:52px; line-height: 92px; width:47%; margin:0 auto; float:none; text-align:center;}
+.home2 { font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:52px; width:100%; margin:0 auto; padding:50px 0 50px 0; float:none; text-align:center;}
+.home2 input { font-family: 'sinkin_sans200_x_light'; color:#646d83; border-bottom:dashed 2px #646d83; border-left:0; border-right:0; border-top:0; font-size:52px;   max-width: 700px; transition: width 0.25s; text-align:center; background:none; padding-bottom: 2px; width: 271px !important;
+}
+
+.btn1show {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:52px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; z-index:99999}
+.btn1hide {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:52px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; display:none;}
+
+.btn2show {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:52px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; z-index:9999}
+.btn2hide {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:52px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; display:none;}
+
+.btn3show {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:52px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; z-index:999; background: none; border:none}
+.btn3hide {font-family: 'sinkin_sans200_x_light'; color:#01c7a6; text-decoration:none; font-size:52px; color:#01c7a6; position:absolute; bottom: 10%; right:10%; display:none;}
+
+.register21 {font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:52px; line-height: 115px; width:90%; margin:0 auto; float:none; text-align:center;}
+.register22 { font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:52px; width:100%; margin:0 auto; padding:50px 0 50px 0; float:none; text-align:center;}
+.register22 input { font-family: 'sinkin_sans200_x_light'; color:#646d83; border-bottom:dashed 2px #646d83; border-left:0; border-right:0; border-top:0; font-size:52px;  min-width: 146px; max-width: 700px; transition: width 0.25s; text-align:center; background:none; padding-bottom: 2px;  width: 130px;}
+
+.register31 {font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:52px; line-height: 80px; width:60%; margin:0 auto; float:none; text-align:center;}
+.register32 { font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:52px; width:100%; margin:0 auto; padding:50px 0 50px 0; float:none; text-align:center;}
+.register32 input { font-family: 'sinkin_sans200_x_light'; color:#646d83; border-bottom:dashed 2px #646d83; border-left:0; border-right:0; border-top:0; font-size:52px;  min-width: 259px; max-width: 700px; transition: width 0.25s; text-align:center; background:none; padding-bottom: 2px;   width: 260px;}
+.register33 {font-family: 'sinkin_sans200_x_light'; color:#ff; font-size:24px; margin-top:80px;}
+	
+}
+ 
+@font-face {
+    font-family: 'sinkin_sans100_thin';
+    src: url('fonts/SinkinSans-100Thin-webfont.eot');
+    src: url('fonts/SinkinSans-100Thin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/SinkinSans-100Thin-webfont.woff') format('woff'),
+         url('fonts/SinkinSans-100Thin-webfont.ttf') format('truetype'),
+         url('fonts/SinkinSans-100Thin-webfont.svg#sinkin_sans100_thin') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'sinkin_sans200_x_light';
+    src: url('fonts/SinkinSans-200XLight-webfont.eot');
+    src: url('fonts/SinkinSans-200XLight-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/SinkinSans-200XLight-webfont.woff') format('woff'),
+         url('fonts/SinkinSans-200XLight-webfont.ttf') format('truetype'),
+         url('fonts/SinkinSans-200XLight-webfont.svg#sinkin_sans200_x_light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'sinkin_sans700_bold';
+    src: url('fonts/SinkinSans-700Bold-webfont.eot');
+    src: url('fonts/SinkinSans-700Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/SinkinSans-700Bold-webfont.woff') format('woff'),
+         url('fonts/SinkinSans-700Bold-webfont.ttf') format('truetype'),
+         url('fonts/SinkinSans-700Bold-webfont.svg#sinkin_sans700_bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sinkin_sans600_semibold';
+    src: url('fonts/SinkinSans-600SemiBold-webfont.eot');
+    src: url('fonts/SinkinSans-600SemiBold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/SinkinSans-600SemiBold-webfont.woff') format('woff'),
+         url('fonts/SinkinSans-600SemiBold-webfont.ttf') format('truetype'),
+         url('fonts/SinkinSans-600SemiBold-webfont.svg#sinkin_sans600_semibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sinkin_sans500_medium';
+    src: url('fonts/SinkinSans-500Medium-webfont.eot');
+    src: url('fonts/SinkinSans-500Medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/SinkinSans-500Medium-webfont.woff') format('woff'),
+         url('fonts/SinkinSans-500Medium-webfont.ttf') format('truetype'),
+         url('fonts/SinkinSans-500Medium-webfont.svg#sinkin_sans500_medium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'sinkin_sans400_regular';
+    src: url('fonts/SinkinSans-400Regular-webfont.eot');
+    src: url('fonts/SinkinSans-400Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/SinkinSans-400Regular-webfont.woff') format('woff'),
+         url('fonts/SinkinSans-400Regular-webfont.ttf') format('truetype'),
+         url('fonts/SinkinSans-400Regular-webfont.svg#sinkin_sans400_regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'sinkin_sans300_light';
+    src: url('fonts/SinkinSans-300Light-webfont.eot');
+    src: url('fonts/SinkinSans-300Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/SinkinSans-300Light-webfont.woff') format('woff'),
+         url('fonts/SinkinSans-300Light-webfont.ttf') format('truetype'),
+         url('fonts/SinkinSans-300Light-webfont.svg#sinkin_sans300_light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

@@ -1,0 +1,22 @@
+<div class="col-xs-12 col-sm-12 col-md-12" ng-controller="progressController">
+<ul class="page-forword">
+  <li ng-class="{'active' : CurrentPage == 'goods'}" ng-click="goToPage('goods', 0)"> <a href="javascript:void(0);"> <span>1</span>
+    <h1 class="text-uppercase">Goods</h1>
+    </a> </li>
+  <li ng-class="{'active' : CurrentPage == 'container'}" ng-click="goToPage('container', 1)"> <a href="javascript:void(0);"> <span>2</span>
+    <h1 class="text-uppercase">Containers</h1>
+    </a> </li>
+  <li ng-class="{'active' : CurrentPage == 'transport'}" ng-click="goToPage('transport', 2)"> <a href="javascript:void(0);"> <span>3</span>
+    <h1 class="text-uppercase">Transport</h1>
+    </a> </li>
+  <li ng-class="{'active' : CurrentPage == 'summary'}" ng-click="goToPage('summary', 1)"> <a href="javascript:void(0);"> <span>4</span>
+    <h1 class="text-uppercase">Summary</h1>
+    </a> </li>
+</ul>
+<div class="alert alert-danger" ng-show="commonFileError">
+  <button type="button" class="close" ng-click="hideCommonError();"><span>×</span></button>
+  <strong>Error!</strong> {{commonFileError}}
+</div>
+
+</div>
+

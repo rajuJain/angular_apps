@@ -1,0 +1,54 @@
+<section class="container">
+   <div ng-if="success">{{success}}</div>
+   <div ng-if="error">{{error}}</div>
+  <button ng-click="addModuleModel()">Add Module</button>
+   <div>
+		<div class="gridStyle" ng-grid="gridOptions"></div>
+        
+
+	</div>
+</section>
+
+<script type="text/ng-template" id="editModuleTemplate">
+    <h1>Edit Module</h1>
+    <form method="post" id="updateModuleForm" name="updateModuleForm" rc-submit="updateModule()" novalidate  enctype="multipart/form-data">
+		 <input type="hidden" name="id" id="id" value="" ng-model="selectModuleData.id" validator="[required]" placeholder="Name">
+        <div class="form-group"><input type="text" name="name" id="name" value="" ng-model="selectModuleData.name" validator="[required]" placeholder="name"></div>
+		<div class="form-group"><input ng-model="photo" onchange="angular.element(this).scope().file_changed(this)" type="file" accept="image/*" ng-model="selectModuleData.profile_pic" /></div>	
+          
+            <img ng-show="image" ng-src="{{image.url}}" type="{{image.file.type}}"/> 
+		
+		<div class="form-group"><textarea cols="50" name="description" id="description" ng-model="selectModuleData.description" validator="[required]" placeholder="Description"></textarea></div>
+		<!--<div class="form-group"><select ng-model="selectModuleData.goal_id" ng-options='goal.TITLE for goal in goals track by goal.ID'><option value="">Select Goal</option></select></div>	-->	
+		<!--<div class="form-group"><select ng-model="selectModuleData.value_id" ng-options='value.TITLE for value in values track by value.ID'><option value="">Select Value</option></select></div>		-->
+		<div class="form-group">
+			<select ng-model="selectModuleData.status" validator="[required]">
+			   <option value="">Select Status</option>
+			   <option value="A">Active</option>
+			   <option value="I">Inactive</option>
+			</select>
+		</div>	
+       <div class="form-group"><input type="number" name="seq" id="seq" value="" min="0" max="99" ng-model="selectModuleData.seq" validator="[number]" placeholder="Sequence"></div>
+        <p class="submit"><input type="submit" name="updateModule" value="Update"></p>
+      </form>
+</script>
+<script type="text/ng-template" id="addModuleTemplate">
+    <h1>Add Module</h1>
+    <form method="post" id="addModuleForm" name="addModuleForm" rc-submit="addModule(moduleData)" novalidate>
+        <div class="form-group"><input type="text" name="name" id="name" value="" ng-model="moduleData.name" validator="[required]" placeholder="Name"></div>
+		<div class="form-group"><input ng-model="photo" onchange="angular.element(this).scope().file_changed(this)" type="file" accept="image/*" ng-model="moduleData.profile_pic" ></div>
+		<div class="form-group"><textarea cols="50" name="description" id="description" value="" ng-model="moduleData.description" validator="[required]" placeholder="Description"></textarea></div>
+		<!--<div class="form-group"><select ng-model="moduleData.goal_id" ng-options='goal.TITLE for goal in goals track by goal.ID'><option value="">Select Goal</option></select></div>		-->
+		<!--<div class="form-group"><select ng-model="moduleData.value_id" ng-options='value.TITLE for value in values track by value.ID'><option value="">Select Value</option></select></div>		-->
+		<div class="form-group">
+			<select ng-model="moduleData.status" validator="[required]">
+			   <option value="">Select Status</option>
+			   <option value="A">Active</option>
+			   <option value="I">Inactive</option>
+			</select>
+		</div>
+		
+		<div class="form-group"><input type="number" name="seq" id="seq" value="" min="0" max="99" ng-model="moduleData.seq" validator="[number]" placeholder="Sequence"></div>
+        <p class="submit"><input type="submit" name="submitModule" value="Save"></p>
+      </form>
+</script>

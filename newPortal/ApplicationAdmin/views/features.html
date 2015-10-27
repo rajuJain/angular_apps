@@ -1,0 +1,68 @@
+<link href="script/vendor/kendo/css/kendo.common.min.css" rel="stylesheet" />
+<div class="main scheduler">
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="title"><h1>Features</h1></div>
+            <div class="dashboard Patients">
+                <div class="row">
+                    <div ng-if="error && error != '' && !isProcessing" class="error">{{error}}</div>
+                    <div ng-if="success && success != '' && !isProcessing" class="success">{{success}}</div>
+                    <div class="medium-12 columns">
+                        <div class="filter pad" style="position:relative; overflow:hidden">
+                            <table border="1" style="width:50% " align="center" class="k-grid k-widget">
+                                
+                                <thead class="k-grid-header" role="rowgroup">
+                                <tr>
+                                    <th class="k-header" >Features</th>
+                                    <th class="k-header" >Options</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Chat Module</td>
+                                    <td align="center"><input type="checkbox" ng-model="features.Chat" ng-change="CheckBoxClicked(features.Chat)"></td>
+                                </tr>
+                                <tr>
+                                    <td>Appointment Module</td>
+                                    <td align="center"><input type="checkbox" ng-model="features.Application" ng-change="CheckBoxClicked(features.Application)"></td>
+                                </tr>
+                                <tr>
+                                    <td>Payment Module</td>
+                                    <td align="center"><input type="checkbox" ng-model="features.Billing" ng-change="CheckBoxClicked(features.Billing)"></td>
+                                </tr>
+                                <tr>
+                                    <td>Other</td>
+                                    <td align="center"><input type="checkbox" ng-model="features.ABC" ng-change="CheckBoxClicked(features.ABC)"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a id="ComminmgSoonAlert" style="display:none;" href="javascript:void(0);" data-reveal-id="AlertMsg"></a>
+<div id="AlertMsg" class="reveal-modal tiny" data-reveal>
+    <div class="close right"><a ng-click="closePopup();">X</a></div>
+    <div class="row">
+        <div class="medium-12 columns">
+            Coming Soon
+        </div>
+    </div>
+</div>
+
+
+<script src="script/vendor/theme/Scripts/jquery.reveal.js"></script>
+
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" class="no-bg" ng-if="isProcessing">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray">Please wait...</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>

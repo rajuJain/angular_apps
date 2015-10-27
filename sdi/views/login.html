@@ -1,0 +1,90 @@
+
+<div class="main login" ng-cloak>
+    <div class="row">
+        <div class="large-6 medium-8 columns br-right">
+            <div class="row">
+                <div class="medium-12 columns">
+                    <div class="title">
+                        <h1 class="ng-binding">{{'AlreadyHaveAccount' | translate}}</h1>
+                        <span class="sub-heading ng-binding">{{'AccessYourAppointment' | translate}} <br />{{'ScheduleNewOnes' | translate}}</span>
+                    </div>
+                </div>
+            </div>
+            <form action="" class="form-horizontal seperator" method="post" role="form" id="loginForm" name="loginForm" ng-submit="login(credentials)" novalidate="novalidate">
+                <input name="__RequestVerificationToken" type="hidden" value="5d4J83cc5XPc3qwXMUHjZ9W7SChKTJiEfzAcipjNWbkUvF5bDid8pikdf1Q_cAPIn61FA-nwqf1Aq6BO1fmBZD5E4VDlYreUKrvccq1DA5Y1">
+
+                <!--<span ng-show="global_progress != '' && global_progress != undefined" class="error">{{'global_progress' | translate}}</span> -->
+                <span ng-show="loginErrorMessage != '' && loginErrorMessage != undefined" class="error">{{loginErrorMessage | translate}}</span>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <div class="field">
+                            <label for="UserName"><b>{{'UserName' | translate}}</b> ({{'EmailAddress' | translate}})</label>
+                            <!--input ng-class="{'has-error': rc.loginForm.needsAttention(credentials.username)}" id="UserName" name="UserName" ng-model="credentials.username" type="text" value="" required-->
+                            <span form-input data-type="text" data-name="username" data-id="username" data-ngmodel="credentials.username" data-required="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <div class="field">
+                            <label for="Password"><b>{{'Password' | translate}}</b></label>
+                            <span form-input data-type="password" data-name="password" data-id="password" data-ngmodel="credentials.password" data-required="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="medium-12 columns text-right">
+                        <div class="field">
+                            <p class="forgot"> <a href="#/forgotPassword">{{'ForgateYourPassword' | translate}}</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <div class="field">
+                            <div class="remember checkbox">
+                                <span form-input data-type="checkbox" data-name="RememberMe" data-id="remember" data-ngmodel="credentials.remember" data-required="false" data-value="remember" ng-class="credentials.remember ? 'inactive active' : 'inactive'"></span>
+                                <label class="label" for="remember">{{'RememberMe' | translate}}</label>
+                            </div>
+                            <input type="submit" ng-disabled="global_progress" value="{{'SignIn' | translate}}" class="btn btn-green btn-large fr m-l5">
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+               
+        
+        
+        
+        
+        <div class="large-6 medium-4 columns p-t50 p-l50">
+
+            <div class="row">
+                <div class="large-6 medium-12 small-12 columns">
+                    <h4><b>{{'AreYouNewHere' | translate}}</b></h4>
+                    <p>{{'YouCanStill' | translate}} <a href="#/">{{'ScheduleAnExam' | translate}}</a> {{'YouAreaVarified' | translate}} {{'ToCreateAnAccount' | translate}}.</p>
+                    <!-- <p><a href="javascript:void(0)" ng-click="scheduleAppointmentAsGuest()"><b>{{'ScheduleAnAppointment' | translate}}</b><img class="right-icon" src="/images/arrow-right.png"></a></p> -->
+                </div>
+            </div>
+
+
+        </div>
+            </div>
+        </div>
+
+<div class="process-overlay" ng-if="global_progress"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="global_progress">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray">{{global_progress | translate}}</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>

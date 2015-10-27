@@ -1,0 +1,309 @@
+<script src="../app/script/services/dateFormatService.js"></script>
+<!-- Steps Start-->
+ <div ng-include="src='app/views/progress_bar.html'"></div>
+ <!-- Steps End-->
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <!--Select exam date and time start -->
+            <div class="schedule-your-appointment">
+                <div class="row">
+                    <div class="medium-9 columns">
+                        <!--Schedule your appointment start -->
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                 <div class="title"><h1 class="ng-binding">{{'ScheduleYourAppointment' | translate}}</h1>
+                                    <div class="sub-heading">{{'CompleteInsuranceInfoAndScheduleYourAppointment' | translate}}</div></div>
+                            </div>
+                        </div>
+                        <hr class="no-margin-top" />
+                        <div class="wrapper">
+                            <div class="row your-schedule">
+                                <div class="large-6 medium-6 columns">
+                                    <div class="wrap" ng-repeat="appointment in selectedAppData">
+                                        <div ng-class="($index!=0) ? 'calendar-icon visi-hidden' : 'calendar-icon'">
+                                            <span><img src="/images/calendar-icon.png" border="0"></span>
+                                        </div>
+
+                                        <div class="schedule-detail">
+                                            <h2 ng-if="$index==0"><span>{{appointment.day | translate}},</span> {{appointment.month | translate}} {{appointment.dateYear}}</h2>
+                                            <!--<h4>{{'SelectedExam' | translate}} :</h4>-->
+                                            <div class="row m-b10" ng-if="$index==0">
+                                                <div class="medium-12 columns"><h4 class="txt-green" style="margin:0">{{'SelectedExam' | translate}}:</h4></div>
+                                            </div>
+                                            <div class="row m-b10">
+                                                <div class="large-3 medium-4 small-4 columns">{{appointment.time}}</div>
+                                                <div class="large-9 medium-8 small-8 columns">{{appointment.ExamName | translate}}</div>
+                                            </div>
+
+                                           
+                                            
+                                            <!--<ul class="no-list"><li>{{appointment.ExamName | translate}}</li></ul>-->
+                                        </div>
+                                        <div class="clr"></div>
+                                    </div>
+                                </div>
+                                <div class="large-6 medium-6 columns">
+                             <div class="block">
+                                 <div class="row locations">
+                                     <div class="large-9 medium-8 small-9 columns">
+                                             <!--<h4>{{'Location' | translate}}:</h4>-->
+                                            <div class="location-icon">
+                                                <!--img src="images/location-icon-small-green.png" border="0" /-->
+                                                <img ng-if="location.LocationType != 'SMIL'" src="images/location-icon-small-blue.png" border="0" />
+                                                <img ng-if="location.LocationType == 'SMIL'" src="images/location-icon-small-cyan.png" border="0" />
+                                            </div>
+
+                                             <div class="location-address">
+                                                 <h5>{{location.AddressLine1}}</h5>
+                                                 <p>{{location.AddressLine2}} {{location.City}}, {{location.StateCode}} {{location.PostalCode}}</p>
+                                             </div><div class="clr"></div>
+                                     </div>
+                                     <div class="large-3 medium-4 small-3 columns text-right">
+                                        <img ng-if="location.LocationType == 'SMIL'" src="images/smil.png" border="0" />
+                                        <img ng-if="location.LocationType == 'VRL'" src="images/vr.png" border="0" />
+                                     </div>
+                                 </div>
+                                    <div class="map">
+                                        <img src="https://maps.googleapis.com/maps/api/staticmap?center={{location.lat}},{{location.lng}}&zoom=15&size=400x135&maptype=roadmap&markers=icon:../../images/pin-black.png%7Clabel:C%7C{{location.lat}},{{location.lng}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <form id="insureanceForm" name="insureanceForm" method="post" rc-submit="setScheduledAppointment(selectedAppData, insuranceData)" novalidate>
+                        <div class="row insurance-section">
+                            <div class="medium-12 columns radio-btn global-radio">
+                                <h4>{{'addYourInsuranceInfo' | translate}}</h4>
+                                <ul class="medium-block-grid-2 small-block-grid-1">
+                                    <li ng-click="selecetInsurance()">
+                                        <span ng-class="insuranceData.insurance == 'HaveInsurance' ? 'inactive active' : 'inactive'">
+                                            <input type="radio" name="insurance" id="haveInsurance" ng-model="insuranceData.insurance" value="HaveInsurance">
+                                        </span>
+                                        <label for="haveInsurance">{{'IHaveInsurance' | translate}}</label>
+                                    </li>
+                                    <li>
+                                        <span ng-class="insuranceData.insurance == 'Cash' ? 'inactive active' : 'inactive'">
+                                            <input type="radio" name="insurance" id="Cash" ng-model="insuranceData.insurance" value="Cash">
+                                        </span>
+                                        <label for="Cash">{{'Cash' | translate}}</label>
+                                    </li>
+                                    <li>
+                                        <span ng-class="insuranceData.insurance == 'IWillProvideInfoLater' ? 'inactive active' : 'inactive'">
+                                            <input type="radio" name="insurance" id="IWillProvideInfoLater" ng-model="insuranceData.insurance" value="IWillProvideInfoLater">
+                                        </span>
+                                        <label for="IWillProvideInfoLater">{{'IWillProvideInfoLater' | translate}}</label>
+                                    </li>
+                                    <li>
+                                        <span ng-class="insuranceData.insurance == 'DirectPay' ? 'inactive active' : 'inactive'">
+                                            <input type="radio" name="insurance" id="DirectPay" ng-model="insuranceData.insurance" value="DirectPay">
+                                        </span>
+                                        <label for="DirectPay">{{'DirectPay' | translate}}</label>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                        <div ng-if="insuranceData.insurance =='HaveInsurance'">
+
+                            <div class="row" ng-if="insuranceData.insurance =='HaveInsurance'">
+                                <div class="medium-12 columns">
+                                    <div class="row">
+                                        <div class="medium-6 columns">
+                                            <div class="field">
+                                                <label for="Name">{{'SubscriberName' | translate}}</label>
+                                                <span form-input data-type="text" data-classname="alphabetical" data-ngclass="{'has-error': rc.insureanceForm.needsAttention(insuranceData.first.Name)}" data-name="Name" data-id="firstName" data-ngblur="checkFieldValueType('alphabetical', 'firstName')" data-ngmodel="insuranceData.first.Name" data-maxlength="25" data-required="true"></span>
+                                            </div>
+                                        </div>
+                                        <div class="medium-6 columns">
+                                            <div class="field">
+                                                <label for="SubscriberId">{{'SubscriberID' | translate}}</label>
+                                                <span form-input data-type="text" data-classname="numeric" data-ngclass="{'has-error': rc.insureanceForm.needsAttention(insuranceData.first.SubscriberId)}" data-name="SubscriberId" data-id="firstSubscriberId" data-ngblur="checkFieldValueType('alfaNumeric', 'firstSubscriberId')" data-ngmodel="insuranceData.first.SubscriberId" data-maxlength="25" data-required="true"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="medium-6 columns">
+                                            <div class="field">
+                                                <label for="GroupNo">{{'GroupNumber' | translate}}</label>
+                                                    <span form-input data-type="text" data-classname="alfaNumeric" data-name="GroupNo" data-id="firstGroupNo" data-ngblur="checkFieldValueType('alfaNumeric', 'firstGroupNo')" data-ngmodel="insuranceData.first.GroupNo"></span>
+                                            </div>
+                                        </div>
+                                        <div class="medium-6 columns">
+                                            <div class="field">
+                                                <label for="Provider">{{'InsuranceProvider' | translate}}</label>
+                                                <div class="selectParent" ng-class="{'has-error': rc.insureanceForm.needsAttention(insuranceData.first.Provider)}">
+                                                    <span form-input data-type="select" data-ngclass="{'has-error': rc.insureanceForm.needsAttention(insuranceData.first.Provider)}" data-firstoption="{{'SelectedInsuranceProvider' | translate}}" data-options='provider.name | translate for provider in insuranceProviderOptions' data-name="Provider" data-id="firstProvider" data-ngmodel="insuranceData.first.Provider" data-required="true"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="medium-6 columns">
+                                            <div class="field">
+                                                <a ng-if="!formNo || formNo == 'first'" href="javascript:void(0)" ng-click="showInsuranceForm('second')">{{'IHaveMoreInsurance' | translate}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="medium-6 columns" ng-if="insuranceData.first.Provider.id && insuranceData.first.Provider.id==6">
+                                            <div class="field">
+                                                <label for="otherProviderName">{{'AddInsuranceProvider' | translate}}</label>
+                                                <input ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" type="text" ng-init="checkFieldValueType('alfaNumeric', 'firstotherProviderName')" ng-blur="checkFieldValueType('alfaNumeric', 'firstotherProviderName')" class="alfaNumeric" ng-class="{'has-error': rc.insureanceForm.needsAttention(insuranceData.first.otherProviderName)}" ng-model="insuranceData.first.otherProviderName" name="otherProviderName" id="firstotherProviderName" maxlength="50" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <div class="row" ng-if="formNo == 'second' || formNo=='third'">
+                                 <div class="medium-12 columns">
+                                     <div class="row">
+                                         <div class="medium-6 columns">
+                                             <div class="field">
+                                                 <label for="Name">{{'SubscriberName' | translate}}</label>
+                                                 <span form-input data-type="text" data-ngblur="checkFieldValueType('alphabetical', 'secondName')" data-classname="alphabetical" data-ngclass="{'has-error': rc.insureanceForm.needsAttention(insuranceData.second.Name)}" data-name="Name" data-id="secondName" data-ngmodel="insuranceData.second.Name" data-maxlength="25" data-required="true"></span>
+
+                                             </div>
+                                         </div>
+                                         <div class="medium-6 columns">
+                                             <div class="field">
+                                                 <label for="SubscriberId">{{'SubscriberID' | translate}}</label>
+                                                 <span form-input data-type="text" data-ngblur="checkFieldValueType('alfaNumeric', 'secondSubscriberId')" data-classname="numeric" data-ngclass="{'has-error': rc.insureanceForm.needsAttention(insuranceData.second.SubscriberId)}" data-name="SubscriberId" data-id="secondSubscriberId" data-ngmodel="insuranceData.second.SubscriberId" data-maxlength="25" data-required="true"></span>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="row">
+                                         <div class="medium-6 columns">
+                                             <div class="field">
+                                                 <label for="GroupNo">{{'GroupNumber' | translate}}</label>
+                                                     <span form-input data-type="text" data-ngblur="checkFieldValueType('alfaNumeric', 'secondGroupNo')" data-classname="alfaNumeric" data-name="GroupNo" data-id="secondGroupNo" data-ngmodel="insuranceData.second.GroupNo"></span>
+                                             </div>
+                                         </div>
+                                         <div class="medium-6 columns">
+                                             <div class="field">
+                                                 <label for="Provider">{{'InsuranceProvider' | translate}}</label>
+                                                 <div class="selectParent" ng-class="{'has-error': rc.insureanceForm.needsAttention(insuranceData.second.Provider)}">
+                                                     <span form-input data-type="select" data-ngclass="{'has-error': rc.insureanceForm.needsAttention(insuranceData.second.Provider)}" data-firstoption="{{'SelectedInsuranceProvider' | translate}}" data-options='provider.name | translate for provider in insuranceProviderOptions' data-name="Provider" data-id="secondProvider" data-ngmodel="insuranceData.second.Provider" data-required="true"></span>
+                                                 </div>
+
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="row">
+                                         <div class="medium-6 columns">
+                                             <div class="field">
+                                                 <a ng-if="formNo=='second'" href="javascript:void(0)" ng-click="showInsuranceForm('third')">{{'IHaveMoreInsurance' | translate}}</a>
+                                                 <a ng-if="formNo=='second'" class="fr" href="javascript:void(0)" ng-click="showInsuranceForm('first')">{{'Remove' | translate}}</a>
+                                             </div>
+                                         </div>
+                                         <div class="medium-6 columns" ng-if="insuranceData.second.Provider.id && insuranceData.second.Provider.id==6">
+                                             <div class="field">
+                                                 <label for="otherProviderName">{{'AddInsuranceProvider' | translate}}</label>
+                                                 <input type="text" ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" ng-init="checkFieldValueType('alfaNumeric', 'secondotherProviderName')" ng-blur="checkFieldValueType('alfaNumeric', 'secondotherProviderName')" class="alfaNumeric" ng-class="{'has-error': rc.insureanceForm.needsAttention(insuranceData.second.otherProviderName)}" ng-model="insuranceData.second.otherProviderName" name="otherProviderName" id="secondotherProviderName" maxlength="50" required="">
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div></div>
+                             <div class="row" ng-if="formNo=='third'">
+                                 <div class="medium-12 columns">
+                                     <div class="row">
+                                         <div class="medium-6 columns">
+                                             <div class="field">
+                                                 <label for="Name">{{'SubscriberName' | translate}}</label>
+                                                 <span form-input data-type="text" data-ngblur="checkFieldValueType('alphabetical', 'thirdName')" data-classname="alphabetical" data-ngclass="{'has-error': rc.insureanceForm.needsAttention(insuranceData.third.Name)}" data-name="Name" data-id="thirdName" data-ngmodel="insuranceData.third.Name" data-maxlength="25" data-required="true"></span>
+
+                                             </div>
+                                         </div>
+                                         <div class="medium-6 columns">
+                                             <div class="field">
+                                                 <label for="SubscriberId">{{'SubscriberID' | translate}}</label>
+                                                 <span form-input data-type="text" data-ngblur="checkFieldValueType('alfaNumeric', 'thirdSubscriberId')" data-classname="numeric" data-ngclass="{'has-error': rc.insureanceForm.needsAttention(insuranceData.third.SubscriberId)}" data-name="SubscriberId" data-id="thirdSubscriberId" data-ngmodel="insuranceData.third.SubscriberId" data-maxlength="25" data-required="true"></span>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="row">
+                                         <div class="medium-6 columns">
+                                             <div class="field">
+                                                 <label for="GroupNo">{{'GroupNumber' | translate}}</label>
+                                                     <span form-input data-type="text" data-ngblur="checkFieldValueType('alfaNumeric', 'thirdGroupNo')" data-classname="alfaNumeric" data-name="GroupNo" data-id="thirdGroupNo" data-ngmodel="insuranceData.third.GroupNo"></span>
+                                             </div>
+                                         </div>
+                                         <div class="medium-6 columns">
+                                             <div class="field">
+                                                 <label for="Provider">{{'InsuranceProvider' | translate}}</label>
+                                                 <div class="selectParent" ng-class="{'has-error': rc.insureanceForm.needsAttention(insuranceData.third.Provider)}" >
+                                                     <span form-input data-type="select" data-ngclass="{'has-error': rc.insureanceForm.needsAttention(insuranceData.third.Provider)}" data-firstoption="{{'SelectedInsuranceProvider' | translate}}" data-options='provider.name | translate for  provider in insuranceProviderOptions' data-name="Provider" data-id="secondProvider" data-ngmodel="insuranceData.third.Provider" data-required="true"></span>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="row">
+                                         <div class="medium-6 columns">
+                                             <div class="field">
+                                                 <a ng-if="formNo=='third'" href="javascript:void(0)" ng-click="showInsuranceForm('second')">{{'Remove' | translate}}</a>
+                                             </div>
+                                         </div>
+                                         <div class="medium-6 columns" ng-if="insuranceData.third.Provider.id && insuranceData.third.Provider.id==6">
+                                             <div class="field">
+                                                 <label for="otherProviderName">{{'AddInsuranceProvider' | translate}}</label>
+                                                 <input type="text" ng-blur="protectFields($event)" ng-keypress="protectFields($event)" ng-paste="protectFields($event)" ng-init="checkFieldValueType('alfaNumeric', 'thirdotherProviderName')" ng-blur="checkFieldValueType('alfaNumeric', 'thirdotherProviderName')" class="alfaNumeric" ng-class="{'has-error': rc.insureanceForm.needsAttention(insuranceData.third.otherProviderName)}" ng-model="insuranceData.third.otherProviderName" name="otherProviderName" id="thirdotherProviderName" maxlength="50" required="">
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div></div>
+                             
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="medium-12 columns radio-btn global-radio">
+                                <h4>{{'PhoneNumber' | translate}}</h4>
+                                <h5>{{'ProvideBestNumber' | translate}}</h5>
+                                <ul class="medium-block-grid-4 small-block-grid-2">
+                                    <li>
+                                        <phonenumber-directive placeholder="'phoneFormate'" model='insuranceData.PhoneNumber' ng-class="{'has-error': rc.insureanceForm.needsAttention(insuranceData.PhoneNumber)}" required="true"></phonenumber-directive>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="midium-12 columns">
+                                <div class="action">
+                                    <input type="submit" value="{{'ScheduleAppointment' | translate}}"  class="btn btn-large btn-green">
+                                </div>
+                            </div>
+                            <div class="midium-12 columns">
+                                <div ng-show="slotReserveErrorHtml && slotReserveErrorHtml != '' && slotReserveError==''" class="error" ng-bind-html="slotReserveErrorHtml"></div>
+                                <div ng-show="slotReserveError && slotReserveError != '' && slotReserveErrorHtml =='' " class="error">{{slotReserveError | translate}}</div>
+                            </div>
+                        </div>
+                        </form>
+                        <!--Schedule your appointment end -->
+                    </div>
+                    <!-- <div class="medium-3 columns">
+                        <section class="selected-tests set-margin" ng-if="examInstruction">
+                           
+                            <h4>{{'ExamInstructions' | translate}}</h4>
+                            <ul>
+                                <li>{{examInstruction | translate}}</li>
+                            </ul>
+                        </section>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="overlay" style="display:none"></div>
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="isProcessing">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray">{{isProcessing | translate}}</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+

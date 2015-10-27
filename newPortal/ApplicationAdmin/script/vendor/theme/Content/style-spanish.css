@@ -1,0 +1,799 @@
+﻿/*Font Defination*/
+@font-face {font-family: 'effraregular'; src: url('../fonts/effra-regular-webfont.eot'); src: url('../fonts/effra-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/effra-regular-webfont.woff') format('woff'), url('../fonts/effra-regular-webfont.ttf') format('truetype'), url('../fonts/effra-regular-webfont.svg#effraregular') format('svg'); font-weight: normal; font-style: normal;}
+@font-face {font-family: 'effra_lightregular'; src: url('../fonts/effralight-regular-webfont.eot'); src: url('../fonts/effralight-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/effralight-regular-webfont.woff') format('woff'), url('../fonts/effralight-regular-webfont.ttf') format('truetype'), url('../fonts/effralight-regular-webfont.svg#effra_lightregular') format('svg'); font-weight: normal; font-style: normal;}
+@font-face {font-family: 'effra_mediumregular'; src: url('../fonts/efframedium-regular-webfont.eot'); src: url('../fonts/efframedium-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/efframedium-regular-webfont.woff') format('woff'), url('../fonts/efframedium-regular-webfont.ttf') format('truetype'), url('../fonts/efframedium-regular-webfont.svg#effra_mediumregular') format('svg'); font-weight: normal; font-style: normal;}
+@font-face {font-family: 'effrabold'; src: url('../fonts/effra-bold-webfont.eot'); src: url('../fonts/effra-bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/effra-bold-webfont.woff') format('woff'), url('../fonts/effra-bold-webfont.ttf') format('truetype'), url('../fonts/effra-bold-webfont.svg#effrabold') format('svg'); font-weight: normal; font-style: normal;}
+
+/*Common using fonts*/
+.select-exam .details-holder h4 span, .title h1 span, .sub-heading, .post-appointment .title h1{font-family:"effraregular"}
+.sub-heading, .upcoming-appointment .appointment-list .appointment_date figure span, footer .need-assistant h2 span, .schedule-your-appointment .your-schedule .schedule-detail h2 span, .appointment-available h4 span, .user-name  {font-family: 'effra_lightregular';}
+h1, h4, .field h5, .login h2, .btn, .selected-tests h4, .already-signin, .upcoming-appointment .appointment-list .appointment_date figure, .post-appointment .grid h4, .post-appointment .grid .date, .signup li.signin a, .schedule-your-appointment .your-schedule .schedule-detail h2, .schedule-your-appointment .your-schedule .location-address h5, .appointment-available h4, .pagetop .languages > a {font-family:"effra_mediumregular"}
+h1.quote, footer h2, .select-exam .details-holder h4 {font-family:"effrabold"}
+
+/* ------------------------- General ------------------------- */ 
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, p, blockquote, th, td{ margin: 0; padding: 0; }
+body{background: #F4F4F4;color: #797979;padding: 0;margin: 0; font-style: normal;line-height: 1;position: relative; font-size:1rem; font-family: "effraregular"; color:#282F37; }
+*:focus, a:focus, button:focus, input:focus{outline:0;}
+a {-webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out;}
+a, a > * {outline: none; cursor: pointer; text-decoration: none;}
+a:focus, a:hover {outline: none; text-decoration: none;cursor: pointer}
+h1{font-size: 2em;margin: 0.67em 0;}
+abbr[title]{border-bottom: 1px dotted;}
+dfn{font-style: italic;}
+hr{-moz-box-sizing: content-box;box-sizing: content-box;height: 0;}
+mark{background: #ff0;color: #000;}
+code, kbd, pre, samp{font-family: monospace,  serif;font-size: 1em;}
+pre{white-space: pre-wrap;}
+q{quotes: "\201C" "\201D" "\2018" "\2019";}
+small{font-size: 80%;}
+sub, sup{font-size: 75%;line-height: 0;position: relative;vertical-align: baseline;}
+sup{top: -0.5em;}
+sub{bottom: -0.25em;}
+.callout-box img{border: 0;-webkit-backface-visibility: hidden;-ms-interpolation-mode: bicubic;}
+svg:not(:root){overflow: hidden;}
+figure{margin: 0;}
+fieldset{border: 1px solid #c0c0c0;margin: 0 2px;padding: 0.35em 0.625em 0.75em;}
+legend{border: 0; /* 1 */padding: 0; /* 2 */}
+button, input, select, textarea{font-family: inherit; /* 1 */font-size: 100%; /* 2 */margin: 0; /* 3 */}
+button, input{line-height: normal;}
+button, select{text-transform: none;}
+button, html input[type="button"],  /* 1 */
+input[type="reset"], input[type="submit"]{-webkit-appearance: button; /* 2 */cursor: pointer; /* 3 */}
+button[disabled], html input[disabled]{cursor: default;}
+input[type="checkbox"], input[type="radio"]{box-sizing: border-box; /* 1 */padding: 0; /* 2 */}
+input[type="search"]{-webkit-appearance: textfield; /* 1 */-moz-box-sizing: content-box;-webkit-box-sizing: content-box; /* 2 */box-sizing: content-box;}
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration{-webkit-appearance: none;}
+button::-moz-focus-inner, input::-moz-focus-inner{border: 0;padding: 0;}
+textarea{overflow: auto; /* 1 */vertical-align: top; /* 2 */ outline:0}
+table{border-collapse: collapse;border-spacing: 0;}
+
+/* ------------------------- Common Style ------------------------- */  
+h1, h2, h3, h4, h5, h6{ text-rendering: optimizeLegibility; line-height: 1.1; margin-bottom: 14px; margin-top: 14px; font-weight:normal;}
+h1{ font-size: 44px; }
+h2{ font-size: 30px; }
+h3{ font-size: 26px; }
+h4{ font-size: 22px; }
+h5{ font-size: 16px; }
+h6{ font-size: 14px; }
+em, i{ font-style: italic; line-height: inherit; }
+code{background: #ffff99; }
+
+/* ------------------------- Custom commoan ------------------------- */
+.main{ word-wrap:break-word; position:relative}
+[class*="block-grid-"] > li{ padding-bottom:0}
+.block{overflow:hidden;}
+hr{font-size:0;height:1px;border:0;border-bottom:1px solid #B5B5B5; overflow:hidden;clear:both; margin:20px 0px;}
+.hr-light{border-bottom:1px solid #ddd;}
+.hr-dark{margin: 0;font-size:0;height:1px;border:0;border-bottom:1px solid #909092; overflow:hidden;clear:both; margin:10px 0px;}
+.hr-dark-thick{margin: 0;font-size:0;height:1px;border:0;border-bottom:#555658 2px solid; overflow:hidden;clear:both; margin:10px 0px;}
+ul.no-list, ol.no-list{list-style:none;}
+ul.no-margin, ol.no-margin{margin-left:0;}
+a{ color:#1C77CA; text-decoration:none;}
+a:hover{ text-decoration:none; color:#1669B4}
+a img{ border:none;}
+p{ margin-bottom:17px; line-height:normal;}
+.uppercase{ text-transform:uppercase!important;}
+.bg-none { background:none!important;}
+.circle{display: block;margin:0 auto;background-size: cover;background-repeat: no-repeat;background-position: center center;-webkit-border-radius: 99em;-moz-border-radius: 99em;border-radius: 99em;border: 5px solid #eee;box-shadow: inset 0 8px 8px rgba(0, 0, 0, 0.6); }
+.round{-webkit-border-radius: 100%;-moz-border-radius: 100%;border-radius: 100%;background: white !important;padding: 10px;margin: 4px;box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);}
+.radius{-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;}
+.hidden{visibility:hidden}
+.hide{display:none;}
+.light-blue{ color:#009ae7}
+.medium-blue{ color:#3369b1}
+.dark-blue{ color:#003e7e}
+.black { color:#333;}
+.white, .white-lnk{ color:#FFF;}
+.white-lnk{ text-decoration:underline; font-weight:bold; margin:0 5px}
+.white-lnk:hover{ color:#fff; text-decoration:none}
+.dark-red{ color:#bf1e2d;}
+.gray{ color:#bbb}
+.white-bg{ background:#FFF;}
+.bg-blue{ background:#003e7e}
+.bg-gray{ background:#ededed}
+.bg-light-blue{ background:#14abe9}
+.m-l5{ margin-left:5px!important}
+.m-l10{ margin-left:10px}
+.m-r10{ margin-left:10px}
+.m-b5{ margin-bottom:5px}
+.right-icon{ vertical-align:middle; margin:-3px 0 0 10px}
+.set-verticle{display:table-cell; vertical-align:middle; float:none!important;}
+.h-100{ height:100px}
+.clr{ clear:both}
+.set-margin{ margin:75px 0 0 60px}
+.outer-border{ border:solid 1px #ccdeac; padding:7px}
+.no-margin-top{ margin-top:0}
+.action { margin:20px auto}
+.question{ margin:0 10px 0}
+.txt-green{ color:#8cb938}
+/* ------------------------- Listing ------------------------- */
+.list{margin:10px 0; padding:0; list-style-position:inside;}
+.list.indent{margin-left:20px;}
+.list li{margin:6px 0 0 0; padding:0;}
+.list li:first-child{margin:0;}
+.list li > ul, .list li > ol{margin:8px 0 8px 30px;}
+.list.none{list-style-type:none;}
+
+/* ------------------------- Custom Columns ------------------------- */
+.one_half, 
+.one_third, .two_third, 
+.one_quarter, .two_quarter, .three_quarter, 
+.one_fifth, .two_fifth, .three_fifth, .four_fifth, 
+.one_sixth, .two_sixth, .three_sixth, .four_sixth, .five_sixth{display:inline; float:left; margin:0 0 0 5%; list-style:none;}
+.one_half:first-child, 
+.one_third:first-child, .two_third:first-child, 
+.one_quarter:first-child, .two_quarter:first-child, .three_quarter:first-child, 
+.one_fifth:first-child, .two_fifth:first-child, .three_fifth:first-child, .four_fifth:first-child, 
+.one_sixth:first-child, .two_sixth:first-child, .three_sixth:first-child, .four_sixth:first-child, .five_sixth:first-child{margin-left:0!important;}
+.first{clear:left!important;}
+.first, .nogutter{margin-left:0!important;}
+
+/* --- Custom Columns: Half Grid --- */
+.one_half{width:47.5%!important;}
+.one_half.nogutter{width:50%!important;}
+
+/* --- Custom Columns: Third Grid --- */
+.one_third{width:30%!important;}
+.two_third{width:65%!important;}
+.one_third.nogutter{width:33.33333%!important;}
+.two_third.nogutter{width:66.66666%!important;}
+
+/* ------------------------- Grid Replace ------------------------- */
+select{ width:auto}
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {background-color:#fff; color:#777; font-size:16px; padding:8px 8px; margin:0; width:100%; height:auto; resize:none; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border-radius:7px; box-shadow:1px 1px 1px rgba(0, 0, 0, 0.2) inset}
+input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="month"]:focus, input[type="week"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="time"]:focus, input[type="url"]:focus, textarea:focus{ background-color:#fff; box-shadow:1px 1px 1px rgba(0, 0, 0, 0.5) inset;}
+textarea{min-height:100px;}
+span.error, .error, .success, .progress {padding: 0.375rem 0.5625rem 0.5625rem;margin-top: -1px;margin-bottom: 1rem;font-size: 0.9rem;font-weight: normal;font-style: italic; color: white; text-align:center;display:block; transition:opacity 0.5s linear;}
+.error {background: #D9534F!important;}
+.success {background: #5CB85C!important;}
+.progress { background:#F0AD4E!important;}
+
+/* ------------------------- css3 links ------------------------- */
+.signin a:before, .signin a:after { display: inline-block;  opacity: 0; transition: transform 0.3s ease 0s, opacity 0.2s ease 0s;}
+.signin a:before { content: "["; margin-right: 10px; transform: translateX(20px);}
+.signin a:after { content: "]"; margin-left: 10px; transform: translateX(-20px);}
+.signin a:hover:before, .signin a:hover:after/*, .signin a:focus:before, .signin a:focus:after*/ { opacity: 1; transform: translateX(0px);}
+
+/* ------------------------- Forms & Buttons ------------------------- */
+.form{margin:0;padding:0;}
+.inline-error{color:#ff0000; font-size:12px;}
+.has-error {border-color:red !important}
+.field-validation-error{ color:red; margin:5px 0 0 0; display:inline-block; font-size:14px }
+.btn{display:inline-block;*display:inline;*zoom:1;padding:8px 20px;font-size:18px;vertical-align:middle;cursor:pointer;color:#FFF;background-color:#85888D;text-decoration:none!important; white-space: nowrap; border:none; border-radius:4px; font-weight:normal; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out;}
+.btn:hover,.btn:focus{color:#FFF;text-decoration:none;background-color:#616365;}
+.btn-small{padding:2px 10px;font-size:11.9px;line-height:41px;}
+.btn-mini{padding:0 10px;font-size:10px; height:30px; line-height:31px;}
+.btn-medium{padding:8px 20px;font-size:18px;}
+.btn-large{padding:7px 40px;font-size:19px; }
+a.btn-large{ padding:9px 40px}
+.btn-x-large{padding:12px 40px;font-size:28px;}
+.btn-block{display:block;width:100%;padding-left:0;padding-right:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+.btn-block+.btn-block{margin-top:5px;}
+.btn-blue{ background:#1977C9; }
+.btn-blue:hover, .btn-blue:focus{ background:#145FA3; }
+.btn-green{ background:#99C93B; color:#282f37; box-shadow: 0 2px 2px -2px #333; -webkit-box-shadow: 0 2px 2px -1px #888; -moz-box-shadow: 0 2px 2px -2px #333; -ms-box-shadow: 0 2px 2px -2px #333; -o-box-shadow: 0 2px 2px -2px #333;}
+.btn-green:hover, .btn-green:focus{ background:#7BA52E; color:#282f37}
+.btn-green.large{font-size:20px}
+.btn-light-grey{ background:#b2b2b2; }
+.btn-white{ background:#f6f6f6; color:#009ae7; border:#e1e1e1 1px solid; }
+.btn-white:hover, .btn-white:focus{ background:#99c93b; color:#282f37}
+.btn-yes{ background: #fff; color:#8cb938;}
+.btn-yes:hover, .btn-yes:focus{ background:#fff; color:#8cb938;}
+.btn-no{ background: #fff; color:red}
+.btn-no:hover, .btn-no:focus{ background:#fff; color:red;}
+.full-width{ width:100%}
+.btn[disabled=disabled]{ background:#e8e8e8; color:#cccccd;}
+.btn-red{ background:#bf1e2e; }
+label{ font-size:14px; line-height:1.2em; color:#646464; cursor:default;}
+.blue-label label{ color:#003e7e;}
+.required{color:#C90003; font-size:14px;}
+.clearfix{ float: none; clear: both;}
+
+
+/* flex scroll */
+.content{ overflow: auto; position: relative; margin: 10px 0 0 0; width: 100%; height: 500px;}
+
+/* kendo update */
+.k-textbox > input, .k-autocomplete .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input, .k-dropdown-wrap .k-input, .k-selectbox .k-input{ height:2.3em!important; line-height:2.3em!important;}
+.k-state-selected, .k-state-selected:link, .k-state-selected:visited, .k-list > .k-state-selected, .k-list > .k-state-highlight, .k-panel > .k-state-selected, .k-ghost-splitbar-vertical, .k-ghost-splitbar-horizontal, .k-draghandle.k-state-selected:hover, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-marquee-color{background-color:#1977c9}
+.k-state-focused, .k-list > .k-state-focused, .k-listview > .k-state-focused, .k-grid-header th.k-state-focused, td.k-state-focused, .k-button.k-state-focused{box-shadow:0 0 5px 1px #125796 inset;  border-color: #1977c9;}
+.k-autocomplete.k-state-hover, .k-picker-wrap.k-state-hover, .k-numeric-wrap.k-state-hover, .k-dropdown-wrap.k-state-hover {border-color: #1977c9;}
+.k-state-focused.k-state-selected, .k-list > .k-state-focused.k-state-selected, .k-listview > .k-state-focused.k-state-selected, td.k-state-focused.k-state-selected{ box-shadow: none}
+.k-i-calendar, .k-link:hover:not(.k-state-disabled) > .k-i-calendar, .k-state-hover > .k-i-calendar, .k-state-hover > * > .k-i-calendar, .k-button:hover .k-i-calendar, .k-textbox:hover .k-i-calendar, .k-button:active .k-i-calendar{ background-position:-67px -170px}
+.k-i-clock, .k-link:hover:not(.k-state-disabled) > .k-i-clock, .k-state-hover > .k-i-clock, .k-state-hover > * > .k-i-clock, .k-button:hover .k-i-clock, .k-textbox:hover .k-i-clock, .k-button:active .k-i-clock{ background-position:-160px -207px}
+.k-datepicker .k-picker-wrap .k-icon{ width:30px; height:30px}
+.k-datepicker .k-picker-wrap .k-i-calendar { background-image: url("/images/calendar-icon-small.png"); background-position:4px 2px; background-repeat: no-repeat; background-size: inherit; height:30px; width:30px}
+.k-timepicker .k-picker-wrap .k-i-clock{ background-image: url("/Images/down-arrow.png"); background-position:2px 2px; background-repeat: no-repeat; background-size: inherit; height:15px; width:30px}
+.k-picker-wrap.k-state-default, .k-picker-wrap.k-state-hover{background-color:#fff; background-image:none;}
+.k-datepicker .k-picker-wrap{ padding:0 0 0 1.9em}
+.k-datepicker .k-picker-wrap .k-select{ left:0}
+.k-picker-wrap input[type="text"]{ width:99%!important; box-shadow:none}
+.k-picker-wrap .k-select{ border-width:0}
+.selectedRow, .k-state-selected{background-color: #1984c8!important;}
+
+/* ------------------------- My Profile drop down ------------------------- */
+.my-account { position: relative; padding-right:10px; height:60px; cursor:pointer;}
+.btn-slide{background: url("/Images/down-arrow.png") no-repeat scroll right 15px rgba(0, 0, 0, 0); display: block; font-size: 20px; margin: 0 auto; outline: medium none; padding: 12px 30px 10px 20px!important; text-align: left; text-decoration: none;}
+.slider-panel { background: #fff; padding: 2px 0 7px; position: absolute; right: 0; top: 60px; z-index: 9999; border:solid 1px #ddd; opacity: 0; pointer-events: none; }
+.slider-panel ul { margin: 5px 0; list-style-type:none;}
+.slider-panel ul li { list-style-type: none; width: 100%; }
+.slider-panel ul li a { color: black; display: block; font-size: 15px; padding: 6px 10px 6px 21px; border-left:none;}
+.my-account.active .slider-panel{ color: #fff; transition: opacity 0.25s ease 0.1s; opacity:1; pointer-events: auto;}
+.slider-panel:after, .slider-panel:before { border: medium solid transparent; bottom: 100%; content: " "; height: 0; left: 50%; pointer-events: none; position: absolute; width: 0;}
+.slider-panel:after { border-color: rgba(136, 183, 213, 0) rgba(136, 183, 213, 0) #fff; border-width: 9px; margin-left: -14px;}
+.slider-panel:before { border-color: rgba(194, 225, 245, 0) rgba(194, 225, 245, 0) #ddd; border-width: 11px; margin-left: -16px;}
+
+/* ------------------------- Select Box ------------------------- */
+.select-box label{ margin:0; line-height:normal; font-size:16px; color:#000; font-weight:bold; padding-top:0;}
+.selectParent{width:100%; overflow:hidden; border:solid 1px #CACACA; background: #fff url("../Images/down-arrow.png") no-repeat right center; box-shadow:0 1px 1px rgba(0, 0, 0, 0.1); border-radius:7px}
+.selectParent select{font-size:1rem; color:#646464; width: 114%; -webkit-appearance: none; -moz-appearance: none; appearance: none; padding: 6px 17% 6px 5px; border: none; background:transparent; cursor:pointer }
+.selectParent select option{ background:white; color:#646464!important}
+.selectParent:hover{ background-color:#F4F4F4;}
+.selectParent *:focus { color:#1c77ca!important; border:0!important; outline:none!important;}
+
+/* ------------------------- Radio Button & Checkbox ------------------------- */
+.radio-btn input[type=radio], .checkbox input[type=checkbox] {display:none;}
+.radio-btn label{padding:15px 15px 15px 50px; display:block; cursor:pointer; border-left:2px solid #eaeaea; margin-bottom:0!important;}
+.radio-btn span.inactive + label{ background-repeat:no-repeat;  background-position:15px 12px;  background-color: #F8F8F8; border: 1px solid #efefef; cursor: pointer; display: inline-block;}
+.radio-btn span.inactive.active + label {background-position: 15px -60px; color:#8cb938; background-color:#fff}
+.radio-btn label{background-image:url('../images/radio-button-dark.png');}
+.radio-btn span.inactive + label.no-bdr{ border-left:none;}
+
+.checkbox span.inactive + label.label{padding-left:35px; display:inline-block; line-height:26px; background-repeat:no-repeat; cursor:pointer;}
+.checkbox span.inactive.active + label.label {background-position: 0 -26px;}
+.checkbox label.label{background-image:url('../Images/check-on-off.png');}
+
+/* ------------------------- Login Page ------------------------- */
+.login{ margin:40px auto} 
+.login .login-bg {padding:0 30px 30px ;	margin:0 auto;	background: #fff url(../images/bg_form.jpg) repeat-x top left; -moz-border-radius:4px;	-webkit-border-radius:4px; border-radius:4px; -moz-box-shadow:0px 1px 3px 2px rgba(0,0,0,0.1); -webkit-box-shadow:0px 1px 3px 2px rgba(0,0,0,0.1); box-shadow:0px 1px 3px 2px rgba(0,0,0,0.1);}
+.login h2 {font-size: 28px; line-height: 45px; color: #8cb938; margin-bottom: 24px;text-shadow: 0 1px 0 #fff;}
+.login label{ font-size:16px; margin-bottom:5px; display:inline-block}
+.login .remember { display: inline; vertical-align: middle; font-size: 13px; font-weight: bold;}
+.login .forgot{ margin:10px 0 0 0; font-size:14px}
+.login .seperator{ border-right:solid 1px #ddd; padding-right:180px; margin-right:50px}
+.login .cancel a{ color:#777; display:inline-block; margin-top:25px}
+.login .cancel a img{ margin-top:-3px}
+.login .cancel a:hover,.login .cancel a:focus{ color:#444}
+
+/*-------------------------------- Header ----------------------------*/
+.container_header{ background:url("../images/header-bg.png") no-repeat center bottom; height:140px; max-width: 100%;   }
+.signup, ul.location{ border:solid 1px #EAEAEA; background:#fff; margin-top:-35px; float:right;}
+.signup ul{ list-style:none;}
+.signup li{ display:inline-block;}
+.signup li a{ font-size:21px; padding:10px 20px; display:inline-block}
+.signup li a{ border-left:solid 1px #bdbdbd }
+.signup li:first-child a{ border-left:none;}
+.signup li.appointment img{ padding-right:10px }
+.signup li.appointment a{ color:#6D6F73}
+.signup li.appointment a:hover{ color:#8cb938}
+.signup li.signin a{ padding-left:7px}
+h1.quote { font-size:40px; color:#222; margin-top:0; letter-spacing:-2px; float:right; clear:right}
+.language{ margin-top:5px}
+.language input{border:solid 1px #fff}
+.language input.active{border-color:#CACACA}
+.english-flag, .maxico-flag {background: url("/images/english-flag.png") no-repeat center center ; width:34px; height:24px; display:inline-block; border:0; font-size:0; margin-left:5px}
+.maxico-flag {background: url("/images/maxico-flag.png") no-repeat center center ; }
+.user-name{ float:right; margin:21px 15px 0 0; color : #1c77ca;}
+
+/* top nav */
+.top-nav{ position:relative; top:20px; float:right; margin-right:15px; border:solid 1px #EAEAEA}
+.top-nav ul{ list-style:none; }
+.top-nav li{ display:block; float:left}
+.top-nav li a{ font-size:21px; padding:15px 20px; display:block; background-color:#FAFAFA; margin:0 0 0 -3px; border-left:solid 1px #EAEAEA; border-bottom:solid 3px #FAFAFA;}
+.top-nav li a:hover, .top-nav li a.active{ background-color:#fff; border-bottom:solid 3px #9DC64C}
+
+/* language */
+header .languages {position: relative; z-index: 1; float:right; clear:both;}
+header .languages > a {background:#2d3e48; color: #fff; font-size:13px; margin-top:2px; padding:0 5px 0 25px; display: block; line-height: 24px; margin: 2px 0 0 0; opacity: 0.8; text-transform: uppercase; font-size:12px;}
+header .languages > a i.globe { position:absolute; top:1px; left:5px }
+header .languages:hover > a, .pagetop .languages > a:hover {opacity: 1;}
+header .languages > a > span {margin-right: 3px; margin-top: 0;}
+header .drop .languages-panel {height: 0; left: 0; min-width: 111px; opacity: 1; position: absolute; display:none; transition: all 0.3s ease-out 0s; width: auto; }
+header .languages.active .languages-panel{ display:block}
+header .languages .content {background: #f5f5f5; list-style: none outside none; margin: 0; padding: 0; position: relative; text-align:left; height:auto; border:solid 1px silver;}
+header .languages li a {color: #444; display: block; padding: 8px 10px; font-size:13px; margin:3px 0;}
+header .languages li.active a, .pagetop .languages li a:hover {background: #ddd;}
+
+/* New Language */
+.dropdown { float:right; font-size:12px}
+.dropdown dd, .dropdown dt, .dropdown ul { margin: 0px; padding: 0px; text-align:left}
+.dropdown dd { position: relative;}
+.dropdown a, .dropdown a:visited { color: #816c5b; text-decoration: none; outline: none;}
+.dropdown a:hover { color: #5d4617;}
+.dropdown dt a:hover { color: #5d4617; border: 1px solid #D0D0D0;}
+.dropdown dt a { background: #E6E6E6 url(/images/arrow.png) no-repeat scroll right center; display: block; border: 1px solid #D0D0D0; width: 120px; }
+.dropdown dt a span { cursor: pointer; display: block; padding: 4px 5px 6px;}
+.dropdown dd ul { background: #E6E6E6 none repeat scroll 0 0; border: 1px solid #D0D0D0; color: #C5C0B0; display: none; left: 0px; padding: 5px 0px; position: absolute; top: 2px; width: auto; min-width: 120px; list-style: none;}
+.dropdown span.value { display: none;}
+.dropdown dd ul li a { padding: 5px; display: block;}
+.dropdown dd ul li a:hover { background-color: #D1D1D1;}
+.dropdown img.flag { border: none; vertical-align: middle; margin-right: 8px;}
+
+/*-------------------------------- Steps ----------------------------*/
+ul.steps { list-style:none; margin-top:-15px;}
+ul.steps li { height:10px; width:18.2%; background-color:#E9E9EB; cursor:pointer; display:inline-block}
+ul.steps li.active{ background-color:#8CB938}
+
+/*-------------------------------- Main ----------------------------*/
+.returning-patient .birthdate .select-box .selectParent{ float:left; margin-right:7px;}
+.returning-patient .birthdate .select-box .selectParent.month{ width:40%}
+.returning-patient .birthdate .select-box .selectParent.day{ width:25%}
+.returning-patient .birthdate .select-box .selectParent.year{ width:30%}
+.returning-patient .birthdate .select-box .selectParent.day select{ width:120%}
+.returning-patient .right-icon{ margin:0 0 0 2px}
+.returning-patient .varification .hint-data .field{ margin:0 0 10px 0}
+.main .wrap{ width:72%}
+.sub-heading{ font-size:22px; color:#51555B; margin-bottom:20px; display:block}
+.field{ margin:0 0 20px 0}
+.field h5{ font-size:19px; margin:0 0 7px 0}
+.field label{ margin-bottom:5px; font-size:16px;}
+.title h1{ color:#8CB938; margin-bottom:5px}
+.title h1 span{display:block; font-size:26px; color:#777}
+.already-signin {color:#000!important; font-size:20px!important; margin:0 0 15px; display:block}
+
+ul.location{ float:none; list-style:none; margin:0; display:inline-block}
+ul.location li { border-left:solid 2px #EAEAEA; display:inline-block; text-align:center}
+ul.location li:first-child{ border-left:none}
+ul.location li a{ font-size:21px; display:block; padding:10px}
+
+.location-bottom{ background:#fff; border-top:solid 2px #CACBD0; padding:20px 0}
+.location-bottom ul.location{ background-color:transparent; border:none}
+.location-bottom ul.location li:first-child, .location-bottom ul.location li:first-child a{ margin-left:0; padding:0; text-align:left}
+
+.hint-data{ background:#fff;}
+.hint-data .icon{ margin-right:10px; height:16px; width:16px;}
+.hint-data.disable{ opacity:0.5; cursor:auto}
+
+/* popup */
+.popup{display:block;background:rgba(255, 255, 255, 0.5);border:1px solid rgba(0, 0, 0, 0.2);color: #b94a48;padding:30px 40px;margin-bottom:10px;border-radius:5px;font-size:14px; height:100%; min-height:500px;  width:100%; top:0; text-align:center; z-index:99999999; position:absolute; }
+#loading, #process-loading{display:block;background: #ffffff;border:1px solid #eed3d7;color: #b94a48;padding:60px 40px;margin-bottom:10px;border-radius:10px;font-size:14px;  width:30%; left:35%; top:35%; text-align:center; z-index:99999999; position:fixed; box-shadow:0px 0px 10px #666666;}
+#loading2{display:block; width:30%; left:35%; top:35%; text-align:center; z-index:99999999; position:absolute;}
+#process-loading.no-bg{background: none; box-shadow:none; border:none}
+.overlay,.process-overlay{position:fixed; width:100%; height:100%; top:0px; left:0px; background:rgba(0, 0, 0, 0.5); z-index:99;}
+.overlay2{position:absolute; width:100%; height:100%; top:0px; left:0px; background:rgba(0, 0, 0, 0.5); z-index:99;}
+
+/*-------------------------------- returning patient ----------------------------*/
+ul.gender{ border:solid 1px #EAEAEA; background:#fff; float:left;}
+ul.gender{ list-style:none;}
+ul.gender li{ display:inline-block; float:left; padding:0; line-height:48px}
+ul.gender li.left-bdr{ border-left:solid 1px #EAEAEA}
+ul.gender li .action{ margin:0 0 0 15px}
+ul.gender li .lbl{ padding:0 5px 0 20px}
+
+/*-------------------------------- Schedule Appointment ----------------------------*/
+.schedule-appointment.set-columns .large-9.left-col{ width:80%}
+.schedule-appointment.set-columns .large-3.right-col{ width:20%}
+.schedule-appointment{ margin-bottom:160px}
+.select-exam .details-holder{ padding:20px; margin-bottom:20px; text-align:center; min-height:250px; width:100%; background-color:#1664A6; position:relative; }
+.select-exam .details-holder h4 { font-size: 1.7em; color:#fff; margin-bottom:0}
+.select-exam .details-holder h4 span{ font-size: 0.9em; color:#8cb938; display:block}
+.select-exam .mammogram .checkbox span.inactive + label.label, .select-exam .dexa .checkbox span.inactive + label.label, .select-exam .ultrasound .checkbox span.inactive + label.label{padding-left:0px; width:128px; height:129px; display:inline-block; background-repeat:no-repeat; background-position:center top; cursor:pointer;}
+.select-exam .mammogram .checkbox span.inactive.active + label.label, .select-exam .dexa .checkbox span.inactive.active + label.label, .select-exam .ultrasound .checkbox span.inactive.active + label.label {background-position: center bottom;}
+.select-exam .mammogram .checkbox label.label{background-image:url('../images/mammogram.png');}
+.select-exam .dexa .checkbox label.label{background-image:url('../images/dexa.png');}
+.select-exam .ultrasound .checkbox label.label{background-image:url('../images/ultrasound.png');}
+
+.schedule-info{ position: absolute; z-index: 20; top: 250px; left: 0; width: 100%; height: auto; background-color: transparent; color: #FFFFFF; -webkit-transition: 0.5s Ease; -moz-transition: 0.5s Ease; -o-transition: 0.5s Ease; transition: 0.5s Ease;}
+.schedule-info .schedule-block { margin: 0 0 1em;}
+.schedule-info .schedule-block .sub-heading{ margin-bottom:0; font-size:17px; padding:7px 10px; background-color:#135D9C; border-top:solid 1px #105287; color:#fff;}
+.schedule-info .schedule-block ul{ border-top:2px solid #fff; border-bottom:2px solid #fff; margin:0; padding:0; list-style:none }
+.schedule-info .schedule-block li { background: #0A3255; float: left; width: 50%; text-align:left; border-left: 2px solid #fff; border-bottom:solid 2px #fff; color: #fff; display: block;  font-size: 0.8em;}
+.schedule-info .schedule-block li span { display: block; font-size: 1.5em;}
+.schedule-info .schedule-block li:nth-child(2n+1) { border-left:none}
+.schedule-info .schedule-block .checkbox span.inactive + label.label{padding:10px 5px 10px 30px; height:auto; width:auto; margin:0; display:block; height:auto; width:auto; line-height:16px; background-repeat:no-repeat; background-position: -24px -5px; cursor:pointer; color:#fff}
+.schedule-info .schedule-block .checkbox span.inactive.active + label.label {background-position: 10px -5px; color:#8cb938}
+.schedule-info .schedule-block .checkbox label.label{background-image:url('../Images/check-on-off-small.png');}
+
+/*-------------------------------- Selected Tests ----------------------------*/
+.selected-tests h5{ color:#8cb938; font-size:1.2rem; margin:0 0 0.2em 0}
+.selected-tests h4{ text-align:center; margin-top:0}
+.selected-tests ul{ list-style:none; margin:0; padding:0; min-height:210px}
+.selected-tests ul li{ color:#8cb938; padding:8px 25px 8px 10px; margin-bottom:4px; border:solid 1px #dfdfdf; border-radius:4px; background:#fff; position:relative}
+.selected-tests ul li a{ position:absolute; top:8px; right:10px;}
+.selected-tests ul li p{ color:#333; margin-bottom:0}
+
+/*-------------------------------- Varification Section ----------------------------*/
+.varification .radio-btn input[type=radio]{display:none;}
+.varification .radio-btn label{ color:#c8c6c6; line-height:1.4em; margin-bottom:0; border:solid 1px #EAEAEA; padding:7px 15px 7px 40px!important; display:block; cursor:pointer; width:100%;}
+.varification .radio-btn span.inactive + label{background-repeat:no-repeat; background-position: 10px 9px; }
+.varification .radio-btn span.inactive.active + label {background-position: 10px -27px; color:#646464; border-color:#94BDE2}
+.varification .radio-btn label{background-image:url('../images/varification-radio-button.png');}
+
+/*-------------------------------- Upcoming Appointment ----------------------------*/
+.upcoming-appointment .appointment-list ul { margin:25px 0 0 0; padding:0; list-style-type:none}
+.upcoming-appointment .appointment-list ul li {margin-bottom: 15px;}
+.upcoming-appointment .appointment-list .appointment_date {background: none repeat scroll 0 0 #1A77CA; float: left; width: 15%;}
+.upcoming-appointment .appointment-list .appointment_date figure {color: #fff; display: block; padding: 25px 15px 10px; height:110px; text-transform:uppercase}
+.upcoming-appointment .appointment-list .appointment_date figure span {display: block; font-size: 25px;}
+.upcoming-appointment .appointment-list .appointment_desc {border: 1px solid #ddd; background:#fff; float: left; padding: 1% 2% 1% 2%; width: 85%; position:relative; min-height:110px;}
+.upcoming-appointment .appointment-list .appointment_desc h4{ margin:0 0 4px 0; font-size:1.2em}
+.upcoming-appointment .appointment-list .appointment_desc p { color: #2a2f36; font-size: 0.9em; line-height:1.2em; margin:0 0 10px 0; display:inline-block}
+.upcoming-appointment .appointment-list .appointment_desc .instructions{width:65%; color:gray; font-size:12px; margin-top:10px; float:left; clear:both}
+.upcoming-appointment .appointment-list .appointment_desc .action{ margin:0}
+.upcoming-appointment .appointment-list .appointment_desc .action .action-lnk a {border-left: 1px solid #666; color: #1a77ca; font-size: 0.85em; padding: 0 10px;}
+.upcoming-appointment .appointment-list .appointment_desc .action .action-lnk a:first-child {border-left: medium none; padding-left: 0; }
+.upcoming-appointment .appointment-list .appointment_desc .action .action-lnk a:hover {text-decoration:underline;}
+.upcoming-appointment .appointment-list .appointment_desc .action .action-btn {position:absolute; right:10px; bottom:10px;}
+
+/*--- Upcoming Appointment: Post Appointment section ---*/
+.post-appointment .grid{ border:solid 1px #E4E4E4; padding:15px; background:#fff; color:#525252; min-height:180px}
+.post-appointment .title h1 { font-size:34px; color:#525252; margin-bottom:15px}
+.post-appointment .grid h4{ font-size:1.1em; margin:0 0 0.4em 0}
+.post-appointment .grid .date{}
+.post-appointment .grid .action{ margin:0}
+.post-appointment .grid.first { margin-right:15px}
+.post-appointment .grid.last { margin-left:15px}
+
+/*--- Upcoming Appointment: Announcement section ---*/
+.announcement h4{ color:#2a2f36}
+.announcement ul li{ border-bottom:solid 1px gray;}
+.announcement ul li p{ margin-bottom:10px; color:#2a2f36}
+
+/*-------------------------------- Profile ----------------------------*/
+.profile .account-notification-settings .field{ margin-bottom:10px}
+
+/*-------------------------------- Find Doctor ----------------------------*/
+.find-doctor h4{ margin:0 0 7px 0; font-size:1.2em}
+.find-doctor .selected-tests h4{ font-size:22px; text-align:left}
+.find-doctor .checkbox{padding:2px 5px; margin:0;}
+.find-doctor .checkbox label{ height:27px; font-size:0}
+.find-doctor .row.bdr{ border:1px solid #ddd; margin-bottom:3px; background:#fff; border-radius:6px; cursor:pointer}
+.find-doctor .row.bdr:hover{ background:#CCDEAC;}
+.find-doctor .row.bdr .column, .find-doctor .row.bdr .columns{ padding:15px 10px; color:#444}
+.find-doctor .divider{ border-right:solid 1px #ddd; padding-right:15px}
+.find-doctor .checkbox span.inactive + label.label{padding:12px 15px 10px 30px; height:auto; width:auto; margin:0; display:inline; height:auto; width:auto; line-height:16px; background-repeat:no-repeat; background-position: 9px 0px; cursor:pointer; color:#fff}
+.find-doctor .checkbox span.inactive.active + label.label {background-position: 10px bottom; color:#8cb938}
+.find-doctor .checkbox label.label{background-image:url('../Images/check-on-off-small-all.png');}
+.find-doctor .set-margin{ margin:15px 0 0 60px}
+.find-doctor #doctorList.k-grid tr{ cursor:pointer}
+.find-doctor #doctorList.k-grid td{ border-width:0 0 1px 1px}
+.find-doctor #doctorList.k-grid td:nth-child(2){border-left-width:0}
+.find-doctor #doctorList.k-grid tr.selectedRow td{ border-bottom:solid 1px #c5c5c5}
+
+/*--- Find Doctor: Pagination ---*/
+.bottom-paination ul{ text-align:right}
+.bottom-paination ul li{ display:inline-block;}
+.bottom-paination{margin: 2em 0}
+.bottom-paination li a{color: #5a5a5a; padding: 5px 10px; background: #DDDDDD; text-decoration: none; text-shadow: none; border: 1px solid #e9e9e9; margin-top: 16px;}
+.bottom-paination li.active> a, .bottom-paination li> a:hover {background: #fff; color:#000;}
+
+/* Medical History */
+.Medical-history .breast-exam-detail .outer-border{ margin-bottom:5px} 
+.Medical-history .breast-exam-detail label { height:55px; padding: 0 10px }
+.Medical-history .selected-tests h4{ text-align:left}
+
+.radio-btn.global-radio input[type=radio], .checkbox input[type=checkbox] {display:none;}
+.radio-btn.global-radio span.inactive + label{padding:15px 15px 15px 50px; line-height:1.6em; display:inline-block; background-repeat:no-repeat; cursor:pointer; border-left:2px solid #eaeaea; margin-bottom:0; background-position:15px 14px; border:1px solid #EFEFEF; float:left; background-color:#F5F5F5}
+.radio-btn.global-radio span.inactive.active + label {background-position: 15px -58px; color:#8cb938; border-color:#CCDEAC; background-color:#fff;}
+.radio-btn.global-radio label{background-image:url('../images/radio-button.png'); margin-right:10px;}
+
+.checkbox.global-checkbox span.inactive + label.label{padding:15px 5px 15px 35px; width:auto; margin:0; display:block; height:auto; width:auto; background-repeat:no-repeat; background-position: 10px 22px; cursor:pointer; border:solid 1px #F0F0F0;}
+.checkbox.global-checkbox span.inactive.active + label.label {background-position: 10px -16px; color:#8cb938; border-color:#C0D695;}
+.checkbox.global-checkbox label.label{background-image:url('../Images/check-on-off-small-all.png'); background-color:#fff;}
+
+/* Select Exam Location */
+.select-exam-location .wrapper{ background:#fff; border:solid 3px #eee;}
+.select-exam-location .content{ width:103%; height:495px}
+.select-exam-location .enter-location{ margin:0 0 20px 20px}
+.select-exam-location .enter-location .search-area{ background-color:#F3F3F3; padding:5px; border:solid 1px #E6E8E9; border-radius:8px; position:relative}
+.select-exam-location .enter-location h4{ margin-bottom:6px}
+.select-exam-location .enter-location .search-area input[type=text]{ width:88%; background:transparent; display:inline-block; border:none; box-shadow:none}
+.select-exam-location .enter-location .search-area .search-btn{ background: url('../Images/search-icon.png') center center no-repeat #49494E; width:40px; height:34px; border:none; border-radius:5px; position:absolute; right:5px}
+.select-exam-location .enter-location .search-area .search-btn:hover, .select-exam-location .enter-location .search-area .search-btn:visited{ background-color:#1c77ca}
+.select-exam-location .locations{ margin:0}
+.select-exam-location .locations ul li{ border:solid 1px #ddd; margin-bottom:2px; display:block; padding:15px 10px; cursor:pointer; color:#6d6f73; position:relative}
+.select-exam-location .locations ul li:hover, .select-exam-location .locations ul li.active{  border-color:#BBD28F; border-left-color:#F4F4F4; background:#F4F4F4}
+.select-exam-location .locations ul li .location-numbers, .select-exam-location .locations ul li .location-address, .select-exam-location .locations ul li .location-arrow{ display:inline-block}
+.select-exam-location .locations ul li .location-numbers, .select-exam-location .locations ul li .location-arrow{ vertical-align:top}
+.select-exam-location .locations ul li .location-numbers{ background: url('../images/numbering-bg.png') top center no-repeat; width:29px; height:39px; border:none}
+.select-exam-location .locations ul li .location-numbers{ padding-top:5px; text-align:center;}
+.select-exam-location .locations ul li .location-arrow{ float:right; position:absolute; top:30px; right:8px}
+.select-exam-location .locations ul li .location-arrow{ background: url('../images/right-arrow.png') top center no-repeat; width:18px; height:31px; border:none}
+.select-exam-location .locations ul li .location-address{ width:84%; padding:0 15px 0 10px}
+.select-exam-location .locations ul li .location-address h5{ margin:0 0 6px 0; font-weight:bold}
+.select-exam-location .locations ul li .location-address h5 span { font-size:1rem; font-weight:normal; display:block}
+.select-exam-location .locations ul li .location-address p{ margin-bottom:0}
+.select-exam-location .locations ul li:hover .location-numbers, .select-exam-location .locations ul li:hover .location-arrow, .select-exam-location .locations ul li.active .location-numbers, .select-exam-location .locations ul li.active .location-arrow{ background-position:bottom center; color:#8EB93A}
+.select-exam-location #map-canvas{ margin:3px 3px 3px 0}
+
+/* select-exam-date-time */
+.select-exam-date-time .locations { margin:7px 0 0 0}
+.select-exam-date-time .locations .location-icon{ float:left; margin:4px 7px 0 0; width:22px}
+.select-exam-date-time .locations .location-address{ float:left; width:85%;}
+.select-exam-date-time .locations .location-address h4{ margin:0 0 0 0; font-weight:bold}
+.select-exam-date-time .next-available-date, .select-exam-date-time .appointment-available{ margin-top:30px}
+.select-exam-date-time .next-available-date .or{ position:relative; width:1px; height:65px; background:#ddd; margin:0 auto}
+.select-exam-date-time .next-available-date .or span{ position:absolute; background:#f4f4f4; padding:4px 6px; top:22px; left:-16px; font-size:13px; font-weight:bold}
+.select-exam-date-time .next-available-date .btn-large{padding:20px 40px;}
+.select-exam-date-time .next-available-date .select-box .selectParent.time{ width:135px; float:left}
+.select-exam-date-time .next-available-date .date{ width:30%; float:left}
+.select-exam-date-time .next-available-date .date .k-datepicker, .select-exam-date-time .next-available-date .time .k-timepicker{ width:100%}
+.select-exam-date-time .next-available-date .time{ width:20%; float:left}
+
+/* Schedule your appointment */
+.schedule-your-appointment .wrapper{ background:#fff; border:solid 3px #efefef; padding:20px; margin-bottom:15px}
+.schedule-your-appointment .your-schedule .wrap{ width:100%; margin-bottom:15px;}
+.schedule-your-appointment .your-schedule .calendar-icon{ float:left; width:6%; margin-right:20px}
+.schedule-your-appointment .your-schedule .schedule-detail{ float:left; width:88%; overflow:hidden;}
+.schedule-your-appointment .your-schedule .schedule-detail h2{ font-size:27px; margin-top:0}
+.schedule-your-appointment .your-schedule .schedule-detail h2 span{ display:block}
+.schedule-your-appointment .your-schedule .schedule-detail h4{ margin-bottom:0}
+.schedule-your-appointment .your-schedule .locations { margin:-15px 0 25px 0; border-left:solid 1px silver; padding-left:20px}
+.schedule-your-appointment .your-schedule .location-icon{ float:left; margin-right:7px; width:10%}
+.schedule-your-appointment .your-schedule .location-address{ float:left; width:80%; }
+.schedule-your-appointment .your-schedule .location-address h5{ margin:0 0 0 0;}
+.schedule-your-appointment .your-schedule .location-address p{ margin-bottom:0}
+.schedule-your-appointment .insurance-section ul li { margin-bottom:10px;}
+.schedule-your-appointment .insurance-section .radio-btn.global-radio span + label{ width:100%}
+.schedule-your-appointment .action .btn-large{ margin-right:10px}
+
+/* Select Exam Date and Time */
+.appointment-available .block {min-height: 220px; background-color: #1A77CA; padding: 20px; color: #fff; text-align: center; position: relative; overflow: visible; width: 96%; margin: 0 auto;}
+.appointment-available .block:hover {background: #1664A6;}
+.appointment-available h4 {margin-bottom: 0; font-size: 1.6em;}
+.appointment-available h4 span {display: block; margin: 10px 0;}
+.appointment-available h3.times-held { text-align:center; background:#ddd; padding:5px; margin-bottom:25px}
+.appointment-available h3.times-held span{ color:red}
+.appointment-available .block .popup { background: rgba(255, 255, 255, 1); bottom: -50px; right: 0; left: -3%; width: 106%; min-height: initial; height: auto; top: inherit; border-radius: inherit; padding: 15px;}
+.appointment-available .block .popup p { color:#000; font-size:14px;}
+.appointment-available .block .popup .tc{ position:relative}
+.appointment-available .block .popup .cancel-lnk { position:absolute; right:0; bottom:0}
+
+/* reveal popup window */	
+.reveal-modal-bg, .reveal-model-bg-inner {position: fixed; height: 100%; width: 100%; top: 0; left: 0; background: #000; background: rgba(0,0,0,.4); z-index: 99; display: none;}
+.reveal-modal { height: auto; background-color: white; padding: 1.25em; border: 1px solid #666666; position: absolute; top: 5%!important; left: 0; margin: 0 auto; right:0; width:80%; display: none; z-index: 100; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); transition:inherit}
+.reveal-modal .close-reveal-modal {font-size: 22px; line-height: .5; position: absolute; top: 8px; right: 11px; color: #aaa; text-shadow: 0 -1px 1px rbga(0,0,0,.6); font-weight: bold; cursor: pointer; }
+.reveal-model-inner { height: auto; background-color: white; padding: 1.25em; border: 1px solid #666666; position: absolute; top: 10%; left: 0; margin: 0 auto; right:0; width:50%; display:none; z-index: 100; box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); transition:inherit}
+.reveal-modal.tiny, dialog.tiny {left: 0; margin: 0 auto; max-width: 62.5rem; right: 0; width: 30%;}
+.reveal-modal.small, dialog.small {left: 0; margin: 0 auto; max-width: 62.5rem; right: 0; width: 40%;}
+.reveal-modal.medium, dialog.medium {left: 0; margin: 0 auto; max-width: 62.5rem; right: 0; width: 60%;}
+
+/*-------------------------------- footer ----------------------------*/
+footer{color:#fff}
+footer .wrapper{ margin-top:50px}
+footer .location-logo { background:#fff; border-top:solid 2px #CACBD0; padding:15px 0}
+footer .location-logo ul{ margin:0}
+footer .location-logo li{display:inline-block; padding:15px 50px; border-left:1px solid #C0BAB6; width:38%}
+footer .location-logo li:first-child{margin:0; padding-left:0; border:none;}
+footer .need-assistant{ padding:47px 0; color:#fff; background:url('../Images/footer-bg.png') no-repeat center center rgba(0, 0, 0, 0)}
+footer .need-assistant h2, footer .need-assistant p{ margin:0}
+footer .need-assistant .copyright{font-size:14px; color:#BEBEC0; margin-top:3px}
+
+
+/******* DIFFRENT CLASSES *******/
+
+/* main classes */
+.selected-tests{ margin-top:25px}
+ul.gender li.left-bdr>span{ font-size:14px}
+.schedule-your-appointment .action .btn-large{padding:7px 15px}
+
+/* iPhone (Portrait & Landscape) */
+.slider-panel{ top:35px; width:120%}
+
+
+/* iPhone (Portrait & Landscape) ----------- */
+@media only screen and (max-width: 767px){ 
+    .container_header{ background:url(../images/header-bg-mobile.png) no-repeat center top; background-size: 100% 80px, cover; height: 79px; max-width: 100%;}
+    hr{ margin:10px 0 20px 0}
+    .field{ margin:0 0 13px 0}
+    .mobile{ height:80px}
+    .signup, ul.location{ margin:-10px 0 10px 0}
+    .my-account{ height:35px}
+    .slider-panel{ top:35px; width:110%}
+    .slider-panel ul li a{ padding:6px 5px}
+    h1.quote{ display:none}
+    .btn{ font-size:16px; padding:10px 15px}
+    .btn-large{ font-size:16px; padding:6px 20px}
+    .small-right{ float:right}
+    .main .wrap{ width:100%}
+    .reveal-modal, .reveal-modal.tiny, dialog.tiny, #loading { width: 90%; height: auto; top: 150px; left: 5%; margin-left: 0%;}
+    header > .row > .columns { position:inherit}
+    .language, .dropdown {position: absolute; right: 7px; top: 0;}
+    .language input.active{ border-radius:0; border-color:#333}
+    header .languages{ position:absolute; top:2px; right:7px;}
+    header .languages > a{ font-size:11px; padding:0 5px 0 21px; line-height:20px}
+    header .languages > a i.globe img{ width:13px}
+	h1{ font-size:28px}
+    h4{ font-size:18px}
+	.signup{margin-top:0;}
+	.signup li.appointment img{ width:45px}
+    .signup li.signin-lnk a{ line-height:15px; padding-top:4px!important}
+	.signup li a{ font-size:15px; padding:8px 5px;}
+    .user-name{ margin:5px 3px 0 0}
+	.title h1 span{ font-size:15px}
+    .select-exam .details-holder h4{ font-size:2em}
+	ul.steps{ margin-top:20px}
+	.small-tm-20{ margin-top:20px}
+    .login h4{ margin-bottom:5px}
+    .login .field{ margin-bottom:10px}
+    .login{ margin:0 auto 20px}
+    .login .seperator{ margin-right:0; padding:0 0 5px 0; border-right:none; border-bottom:solid 1px #ddd;}
+    .login .p-t50{ padding-top:0.7rem !important}
+    .login .checkbox span.inactive + label.label{ margin-top:5px}
+    .login .cancel a{ margin-top:10px}
+    .btn-slide{ padding:12px 30px 10px 10px !important; background-position:right 5px}
+    .set-margin{ margin:0;}
+    .select-exam-location .enter-location{margin:0 10px 20px 10px}
+    .select-exam-location .content{ width:100%}
+    .find-doctor .set-margin{ margin:0}
+    .find-doctor .checkbox{ padding:5px}
+    .find-doctor .checkbox span.inactive.active + label.label{ background-position:0 bottom}
+    .find-doctor .checkbox span.inactive + label.label{ background-position: 0 0;}
+    .find-doctor .checkbox span.inactive + label.label{ padding:12px 10px 10px}
+    .find-doctor .divider{ border:none; padding:0}
+    .find-doctor .row.bdr .column, .find-doctor .row.bdr .columns{ padding:5px 10px}
+    .profile .action{ margin:10px 0}
+    .profile .security-questions h4{ margin-top:10px}
+    .profile .security-questions .lbl{ font-weight:bold; margin:10px 0 5px 0}
+    #resetQuestion .selectParent { margin-bottom:5px}
+    #resetQuestion .reveal-model-inner{ width:90%;}
+    .upcoming-appointment .appointment-list ul{ margin-top:0}
+    .upcoming-appointment .appointment-list ul li{ margin:10px 0}
+    .upcoming-appointment .appointment-list .appointment_date, .upcoming-appointment .appointment-list .appointment_desc{ width:100%}
+    .upcoming-appointment .appointment-list .appointment_date figure{ padding:8px 10px; height:auto}
+    .upcoming-appointment .appointment-list .appointment_date figure span{ display:inline-block; padding:0 5px; font-size:15px; font-weight:bold}
+    .upcoming-appointment .appointment-list .appointment_desc{ padding:4%; margin-bottom:0}
+    .upcoming-appointment .appointment-list .appointment_desc .action .action-btn{ float:right; margin:15px 0 0; position:inherit}
+    .upcoming-appointment .appointment-list .appointment_desc .action .action-lnk a{ font-size:0.9em}
+    .upcoming-appointment .appointment-list .appointment_desc .instructions{width:100%;}
+    .upcoming-appointment .one_third{ width:100%!important}
+    .post-appointment .title h1{ margin-bottom:7px; font-size:28px}
+    .post-appointment .grid{ min-height:inherit}
+    .post-appointment .grid.first, .post-appointment .grid.last{margin:5px 0}
+    .post-appointment .action{ margin-top:15px}
+    .select-exam .details-holder{ padding:20px 0}
+    .schedule-info {width: 100%; margin-top: 15px; position: static; }
+    .selected-tests ul{ min-height:50px; margin-bottom:15px}
+    .schedule-appointment.set-columns .large-9.left-col{ width:inherit}
+    .schedule-appointment.set-columns .large-3.right-col{ width:inherit}
+    .returning-patient .birthdate .select-box .selectParent.month{ width:35%}
+    .returning-patient .birthdate .btn.btn-large{ margin-top:20px}
+    .returning-patient .varification .hint-data .field.loader img{ margin:0 auto}
+    ul.gender li{ line-height:35px}
+    ul.gender li.left-bdr{ border:none}
+    ul.gender li .action{ margin:0 0 10px 8px}
+    footer .wrapper{ margin-top:20px}
+    footer .location-logo{ padding:0}
+    footer .need-assistant{ padding:15px 0; text-align:center}
+    footer .need-assistant .copyright{ font-size:14px}
+    footer .need-assistant h2{ font-size:24px}
+    footer .location-logo li{ width:48%; padding:15px 25px}
+    .Medical-history .breast-exam-detail label.set-verticle { height:auto; margin-bottom:8px; padding: 0 10px }
+    .select-exam-date-time .next-available-date .date{ width:30%}
+    .select-exam-date-time .next-available-date .time{ width:25%}
+    .k-datepicker .k-picker-wrap{padding:0 0 0 2.1em}
+    .select-exam-date-time .next-available-date .or{ height:50px; margin:7px auto}
+    .select-exam-date-time .next-available-date .or span{ top:15px}
+
+    /* Responsive Table Start */
+    .k-grid table, .k-grid table thead, .k-grid table tbody, .k-grid table th, .k-grid table td, .k-grid table tr { display: block; }
+	.k-grid table thead tr { position: absolute; top: -9999px; left: -9999px;	}
+	.k-grid table tr {border-bottom: 1px solid #ccc; background:#fff }
+    .k-grid table tr:nth-of-type(odd) { background: #F4F6F7;}
+	.k-grid table td {border: none; border-bottom: 1px solid #eee; position: relative; padding-left: 30%; text-align:left!important; min-height:20px}
+    .k-grid table  td:before{position: absolute;  top: 3px; left: 6px; width: 30%;  padding-right: 10px; white-space: nowrap; text-align:left; font-weight:bold}
+    /* Responsive Table End */
+
+    /* Doctor List Start */ 
+    #doctorList td:nth-of-type(2):before { content: "Name :"; }
+    #doctorList td:nth-of-type(3):before { content: "Address :"; }
+	#doctorList td:nth-of-type(4):before { content: "Address2 :"; }
+	#doctorList td:nth-of-type(5):before { content: "Phone :"; }
+    /* Doctor List End */	 
+}
+
+/* iPhone (Portrait) ----------- */
+@media only screen and (min-width: 320px) and (max-width: 479px){
+	/*.btn{padding:10px;font-size:12px;}*/
+    h1, .post-appointment .title h1{ font-size:26px}
+    .sub-heading { font-size:18px}
+    .set-margin-top-ipad-mob{ margin-top:15px}
+    .set-margin-top-mob{ margin-top:15px}   
+    .my-account{ padding-right:0}
+	footer{ text-align:center}
+	footer .need-assistant h2{ font-size:15px}
+	footer .need-assistant .copyright{ font-size:12px}
+}
+
+/* iPhone (Landscape) ----------- */
+@media screen and (min-width: 480px) and (max-width: 767px){
+    .language {margin-top:8px}
+}
+
+/* iPad (Potrait & Landscape) ----------- */
+@media only screen and (min-width: 768px) and (max-width: 1024px){
+    .row{max-width:1000px;}
+    h1{ font-size:40px}
+    .mobile{ height:120px}
+    .res-m-t15{ margin-top:15px}
+    .set-margin{ margin:75px 0 0 10px}
+    .container_header{ background:url(../images/header-bg-ipad.png) no-repeat center top; background-size: 100% 94px, cover; height: 120px; max-width: 100%;}
+    .already-signin{ font-size:18px!important}
+    .select-exam .details-holder{ padding:20px 5px}
+    .upcoming-appointment .appointment-list .appointment_desc p.one_third{ width:42% !important}
+    .upcoming-appointment .appointment-list .appointment_date figure{ padding:30px 10px}
+    footer .need-assistant{ padding:40px 0} 
+    footer .location-logo{ padding:7px 0}
+}
+
+/* iPad (Potrait) ----------- */
+@media only screen and (min-width: 768px) and (max-width: 959px){
+	.row{max-width:750px;}
+    .checkbox label.label{ font-size:14px}
+    .mobile{ height:90px}
+    p{ font-size:inherit}
+    input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea{ font-size:14px}
+	.btn{ font-size:17px; padding:5px 12px}
+    .btn-large{ font-size:19px; padding:6px 20px}
+    .main .wrap{ width:100%}
+    h1, .post-appointment .title h1{ font-size:34px}
+    h4{ font-size:18px}
+    .reveal-modal {left: 0; margin: 0 auto; right: 0; width: 90%;}
+    .reveal-modal.tiny{ width:50%}
+    .sub-heading { font-size:20px}
+	.signup li.appointment img{ width:60px}
+	.signup li a{ font-size:16px; padding:10px}
+	.signup, ul.location{ margin:-10px 0 20px;}
+    .login .seperator{ padding-right:100px}
+	 h1.quote {font-size:27px; margin:5px 0 0 0; text-align:right; letter-spacing:-1px}
+	.container_header{ background:url(../images/header-bg-ipad.png) no-repeat center top; background-size: 100% 91px, cover; height: 92px; max-width: 100%;}
+    .my-account{ height:48px}
+    #resetQuestion .selectParent select{padding:6px 25% 6px 5px}
+    #resetQuestion .reveal-model-inner{ width:80%;}
+    .selected-tests h4{ margin-top:25px}
+    .slider-panel{ top:47px}
+    .slider-panel ul li a{ padding:6px 5px}
+    .signup li.appointment img{ height:40px}
+    .select-exam .details-holder h4{ font-size:1.3em}
+    .schedule-info .schedule-block .sub-heading{ font-size:12px}
+    .schedule-info .schedule-block .checkbox span.inactive + label.label{ font-size:12px} 
+    .schedule-info .schedule-block .checkbox label.label, .schedule-info .schedule-block .sub-heading{font-family:"effra_mediumregular"}
+    .schedule-info .schedule-block .sub-heading{ padding:7px 5px}
+    .schedule-info .schedule-block .checkbox span.inactive.active + label.label{background-position:5px -5px}
+    .schedule-info .schedule-block .checkbox span.inactive + label.label{ padding:10px 2px 10px 23px}   
+    .returning-patient .birthdate .select-box .selectParent.month{ width:35%}
+    .selectParent select{ width:116%}   
+    .set-margin{margin:70px 0 0 10px}
+    .set-margin-top-ipad-mob{ margin-top:15px}  
+    .find-doctor .set-margin{ margin:10px 0 0 10px}
+    .find-doctor .row.bdr .column, .find-doctor .row.bdr .columns{ padding:8px 5px}
+    .find-doctor .checkbox span.inactive + label.label{padding:12px 15px 10px 5px; background-position: 0 bottom; }
+    .find-doctor .checkbox span.inactive.active + label.label {background-position: 0 bottom; }  
+    .upcoming-appointment .title h1{ font-size:31px}
+    .upcoming-appointment .appointment-list .appointment_date{ width:19%}
+    .upcoming-appointment .appointment-list .appointment_date figure{ padding:20px 8px 10px} 
+    .upcoming-appointment .appointment-list .appointment_date figure span{ font-size:20px; margin:4px 0}     
+    .upcoming-appointment .appointment-list .appointment_desc{ width:81%; padding:2% 2% 1% 2%}
+    .upcoming-appointment .appointment-list .appointment_desc p, .upcoming-appointment .appointment-list .appointment_desc .action .action-lnk a{ font-size:1em}
+    .upcoming-appointment .appointment-list .appointment_desc .instructions{width:50%;}
+    .post-appointment .grid.first, .post-appointment .grid.last{ margin:0}
+    .radio-btn.global-radio span + label{ line-height:2em!important}
+    .radio-btn span.inactive.active + label { background-position:15px -63px}
+    .radio-btn span.inactive + label{ background-position:15px 9px}
+    .schedule-appointment .selected-tests ul li{ padding:8px 20px 8px 5px;}
+    .schedule-appointment .set-columns .large-9{ width:75%}
+    .schedule-appointment .set-columns .large-3{ width:25%}
+    .appointment-available .block{ padding:10px 5px}
+    .appointment-available h4 span{ margin:15px 0}
+    .appointment-available h4{ font-size:1.3em}
+    .appointment-available .block .popup{ bottom:-45px}
+    .k-datepicker .k-picker-wrap{ padding:0 0 0 2.1em}
+    .select-exam-date-time .next-available-date .date{ width:39%}
+    .select-exam-date-time .next-available-date .time{ width:29%}
+    footer .location-logo li{ width:40%; padding:15px 40px}
+    .user-name{ margin:10px 15px 0 0}
+    .select-exam-location .enter-location .search-area input[type="text"]{ width:85%}
+    .select-exam-location .locations ul li .location-address{ width:80%; padding:0 5px}
+	}
+
+/* iPad (landscape) ----------- */
+/*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {  
+    .container_header{ background:url(../images/header-bg-ipad.png) no-repeat center top; background-size: 100% 123px, cover; height: 120px; max-width: 100%;} 
+    .signup, ul.location{ margin-top:0}
+  }*/
+
+@media only screen and (min-width: 1024px) and (max-width: 1200px){ 
+    .container_header{ background:url(../images/header-bg-ipad.png) no-repeat center top; background-size: 100% 121px, cover; height: 120px; max-width: 100%;} 
+    .signup, ul.location{ margin-top:0}
+    .returning-patient .birthdate .select-box .selectParent.year{ width:28%}
+}

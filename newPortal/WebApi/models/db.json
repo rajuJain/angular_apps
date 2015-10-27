@@ -1,0 +1,21 @@
+{
+  "dev": {  	
+    "driver": "mssql",
+    "user": "",
+    "database": "",
+    "password": "",
+	"options": {
+	  "host": "",
+	  "dialect": "mssql", 			
+	  "define": {
+		"timestamps": false 
+	  }
+	}
+  },
+  "production": {
+    "driver": "mysql",
+    "user": "",
+    "database": "",
+	"password": ""
+  }
+}

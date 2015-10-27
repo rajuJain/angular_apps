@@ -1,0 +1,198 @@
+<div class="schedule-appointment set-columns" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="title"><h1>{{'ScheduleAnAppointment' | translate}}</h1></div>
+        </div>
+    </div>
+    
+  <!-- <form-input data-classname="check" data-type="checkbox" data-ngmodel="exam.mammogram" data-name="mammogram" data-id="mammogram" data-required="false" data-truevalue="1" data-falsevalue="0"></form-input>-->
+    <div class="row">
+        <div class="large-9 medium-9 left-col columns">
+            <section class="select-exam">
+                <div class="sub-heading">{{'SelectAnExam' | translate}}</div>
+                <div ng-show="combinationError && combinationError != ''" class="error ng-binding">{{combinationError | translate}}</div>
+                <!--div class="row">
+                    <ul class="large-block-grid-4 medium-block-grid-2 small-block-grid-1 eq-col-child grid-view">
+                        <li>
+                            <section class="mammogram">
+                                <div class="details-holder show-details" ng-click="openSubExamBox('mammogram')">
+                                    <div class="checkbox">
+                                        <!--span ng-class="checkSchedule('Mammogram') ? 'inactive active' : 'inactive'" form-input data-classname="check" data-type="checkbox" data-name="mammogram" data-id="mammogram" data-ngmodel="mammogram" data-ngchecked="checkSchedule('Mammogram')" data-ngclick="setSchedule('Mammogram');" data-required="false" data-truevalue="Mammogram" data-falsevalue="0"></span--\>
+                                        
+                                        <span ng-class="setScreening >0 ? 'inactive active' : 'inactive'" form-input data-classname="check" data-type="checkbox" data-name="mammogram" data-id="mammogram" data-ngmodel="mammogram" data-ngchecked="setScreening >0"  data-required="false" data-truevalue="1" data-falsevalue="0"></span>
+                                        <label class="label" for=""></label><h4>{{'Mammogram' | translate}}</h4>
+                                    </div>
+                                    <div class="schedule-info" ng-show="setScreening > 0 || mammogram == 1">
+                                        <div class="schedule-block">
+                                            <div class="sub-heading">{{'SelectWhichTestToSchedule' | translate}}</div>
+                                            <ul class="checkbox">
+                                                <li ng-class="MammogramDiagnosticBox ? 'disableBox' : ''">
+                                                    <span ng-class="checkSchedule('Mammogram Diagnostic') ? 'inactive active' : 'inactive'">
+                                                        <input type="checkbox" class="check" id="MammogramDiagnostic" name="MammogramDiagnostic" ng-checked="checkSchedule('Mammogram Diagnostic',2)" ng-click="setSchedule('Mammogram Diagnostic', 2);" ng-model="Mammogram_Diagnostic" ng-true-value="Mammogram Diagnostic" ng-false-value="">
+                                                    </span>
+                                                    <label class="label" for="MammogramDiagnostic">{{'Diagnostic' | translate}}</label>
+                                                </li>
+                                                <li ng-class="MammogramScreeningBox ? 'disableBox' : ''">
+                                                    <span ng-class="checkSchedule('Mammogram Screening') ? 'inactive active' : 'inactive'">
+                                                        <input type="checkbox" class="check" id="MammogramScreening" name="MammogramScreening" ng-checked="checkSchedule('Mammogram Screening', 2)" ng-click="setSchedule('Mammogram Screening', 2);" ng-model="Mammogram_Screening" ng-true-value="Mammogram Screening" ng-false-value="">
+                                                    </span>
+                                                    <label class="label" for="MammogramScreening">{{'Screening' | translate}}</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                        <li>
+                            <section class="dexa">
+                                <div class="details-holder show-details" ng-click="setSchedule('DEXA')">
+                                    <div class="checkbox" ng-class="DEXABox ? 'disableBox' : ''">
+                                        <span ng-class="checkSchedule('DEXA') ? 'inactive active' : 'inactive'" form-input data-classname="check" data-type="checkbox" data-name="DEXA" data-id="DEXA" data-ngmodel="dexa" data-ngchecked="checkSchedule('DEXA')" data-required="false" data-truevalue="DEXA" data-falsevalue=""></span>
+                                        <label class="label" for=""></label><h4>{{'DEXAB' | translate}}<br />{{'BoneDensityScan' | translate}}</h4>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                        <li>
+                            <section class="ultrasound">
+                                <div class="details-holder show-details" ng-click="openSubExamBox('ultrasound')">
+                                    <div class="checkbox">
+                                        <span ng-class="setUltraSound >0 ? 'inactive active' : 'inactive'" form-input data-classname="check" data-type="checkbox" data-name="ultrasound" data-ngchecked="setUltraSound >0" data-id="ultrasound" data-ngmodel="ultrasound" data-required="false" data-truevalue="1" data-falsevalue="0"></span>
+                                        <label class="label" for=""></label><h4>{{'Ultrasound' | translate}}</h4>
+                                    </div>
+                                  
+                                    <div class="schedule-info" ng-show="setUltraSound >0 || ultrasound == 1">
+                                        <div class="schedule-block">
+                                            <div class="sub-heading">{{'SelectWhichTestToSchedule' | translate}}</div>
+                                            <ul class="checkbox">
+                                                <li ng-class="AbdomenBox ? 'disableBox' : ''">
+                                                    <span ng-class="checkSchedule('Abdomen') ? 'inactive active' : 'inactive'"><input type="checkbox" class="check" id="Abdomen" name="Abdomen" ng-checked="checkSchedule('Abdomen')" ng-click="setSchedule('Abdomen', 1);" ng-model="Abdomen" ng-true-value="{{'Ultrasound' | translate}} {{'Abdomen' | translate}}" ng-false-value=""></span>
+                                                    <label class="label" for="Abdomen">{{'UAbdomen' | translate}}</label>
+                                                </li>
+                                                <li ng-class="BreastBox ? 'disableBox' : ''">
+                                                    <span ng-class="checkSchedule('Breast') ? 'inactive active' : 'inactive'"><input type="checkbox" class="check" id="Breast" name="Breast" ng-checked="checkSchedule('Breast')" ng-click="setSchedule('Breast', 1);" ng-model="Breast" ng-true-value="{{'Ultrasound' | translate}} {{'Breast' | translate}}" ng-false-value=""></span>
+                                                    <label class="label" for="Breast">{{'UBreast' | translate}}</label>
+                                                </li>
+                                                <li ng-class="CarotidBox ? 'disableBox' : ''">
+                                                    <span ng-class="checkSchedule('Carotid') ? 'inactive active' : 'inactive'"><input type="checkbox" class="check" id="Carotid" name="Carotid" ng-checked="checkSchedule('Carotid')" ng-click="setSchedule('Carotid', 1);" ng-model="Carotid" ng-true-value="{{'Ultrasound' | translate}} {{'Carotid' | translate}}" ng-false-value=""></span>
+                                                    <label class="label" for="Carotid">{{'UCarotid' | translate}}</label>
+                                                </li>
+                                                <li ng-class="PelvicBox ? 'disableBox' : ''">
+                                                    <span ng-class="checkSchedule('Pelvic') ? 'inactive active' : 'inactive'"><input type="checkbox" class="check" id="Pelvic" name="Pelvic" ng-checked="checkSchedule('Pelvic')" ng-click="setSchedule('Pelvic', 1);" ng-model="Pelvic" ng-true-value="{{'Ultrasound' | translate}} {{'Pelvic' | translate}}" ng-false-value=""></span>
+                                                    <label class="label" for="Pelvic">{{'UPelvic' | translate}}</label>
+                                                </li>
+                                                <li ng-class="ThyriodBox ? 'disableBox' : ''">
+                                                    <span ng-class="checkSchedule('Thyriod') ? 'inactive active' : 'inactive'"><input type="checkbox" class="check" id="Thyriod" name="Thyriod" ng-checked="checkSchedule('Thyriod')" ng-click="setSchedule('Thyriod', 1);" ng-model="Thyriod" ng-true-value="{{'Ultrasound' | translate}} {{'Thyriod' | translate}}" ng-false-value=""></span>
+                                                    <label class="label" for="Thyriod">{{'UThyriod' | translate}}</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                        <li>
+                            <section class="xray">
+                                <div class="details-holder show-details" ng-click="setSchedule('XRay')">
+                                    <div class="checkbox" ng-class="DEXABox ? 'disableBox' : ''">
+    
+                                        <span ng-class="checkSchedule('XRay') ? 'inactive active' : 'inactive'" form-input data-classname="check" data-type="checkbox" data-name="XRay" data-id="XRay" data-ngmodel="XRay" data-ngchecked="checkSchedule('XRay')" data-required="false" ng-click="setSchedule('XRay')" data-truevalue="XRay" data-falsevalue=""></span>
+                                        <label class="label" for="XRay"></label><h4>{{'XRay' | translate}}</h4>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                    </ul>
+                </div-->
+ 				<div class="row">
+                    <ul class="large-block-grid-4 medium-block-grid-2 small-block-grid-1 eq-col-child grid-view">
+                        <li ng-repeat="examData in examList">
+                            
+                            <section class="{{examData.ParentExam.designClass}} {{examData.designClass}}">
+                                <div ng-if="examData.ChildExam.length > 0" class="details-holder show-details" ng-click="openSubExamBox(examData.ParentExam.ExamId)">
+                                    <div class="checkbox">
+                                        <span ng-class="checkSchedule(examData.ChildExam) ? 'inactive active' : 'inactive'">
+                                            <input class="check" type="checkbox" name="{{examData.ParentExam.ExamId}}" id="{{examData.ParentExam.ExamId}}" required="false"/>
+                                        </span>
+                                        <label class="label"></label><h4>{{examData.ParentExam.DisplayName | translate}}</h4>
+                                    </div>
+                                     
+                                    <div ng-if="examData.ChildExam.length > 0" class="schedule-info" ng-show="checkSchedule(examData.ChildExam) || selectedParent[examData.ParentExam.ExamId] == 1">
+                                        <div class="schedule-block">
+                                            <div class="sub-heading">{{'SelectWhichTestToSchedule' | translate}}</div>
+     
+                                            <ul class="checkbox">
+     
+                                                <li ng-class="isDisable[ChildExam.ExamId] ? 'disableBox' : ''" ng-repeat="ChildExam in examData.ChildExam">
+                                                    <span ng-class="checkSchedule(ChildExam.ExamId) ? 'inactive active' : 'inactive'">
+                                                        <input type="checkbox" id="{{ChildExam.ExamId}}" name="{{ChildExam.ExamId}}" class="check" ng-checked="checkSchedule(ChildExam.ExamId)" ng-click="setSchedule(ChildExam.ExamId, 2);"  ng-true-value="ChildExam.ExamName" ng-false-value="">
+                                                    </span>
+                                                    <label  class="label" for="{{ChildExam.ExamId}}">{{ChildExam.DisplayName | translate}}</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+     
+                                </div>
+     
+                                <div ng-if="examData.ChildExam.length == 0" class="details-holder show-details" ng-click="setSchedule(examData.ParentExam.ExamId, 1)">
+                                    <div ng-class="isDisable[examData.ParentExam.ExamId] ? 'disableBox' : ''" class="checkbox">
+     
+                                        <span ng-class="checkSchedule(examData.ParentExam.ExamId) ? 'inactive active' : 'inactive'">
+                                         <input class="check" type="checkbox" name="{{examData.ParentExam.ExamId}}" id="{{examData.ParentExam.ExamId}}">
+                                        </span>
+                                        <label class="label"></label><h4>{{examData.ParentExam.DisplayName | translate}}</h4>
+                                    </div>
+                                </div>
+                            </section>     
+                        </li>
+                    </ul>
+                </div>
+				
+				<div class="row">
+				<div class="medium-3 left-col columns">
+					<div class="action"><input class="btn btn-green large next" ng-disabled="exam.length == 0" ng-click="goToFindInfo(exam)" type="button" value="{{'Continue' | translate}}"></div>
+				</div>  
+				  <div class="medium-9 left-col columns text-right examType-small p-b20">
+					<div class="action h-20x">{{'DontSeeYourExam' | translate}} <br / class="show-for-small-only"><a href="javascript:void(0)" ng-click="dontSeeExams()"><strong>{{'ClickHere' | translate}}</strong></a></div>
+				</div>  
+				<div class="large-2 medium-2 left-col columns">&nbsp;</div>     
+				</div>
+            </section>
+
+            
+        </div>
+
+        <div class="large-3 medium-3 right-col columns">
+            <section class="selected-tests" ng-show="selectedExam.length > 0">
+                <h4>{{'YouHaveSelected' | translate}}</h4>
+                <ul>
+                    <li ng-repeat="examType in selectedExam" ng-if="examType != ''">{{examType | translate}}<a href="javascript:void(0)"><span class="delete-icon" ng-click="setSchedule(examType,1);"><img src="images/icon-delete.png"></span></a></li>
+                </ul>
+                
+            </section>
+        </div>
+
+
+    </div>
+
+    
+</div>
+
+<div id="autoSelection" class="reveal-modal tiny" data-reveal>
+        <div class="row">
+            <div class="medium-12 columns">
+                <h4 class="text-center">
+                    <div>{{'DiagnosticAndBreastAlert'|translate}}</div>
+                    <div>{{'AnyQuestion'|translate}}</div>
+                    <div class="phone-no">{{'schedulingDepartmentNumber'|translate}}</div>
+                </h4>
+                <div class="action text-center">
+                    <input type="button" value="{{'Ok' | translate}}" onclick="$('#autoSelection').trigger('reveal:close');" class="btn btn-blue">
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="/Scripts/jquery.reveal.js"></script>
+

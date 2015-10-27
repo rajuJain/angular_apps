@@ -1,0 +1,115 @@
+<div class="main">
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="dashboard">
+                <span ng-if="syncError" class="error">{{syncError}}</span>
+                <span ng-if="syncSuccess" class="success">{{syncSuccess}}</span>
+                <div class="title"><h1>RIS API Client</h1></div>
+                <div class="filter sml pad">
+                    <div class="row">
+                        <form action="" class="form-horizontal" method="post" role="form" id="apiForm" name="apiForm" rc-submit="checkAPI(api, false)" novalidate>
+                            <span ng-show="apiError" class="error">{{apiError}}</span>
+                            <span ng-show="apiSuccess" class="success">{{apiSuccess}}</span>
+                            <div class="large-12 medium-12 columns" style="float:left;">
+                                <div class="row">
+                                    <div class="medium-4 columns">
+                                        <div class="field">
+                                            <label for="locationCode"><b>Location Code</b></label>
+                                            <input type="text" name="locationCode" id="locationCode" ng-class="{'has-error': rc.apiForm.needsAttention(api.locationCode)}" ng-model="api.locationCode" required>
+                                        </div>
+                                    </div>
+                                    <div class="medium-4 columns">
+                                        <div class="field">
+                                            <label for="patientCode"><b>Patient Code</b></label>
+                                            <input type="text" name="patientCode" id="patientCode" ng-class="{'has-error': rc.apiForm.needsAttention(api.patientCode)}" ng-model="api.patientCode" required>
+                                        </div>
+                                    </div>
+                                    <div class="medium-4 columns">
+                                        <div class="field">
+                                            <label for="examCode"><b>Exam Code</b></label>
+                                            <input type="text" name="examCode" id="examCode" ng-class="{'has-error': rc.apiForm.needsAttention(api.examCode)}" ng-model="api.examCode" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-4 columns">
+                                        <div class="field">
+                                            <label for="dateTime"><b>Date Time (MM/DD/YYYY HH:MM:SS)</b></label>
+                                            <input type="text" width="" name="dateTime" id="dateTime" ng-class="{'has-error': rc.apiForm.needsAttention(api.dateTime)}" ng-model="api.dateTime" required>
+                                        </div>
+                                    </div>
+                                    <div class="medium-4 columns">
+                                        <div class="field">
+                                            <label for="duration"><b>Duration (In case of Next)</b></label>
+                                            <input type="text" name="duration" id="duration" ng-class="{'has-error': rc.apiForm.needsAttention(api.duration)}" ng-model="api.duration" required>
+                                        </div>
+                                    </div>
+                                    <div style="display: none;" class="medium-4 columns">
+                                        <div class="field">
+                                            <label for="hits"><b>No. of Hits</b></label>
+                                            <input type="text" name="hits" id="hits" ng-class="{'has-error': rc.apiForm.needsAttention(api.hits)}" ng-model="api.hits" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <div class="field fl">
+                                            <input type="submit" ng-disabled="global_progress || isSubmitDisabled" value="Submit" class="btn btn-green btn-large m-l5">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            <div ng-show="response">
+                                Request response
+                                <div class="row" ng-repeat="slot in response">
+                                    <div class="medium-12 columns">
+                                        <b>Duration</b> : {{slot.Duration}} <br />
+                                        <b>ExamCode</b> : {{slot.ExamCode}} <br />
+                                        <b>ExamDateTime</b> : {{slot.ExamDateTime}} <br />
+                                        <b>ExamDescription</b> : {{slot.ExamDescription}} <br />
+                                        <b>OrganizationCode</b> : {{slot.OrganizationCode}} <br />
+                                        <b>Token</b> : {{slot.Token}}
+
+                                    </div>
+
+                                </div>
+                                <br><br>
+
+                                <div class="row" ng-if="response.length > 0">
+                                    <div class="medium-12 columns" ng-if="token.length > 0">
+                                        <div class="field fl">
+                                            <input type="button" value="Next" ng-click="checkAPI(api, true);" class="btn btn-green btn-large fr m-l5">
+                                        </div>
+                                        <div class="field fr">
+                                            <input type="button" value="Release Token" ng-click="releasToken();" class="btn btn-green btn-large fr m-l5">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="process-overlay" ng-if="global_progress"></div>
+        <div id="process-loading" class="no-bg" ng-if="global_progress">
+            <div class="spinner">
+                <h2 class="h-20x dark-gray">Please wait...</h2>
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+        <div class="overlay" ng-if="isSuncingButtonDisabled"></div>
+        <div id="loading" ng-if="isSuncingButtonDisabled">
+            <img src="Images/loader.gif" />
+        </div>
+    </div>
+</div>

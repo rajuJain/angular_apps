@@ -1,0 +1,72 @@
+<div class="main">
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="dashboard">
+                <div class="title">
+                    <h1>Settings</h1></div>
+                    <div class="filter sml pad">
+                        <div class="row">
+                            <div class="large-4 medium-3 columns">&nbsp;</div>
+                            <div class="large-4 medium-6 columns" style="float:left;">
+                                <form action="" class="form-horizontal" method="post" role="form" id="setting" name="setting" rc-submit="updateSetting(password)" novalidate="novalidate">
+                                    <input name="__RequestVerificationToken" type="hidden" value="5d4J83cc5XPc3qwXMUHjZ9W7SChKTJiEfzAcipjNWbkUvF5bDid8pikdf1Q_cAPIn61FA-nwqf1Aq6BO1fmBZD5E4VDlYreUKrvccq1DA5Y1">
+                                    <span ng-show="error != ''" class="error">{{error}}</span>
+                                    <span ng-show="success != ''" class="success">{{success}}</span>
+                                    <div class="row">
+                                        <div class="medium-12 columns">
+                                            <div class="field">
+                                                <label for="OldPassword"><b>Old Password</b></label>
+                                                <div class="form-group">
+                                                    <input type="password" name="OldPassword" id="OldPassword" ng-model="password.OldPassword" validator="[required]">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="medium-12 columns">
+                                            <div class="field">
+                                                <label for="NewPassword"><b>New Password</b></label>
+                                                <div class="form-group">
+                                                    <input type="password" name="NewPassword" id="NewPassword" ng-model="password.NewPassword" validator="[required]">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="medium-12 columns">
+                                            <div class="field">
+                                                <label for="ConfirmPassword"><b>Confirm Password</b></label>
+                                                <div class="form-group">
+                                                    <input type="password" name="ConfirmPassword" id="ConfirmPassword" ng-model="password.ConfirmPassword" validator="[required]">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="medium-12 columns">
+                                            <div class="field">
+                                                <input type="submit" ng-disabled="global_progress" value="Update" class="btn btn-green btn-large fr m-l5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="large-4 medium-3 columns">&nbsp;</div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+                <div class="process-overlay" ng-if="global_progress"></div>
+                <div id="process-loading" class="no-bg" ng-if="global_progress">
+                    <div class="spinner">
+                        <h2 class="h-20x dark-gray">Processing...</h2>
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                </div>

@@ -1,0 +1,188 @@
+<link href="script/vendor/kendo/css/kendo.common.min.css" rel="stylesheet" />
+<link href="script/vendor/kendo/css/kendo.rtl.min.css" rel="stylesheet" />
+<link href="script/vendor/kendo/css/kendo.silver.min.css" rel="stylesheet" />
+
+<div class="main scheduler">
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="title">
+                <h1>{{pageType}}</h1>
+            </div>
+            <div class="dashboard Patients">
+                <div class="row">
+                    <div ng-if="error && error != '' && !isProcessing" class="error">{{error}}</div>
+                    <div ng-if="success && success != '' && !isProcessing" class="success">{{success}}</div>
+                    <div class="medium-12 columns">
+                        <div class="filter pad" style="position:relative; overflow:hidden">
+                            <form id="providerSearchForm" method="POST" novalidate>
+                                <!--div class="row">
+                                    <div class="columns medium-4 small-12 fr">
+                                        <div class="search-area">
+                                            <span class="fl" form-input data-placeholder="Search by Name or Email" data-type="text" data-ngkeyup="$event.keyCode == 13 ? searchProvider() : ''" data-maxlength="50" data-ngenter="searchProvider()" data-name="searchKey" data-id="searchKey" data-ngmodel="searchData.SearchText" data-required="false"></span>
+                                            <input type="button" ng-click="searchProvider()" class="search-btn" />
+                                        </div>
+                                        <div class="refresh-grid fr">
+                                            <img ng-click="refreshProviderList()" width="32px" src="script/vendor/theme/Images/refresh.png" title="Grid Refresh" alt="Refresh" />
+                                        </div>
+                                    </div>
+                                    <div class="columns medium-8 small-12">&nbsp;</div>
+                                </div-->
+
+                            </form>
+
+                            <div class="action text-right">
+                                <input type="button" ng-click="addProvider()" value="Add {{pageType}}" class="btn btn-green btn-large">
+                            </div>
+                            <div style="position:relative">
+                                <kendo-grid id="providerList" options="providerGridOptions"></kendo-grid>
+                                <div class="popup" ng-show="global_process != '' && global_process != undefined"><img src="script/vendor/theme/Images/wait.gif"><br />{{global_process}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="medium-12 columns">
+                                    <div class="bottom-paination">
+                                        <ul class="no-list none">
+                                            <li ng-repeat="page in pages" ng-class="selectedPageNumber==page.id ? 'active' : ''">
+                                                <a ng-if="selectedPageNumber != page.id" ng-click="searchDoctor(searchData, page.id)" href="javascript:void(0)">{{page.id}}</a>
+                                                <a ng-if="selectedPageNumber == page.id" href="javascript:void(0)">{{page.id}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<a id="createProvider" style="display:none;" href="javascript:void(0);" data-reveal-id="providerData"></a>
+<div id="providerData" class="reveal-modal tiny" data-reveal>
+    <div class="close right"><a ng-click="closePopup('providerModel');">X</a></div>
+    <div class="row">
+        <div ng-show="providerError && providerError != ''" class="error">{{providerError}}</div>
+        <div class="medium-12 columns">
+            <form ng-if="show" id="createProviderFrom" name="createProviderFrom" method="POST" rc-submit="createProvider(provider)" novalidate>
+                <div class="field">
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            <label for="firstName">Firstname</label>
+                            <div class="form-group">
+                                <input type="text" id="firstName" ng-model="provider.firstName" maxlength="50" validator="[required,alpha]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            <label for="lastName">lastname</label>
+                             <div class="form-group">
+                                <input type="text" id="lastName" ng-model="provider.lastName" maxlength="50" validator="[required,alpha]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="row">
+                        <div class="medium-12 columns" id="divGender">
+                            <label for="gender">Gender</label>
+                            <div class="medium-2 columns" id="divGender">
+                                <span ng-class="provider.gender == 'M' ? 'inactive active' : 'inactive'">
+                                    <input type="radio" name="gender" id="male" ng-model="provider.gender" value="M">
+                                    <label for="male">Male</label>
+                                </span>
+                                
+                            </div>
+                            <div class="medium-10 columns" id="divGender">
+                                <span ng-class="provider.gender == 'F' ? 'inactive active' : 'inactive'">
+                                    <input type="radio" name="gender" id="female" ng-model="provider.gender" value="F">
+                                    <label for="female">Female</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="field">
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            <label for="email">Email</label>
+                            <div class="form-group">
+                                <input type="text" id="email" ng-model="provider.email" maxlength="50" validator="[required,email]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="!provider.id" class="field">
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            <label for="password">Password</label>
+                            <div class="form-group">
+                                <input type="password" id="password" ng-model="provider.password" maxlength="50" validator="[required]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="!provider.id" class="field">
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <div class="form-group">
+                                <input type="password" id="confirmPassword" ng-model="provider.confirmPassword" maxlength="50" validator="[required]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="!provider.id" class="field">
+                    <div class="row">
+                        <div class="medium-1 columns">
+                            <input type="submit" value="Create" class="btn btn-green">
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="provider.id" class="field">
+                    <div class="row">
+                        <div class="medium-1 columns">
+                            <input type="submit" value="Update" class="btn btn-green">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<a id="updateStatusNote" style="display:none;" href="javascript:void(0);" data-reveal-id="updateStatusMsg"></a>
+<div id="updateStatusMsg" class="reveal-modal tiny" data-reveal>
+    <div class="row">
+        <div class="medium-12 columns">
+            <h4 class="text-center"> <span>{{updateStatusConfirmationMsg}}</span> </h4>
+            <div class="action text-center">
+                <input type="button" value="No" onclick="$('#updateStatusMsg').trigger('reveal:close');" class="btn">
+                <input type="button" value="Yes" id="confirmUpdateStatus" class="btn btn-blue m-l5">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script/vendor/theme/Scripts/jquery.reveal.js"></script>
+
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" class="no-bg" ng-if="isProcessing">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray">Please wait...</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>

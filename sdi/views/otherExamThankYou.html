@@ -1,0 +1,46 @@
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <!--Select exam date and time start -->
+            <div class="schedule-your-appointment">
+                <div class="row">
+                    <div class="medium-9 columns">
+                        <div id="instructionsWrapper">
+                            <!--Schedule your appointment start -->
+                            <div class="row">
+                                <div class="medium-12 columns">
+                                    <div class="title">
+                                        <h1 class="ng-binding"> {{'ThankYou' | translate}}</h1>
+                                        <div class="sub-heading">{{'ARepresentativeWillContactYou' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="no-margin-top" />
+                        </div>
+                        <div id="instructionActions">
+                            <div class="row">
+                                <div class="medium-12 columns">
+                                    <div class="action">
+                                        <a href="javascript:void(0)" id="btnPrint" ng-click="backToHome()" class="btn btn-large btn-green">{{'BackToHome' | translate}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Schedule your appointment end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="isProcessing">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray">{{isProcessing | translate}}</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>

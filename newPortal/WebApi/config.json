@@ -1,0 +1,8 @@
+{
+  "APIKEY": "",
+  "ADMINKEY": "",
+  "CRONKEY": "",  
+  "dbSecretKey": "",  
+  "SMTP_EMAIL"	: "",
+  "SMTP_PASSWORD"	: ""
+}

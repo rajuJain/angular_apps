@@ -1,0 +1,14 @@
+<div class="row" ng-controller="progressController" ng-cloak>
+   <div class="medium-9 small-12 columns">
+   <a href="javascript:void(0);" ng-click="startOver();" class="startover">{{'StartOver' | translate}}</a>
+   
+     <ul class="steps">
+       <li ng-if="!isAuthenticated" ng-class="{'active passed' : currentStep >= 0 && CurrentPage != 'findInfo', 'active' : currentStep >= -1 && CurrentPage == 'findInfo'}" ng-click="goToPage('findInfo', -1)"></li>
+       <li ng-class="{'active passed' : currentStep >= 1 && CurrentPage != 'exam', 'active' : currentStep >= 0 && CurrentPage == 'exam'}" ng-click="goToPage('exam', 0)"></li>
+       <li ng-class="{'active passed' : currentStep >= 2 && CurrentPage != 'findDoctor', 'active' : currentStep >= 1 && CurrentPage == 'findDoctor'}" ng-click="goToPage('findDoctor', 1)"></li>
+       <li ng-class="{'active passed' : currentStep >= 3 && CurrentPage != 'findLocation', 'active' : currentStep >= 2 && CurrentPage == 'findLocation'}" ng-click="goToPage('findLocation', 2)"></li>
+       <li ng-class="{'active passed' : currentStep >= 4 && CurrentPage != 'appointmentDate', 'active' : currentStep >= 3 && CurrentPage == 'appointmentDate'}" ng-click="goToPage('appointmentDate', 3)"></li>
+       <li ng-class="{'active passed' : currentStep >= 5 && CurrentPage != 'scheduleAppointment ', 'active' : currentStep >= 4  && CurrentPage == 'scheduleAppointment'}" ng-click="goToPage('scheduleAppointment', 4)"></li>
+     </ul>
+   </div>
+</div>

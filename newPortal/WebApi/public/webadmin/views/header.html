@@ -1,0 +1,14 @@
+<section class="container">
+    <nav>
+      <ul  ng-if="isAdminLoggedIn">
+        <li ng-class="{active: cuurent_path == '/'}"><a href="#/">Home</a></li>
+        <li ng-class="{active: cuurent_path == '/modules'}"><a href="#/modules">Manage Modules</a></li>
+        <li ng-class="{active: cuurent_path == '/slides'}"><a href="#/slides">Manage slides</a></li>
+		<li ng-class="{active: cuurent_path == '/myprofile'}"><a href="#/myprofile">My Profile</a></li>
+		<li ng-class="{active: cuurent_path == '/generalSettings'}"><a href="#/generalSettings">General Settings</a></li>
+        <li ng-class="{active: cuurent_path == '/logout'}"> <a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
+      </ul>
+    </nav>
+</section>
+
+  

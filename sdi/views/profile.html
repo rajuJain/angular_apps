@@ -1,0 +1,249 @@
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-9 columns">
+            <div class="">
+
+                <div class="title">
+                    <h1>{{'MyProfile' | translate}}</h1>
+                </div>
+                <hr />
+                <form id="updateUserDataForm" name="updateUserDataForm" method="POST" rc-submit="updateAccount(userData)" novalidate enctype="multipart/form-data">
+                    <div class="field">
+                        <div class="row">
+                            <div class="medium-6 columns end">
+                                <label>{{'DisplayName' | translate}}</label>
+                                <span form-input data-type="text" data-ngclass="{'has-error' : rc.updateUserDataForm.needsAttention(userData.DisplayName)}" data-name="displayName" data-id="displayName" data-ngmodel="userData.DisplayName" data-maxlength="15" data-required="true" data-ngkeyup="checkNameAvailablity(userData.DisplayName);"></span>
+                                <span ng-show="displayNameVal" class="error">{{displayNameVal | translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                <div class="field">
+                                    <label>{{'OldPassword' | translate}}</label>
+                                    <span form-input data-type="password" data-ngkeyup="isSaveBtnVisible(userData, 'OldPassword')" data-maxlength="20" data-name="OldPassword" data-id="OldPassword" data-ngmodel="userData.OldPassword" data-required="false"></span>
+                                </div>
+                           </div>
+                            <div class="medium-4 columns">
+                                <div class="field">
+                                        <label>{{'NewPassword' | translate}}</label>
+                                        <span form-input data-type="password" data-ngkeyup="isSaveBtnVisible(userData, 'NewPassword')" data-maxlength="20" data-name="NewPassword" data-id="NewPassword" data-ngmodel="userData.NewPassword" data-required="false"></span>
+                                </div>
+                            </div>
+                            <div class="medium-4 columns">
+                                <div class="field">
+                                    <label class="gray"><i>{{'ConfirmPassword' | translate}}</i></label>
+                                    <span form-input data-type="password" data-maxlength="20" data-ngkeyup="isSaveBtnVisible(userData, 'ConfirmPassword')" data-name="ConfirmPassword" data-id="ConfirmPassword" data-ngmodel="userData.ConfirmPassword" data-required="false"></span>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--input type="file" name="profilePic" id="profilePic" on-read-file="showImage($fileContent);" ng-model="userData.profilePic" style="opacity:0;position:absolute;">
+            <div class="action">
+                <div class="row">
+                    <div class="medium-1 small-2 columns">
+                        <img src="/images/account-image.png" border="0" id="previewImage">
+                    </div>
+                    <div class="medium-11 small-10 columns m-t10">
+                        <input for="profilePic" onclick="$('#profilePic').click();" type="button" value="Select account image" class="btn btn-blue">
+                        <span class="question"><a href="javascript:void(0);"><img src="/images/question.png" align="middle"></a></span>
+                    </div>
+                </div>
+            </div-->
+
+                    <hr />
+                    <div class="security-questions">
+                        <div class="row m-tb10">
+
+                            <div class="medium-6 push-6 columns text-right">
+                                <a href="javascript:void(0);" data-reveal-id="resetQuestion" id="resetSecurityQuestionModel" data-animation="fade"></a>
+                                <a href="javascript:void(0);" ng-click="resetSecurityQuestionsModel()"><b>{{'ResetSecurityQuestion' | translate}}</b><img src="/images/arrow-right.png" class="right-icon"></a>
+                            </div>
+                            <div class="medium-6 pull-6 columns">
+                                <h4 class="no-margin-top">{{'SecurityQuestions' | translate}}</h4>
+                            </div>
+                        </div>
+
+                        <div class="field" ng-repeat="question in userData.QusetionAnswers">
+                            <div class="row">
+                                <div class="medium-7 columns">
+                                    <div class="lbl">
+                                        {{question.QuestionKey | translate}}
+                                    </div>
+                                </div>
+                                <div class="medium-5 columns">
+                                    xxxxx
+                                    <!--  {{question.Answer}} -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <hr />
+
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <h4>{{'AccountNotificationSettings' | translate}}</h4>
+                            </div>
+                        </div>
+                    <div class="account-notification-settings">
+                        <div class="field">
+                            <div class="row">
+                                <div class="medium-12 coloums checkbox m-l5">
+                                    <!--span ng-class="userData.WillOptInForSurveys ? 'inactive active' : 'inactive'" form-input data-type="checkbox" data-name="WillOptInForSurveys" data-id="WillOptInForSurveys" data-ngmodel="userData.WillOptInForSurveys" data-ngclick="isSaveBtnVisible(userData)" data-ngchecked="userData.WillOptInForSurveys" data-required="false"></span -->
+
+                                    <span ng-class="userData.WillOptInForSurveys ? 'inactive active' : 'inactive'">
+                                        <input type="checkbox" name="WillOptInForSurveys" id="WillOptInForSurveys" ng-model="userData.WillOptInForSurveys" ng-click="isSaveBtnVisible(userData)" >
+                                    </span>
+
+                                    <label for="WillOptInForSurveys" class="label">{{'WillOptInForSurveys' | translate}}.</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                        <span ng-show="successUpdateProfile != undefined && successUpdateProfile != ''" class="success">{{successUpdateProfile | translate}}</span>
+                        <span ng-show="updateProfileError != undefined && updateProfileError != ''" class="error">{{updateProfileError | translate}}</span>
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <div class="action">
+                                    <input type="submit" ng-disabled="(updateProfileProgress || displayNameVal || !isButtonVisible || updateProfileError) && !isVisible" value="{{'SaveAccountChanges' | translate}}" class="btn btn-green btn-large">
+                                </div>
+                            </div>
+                        </div>
+</form>
+           
+            
+            
+            
+                <div id="resetQuestion" class="reveal-modal medium" data-reveal>
+                    <div class="close right"><a ng-click="closeSecurityQuestionModel()">X</a></div>
+                    <h2>{{'SecurityQuestions' | translate}}</h2>
+                    <div class="row m-tb10">
+                        <form id="updateSecurityQuestionFrom" name="updateSecurityQuestionFrom" method="post" rc-submit="confirmAction('Yes')" novalidate>
+                            <div class="field">
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <label>
+                                            <strong><b>{{'PleaseSelectThreeQuestion' | translate}}</b></strong>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                                <div class="row">
+                                    <div class="medium-6 small-6 columns m-b5">
+                                        <label class="gray"><i>{{'Questions' | translate}}</i></label>
+                                    </div>
+                                    <div class="medium-6 small-6 columns m-b5">
+                                        <label class="gray"><i>{{'Answers' | translate}}</i></label>
+                                    </div>
+                                </div>
+                         
+                            <div class="field">
+                                <div class="row">
+                                    <div class="medium-6 columns">
+                                        <div class="selectParent month" ng-class="{'has-error': rc.updateSecurityQuestionFrom.needsAttention(securityQuestionData.q1)}">
+                                            <span form-input data-type="select" data-change="makeVisibleUpdateQuestionButton('q1')" data-ngclass="{'has-error': rc.updateSecurityQuestionFrom.needsAttention(securityQuestionData.q1)}" data-firstoption="{{'SelectYourFirstQuestion' | translate}}" data-options='option.Question for option in questions track by option.ID' data-name="q1" data-id="q1" data-ngmodel="securityQuestionData.q1" data-required="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="medium-6 columns">
+                                        <span form-input data-type="text" data-ngclass="{'has-error': rc.updateSecurityQuestionFrom.needsAttention(securityQuestionData.a1)}" data-ngkeyup="checkInputValue(securityQuestionData.a1, 'a1', 'answer');" data-maxlength="100" data-name="a1" data-id="a1" data-ngmodel="securityQuestionData.a1" data-required="true"></span>
+                                        <span form-input data-type="hidden" data-name="a1id" data-id="a1id" data-ngmodel="securityQuestionData.a1id"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="row">
+                                    <div class="medium-6 columns">
+                                        <div class="selectParent month" ng-class="{'has-error': rc.updateSecurityQuestionFrom.needsAttention(securityQuestionData.q2)}">
+                                            <span form-input data-type="select" data-change="makeVisibleUpdateQuestionButton('q2')" data-ngclass="{'has-error': rc.updateSecurityQuestionFrom.needsAttention(securityQuestionData.q2)}" data-firstoption="{{'SelectYourSecondQuestion' | translate}}" data-options='option.Question for option in questions track by option.ID' data-name="q2" data-id="q2" data-ngmodel="securityQuestionData.q2" data-required="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="medium-6 columns" ng-class="{'has-error': rc.updateSecurityQuestionFrom.needsAttention(securityQuestionData.a2)}">
+                                        <span form-input data-type="text"  data-ngkeyup="checkInputValue(securityQuestionData.a2, 'a2', 'answer');" data-ngclass="{'has-error': rc.updateSecurityQuestionFrom.needsAttention(securityQuestionData.a2)}" data-maxlength="100" data-name="a2" data-id="a2" data-ngmodel="securityQuestionData.a2" data-required="true"></span>
+                                        <span form-input data-type="hidden" data-name="a2id" data-id="a2id" data-ngmodel="securityQuestionData.a2id"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="row">
+                                    <div class="medium-6 columns">
+                                        <div class="selectParent month" ng-class="{'has-error': rc.updateSecurityQuestionFrom.needsAttention(securityQuestionData.q3)}">
+                                            <span form-input data-type="select" data-change="makeVisibleUpdateQuestionButton('q3')" data-ngclass="{'has-error': rc.updateSecurityQuestionFrom.needsAttention(securityQuestionData.q3)}" data-firstoption="{{'SelectYourThreeQuestion' | translate}}" data-options='option.Question for option in questions track by option.ID' data-name="q3" data-id="q3" data-ngmodel="securityQuestionData.q3" data-required="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="medium-6 columns">
+                                        <span form-input data-type="text" data-ngkeyup="checkInputValue(securityQuestionData.a3, 'a3', 'answer');" data-ngclass="{'has-error': rc.updateSecurityQuestionFrom.needsAttention(securityQuestionData.a3)}" data-maxlength="100" data-name="a3" data-id="a3" data-ngmodel="securityQuestionData.a3" data-required="true"></span>
+                                        <span form-input data-type="hidden" data-name="a3id" data-id="a3id" data-ngmodel="securityQuestionData.a3id"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <span ng-show="updateQuestionError != undefined && updateQuestionError != ''" class="error">{{updateQuestionError | translate}}</span>
+                                        <span ng-show="successUpdateQuestion != undefined && successUpdateQuestion != ''" class="success">{{successUpdateQuestion | translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="row">
+                                    <div class="medium-1 columns">
+                                        <input type="submit" ng-disabled="!isVisible || updateQuestionError" value="{{'Ok' | translate}}" class="btn btn-green">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="reveal-model-bg-inner" id="overlay"></div>
+                    <div class="reveal-model-inner">
+                        <div class="text-center"><h5>{{'AreYouSureLeavePageWithoutSave' | translate}}</h5></div>
+                        <div class="action text-center">
+                            <input type="button" value="{{'Yes' | translate}}" ng-click="confirmAction('Reset')" class="btn btn-green">
+                            <input type="button" value="{{'No' | translate}}" onClick="$('.reveal-model-bg-inner, .reveal-model-inner').hide();" class="btn m-l5">
+                        </div>
+                    </div>
+
+                </div> 
+            
+             </div>
+        </div>
+        <a href="javascript:void(0);" data-reveal-id="cultureChange" id="cultureChangeModel" data-animation="fade"></a>
+        <div id="cultureChange" class="reveal-modal small" data-reveal>
+                    <div class="close right"><a onClick="$('#cultureChange').trigger('reveal:close');">X</a></div>
+                    <div class="row m-tb10">
+                       <div class="text-center"><h5>{{'CultureChangedAlert' | translate}}</h5></div>
+                        <div class="action text-center">
+                            <input type="button" value="{{'Ok' | translate}}" onClick="$('#cultureChange').trigger('reveal:close');" class="btn btn-green">
+                        </div>
+                    </div>
+        </div>
+        <div class="medium-3 columns">
+            <section class="announcement set-margin notifications">
+                <h4>{{'Notifications' | translate}}</h4>
+                <ul class="list none">
+                    <li>
+                        <p>{{notificationText}}</p>
+                    </li>
+                    
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script src="/Scripts/jquery.reveal.js"></script>   
+<div class="process-overlay" ng-if="updateQuestionProgress || updateProfileProgress"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="updateQuestionProgress || updateProfileProgress">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray" ng-if="updateQuestionProgress">{{updateQuestionProgress | translate}}</h2>
+        <h2 class="h-20x dark-gray" ng-if="updateProfileProgress">{{updateProfileProgress | translate}}</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>

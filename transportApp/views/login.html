@@ -1,0 +1,84 @@
+  <header>
+  <div class="container">
+<nav class="navbar navbar-default">
+  
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+                 
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">FVG Services</a></li>
+        <!--<li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>-->
+      </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+<div class="label-default">
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-4">
+<a href="javascript:void(0);" class="logo"><img src="assets/vendor/theme/img/logo.jpg" alt=""></a>
+</div>
+<!--<div class="col-xs-12 col-sm-8 col-md-8 text-right">
+<a href="#" class="btn btn-primary">Create new file</a>
+<a href="#" class="btn btn-default">Find Files</a>
+</div>-->
+</div>
+</div>
+</div><!-- /.container-fluid -->
+  </header>
+    
+    <div class="bg-primary">
+    <form>
+    <div class="alert alert-danger" ng-if="loginErrorMessage">
+		{{loginErrorMessage}}
+	</div>
+    
+    <div class="form-group">
+    <label for="inputEmail1" class="col-sm-2">Username:</label>
+    <div class="col-sm-10">
+      <input type="text" ng-model="credentials.username" class="form-control" id="inputEmail1">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2">Password:</label>
+    <div class="col-sm-10">
+      <input type="password" ng-model="credentials.password" class="form-control" id="inputEmail3">
+    </div>
+  </div>
+    <div class="form-group">
+    <div class="col-sm-10 col-sm-offset-2">
+      <a href="javascript:void(0);" ng-click="login()" class="btn btn-success">Log In</a>
+    </div>
+  </div>
+      <div class="form-group">
+    <div class="col-sm-10 col-sm-offset-2">
+  <button type="button" class="btn btn-link">Forgot Password?</button>
+    </div>
+  </div>
+
+  </form>
+  <div class="clearfix"></div>
+    </div>
+    
+    <footer class="text-right">
+    <div class="container">
+    <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+    <p>©2015 FVG Services</p>
+    </div>
+    </div>
+    </div>
+    </footer>
+	
+<div class="process-overlay" ng-if="isProcessing"></div>
+<div id="process-loading" class="no-bg" ng-if="isProcessing">
+  <img src="assets/vendor/theme/img/loading-image.gif">
+</div>

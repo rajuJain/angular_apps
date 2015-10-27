@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta id="viewport" name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <title>Patient Portal</title>
+    <link href="script/vendor/kendo/css/kendo.common.min.css" rel="stylesheet" />
+    <link href="script/vendor/kendo/css/datepicker.css" rel="stylesheet" />
+    <link href="script/vendor/theme/Content/grid.css" rel="stylesheet" />
+    <link href="script/vendor/theme/Content/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="script/vendor/theme/Content/style.css" rel="stylesheet" />
+    <script src="script/vendor/theme/Scripts/modernizr-2.6.2.js"></script>
+    <script src="script/vendor/theme/Scripts/jquery-1.8.2.js"></script>
+
+    <!-- Script Dependency Starts-->
+    <!-- Angular Core -->
+    <script src="script/vendor/angular/angular.min.js"></script>
+    <script src="script/vendor/kendo/js/kendo.all.min.js"></script>
+    <!--script src="assets/vendor/crypto/crypto.js"></script-->
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+    
+    <!-- Angular Routing -->
+    <script src="script/vendor/route/angular-route.js"></script>
+    <!-- Angular Cookies -->
+    <script src="script/vendor/cookies/angular-cookies.min.js"></script>
+    
+    <script src="script/vendor/validator/angular-validator.js"></script>
+    
+    <!--Application -->
+    <script src="script/app.js"></script>
+    <script src="script/config.js"></script>
+    <script src="script/directives/directives.js"></script>
+    <script src="script/services/serviceData.js"></script>
+    <script src="script/services/serviceGlobal.js"></script>
+    <script src="script/services/serviceAuth.js"></script>
+    <script src="script/services/dateFormatService.js"></script>
+    <script src="script/controllers/controller.js"></script>
+    <script src="script/controllers/loginController.js"></script>
+    <script src="script/controllers/homeController.js"></script>
+    <script src="script/controllers/patientController.js"></script>
+    <script src="script/controllers/providerController.js"></script>
+    <script src="script/controllers/featuresController.js"></script>
+    <script src="script/controllers/settingController.js"></script>
+
+    <script>
+        $(document).on('click', function (e) {
+            if (e.target.id == 'myAccount') {
+                if ($('#myAccountTopDiv').attr('class') == 'my-account active') {
+                    $('#myAccountTopDiv').removeClass('active');
+                } else {
+                    $('#myAccountTopDiv').addClass('active');
+                }
+            } else {
+                $('#myAccountTopDiv').removeClass('active');
+            }
+            if (e.target.id != 'selectLang') {
+                $('.dropdown dd ul').hide();
+            }
+        });
+    </script>
+    <!--Languages-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dropdown dt a").click(function () {
+                $(".dropdown dd ul").toggle();
+            });
+            $(".dropdown dd ul li a").click(function () {
+                var text = $(this).html();
+                $(".dropdown dt a span").html(text);
+                $(".dropdown dd ul").hide();
+            });
+        });
+    </script>
+</head>
+
+<body ng-app="patientPortalWorkList">
+    <div class="container" id="pageContainer" ng-controller="rootController">
+        <div class="overlay" ng-if="enablePopup"></div>
+        <div id="loading" ng-if="enablePopup">
+            <img src="script/vendor/theme/Images/loader.gif" />
+        </div>
+        <input id="hdnToken" type="hidden" value="@TokenHeaderValue()" />
+        <!-- Header Start-->
+        <div class="container_header">
+            <header class="pagetop">
+                <div class="row">
+                    <div class="large-4 medium-5 small-7 columns tc">
+                        <div class="logo">
+                            <a href="#/"><img src="script/vendor/theme/Images/logo.png" class="mobile"></a>
+                        </div>
+                    </div>
+
+                    <div class="large-8 medium-7 small-5 columns text-right">
+                        <div class="user-name" ng-if="isLoggedIn">Hello, {{userName}}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="medium-12 small-12 columns tr">
+                            <div class="nav-wrapper">
+                                <div class="signup">
+                                    <div class="signup-container">
+                                        <ul>
+                                            <li class="signin-lnk signin" ng-if="!isLoggedIn"><a href="#/login" class="txt-blue">Sign In</a></li>
+                                            <li class="signin-lnk" ng-if="isLoggedIn">
+                                                <div class="my-account" id="myAccountTopDiv">
+                                                    <a class="btn-slide" id="myAccount" href="Javascript:void(0);">My Account</a>
+                                                    <div class="slider-panel signin" id="sliderMenu">
+                                                        <ul>
+                                                            <li><a href="#/setting">Settings</a></li>
+                                                            <li><a href="#/logout">Logout</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="top-nav">
+                                    <ul>
+                                        <li class="appointment" ng-if="isLoggedIn"><a href=" #/patient" ng-class="makeActive('/patient') ? 'txt-blue active' : 'txt-blue'" id="patients-lnk">Patients</a></li>
+                                        <li class="appointment" ng-if="isLoggedIn"><a href="#/provider" ng-class="makeActive('/provider') ? 'txt-blue active' : 'txt-blue'" id="providers-lnk">Providers</a></li>
+										<li class="appointment" ng-if="isAdmin == 'Admin'"><a href="#/admin" ng-class="makeActive('/admin') ? 'txt-blue active' : 'txt-blue'" id="providers-lnk">Admin</a></li>
+                                        <li class="appointment" ng-if="isAdmin == 'Admin'"><a href="#/features" ng-class="makeActive('/features') ? 'txt-blue active' : 'txt-blue'" id="feachers-lnk">Features</a></li>
+                                    </ul>
+                                </div>
+                                <div class="clr"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <!-- Header End-->
+        <!-- Middle Area Start-->
+        <div class="main wrapper">
+            <div ng-view></div>
+
+        </div>
+
+        <!-- Middle Area End-->
+        <!-- Footer Start-->
+        <footer>
+            <div class="wrapper">
+                <div class="need-assistant">
+                    <div class="row">
+
+                        <div class="medium-9 columns p-b10">
+                            <h2>Need Assistance? Call (602) 955-4734 <span>(Patient Portal)</span></h2>
+                            <p class="copyright">Copyright ©
+                            <script type="text/javascript">document.write(new Date().getFullYear());</script>  Southwest Diagnostic Imaging, Ltd. All Rights Reserved.</p>
+                        </div>
+                        <!--div class="medium-3 columns"><a href="#/"><img src="script/vendor/theme/Images/footer-logo.png" class="mobile"></a></div-->
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer End-->
+    </div>
+</body>
+</html>

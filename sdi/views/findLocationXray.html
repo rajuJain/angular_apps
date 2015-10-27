@@ -1,0 +1,127 @@
+<!--custom scroll bar-->
+<script src="../../Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- Steps Start-->
+<!--  <div ng-include="src='app/views/progress_bar.html'"></div>
+ --> <!-- Steps End-->
+<div class="main" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="select-exam-location">
+                <div class="row">
+                    <div class="medium-12 columns" ng-if="!isDontSeeExam">
+                        <div class="title">
+                            <h1 class="ng-binding">{{'XRayLocations' | translate}}</h1>
+                            <h3 class="h-24x b">{{'X-rayExamsArePerformedOnAWalkInBasis' | translate}} <br />{{'SeeMapForConvenientLocation' | translate}}</h3></div>
+                    </div>
+                    <div class="medium-12 columns" ng-if="isDontSeeExam">
+                        <div class="title">
+                            <h1 class="ng-binding">{{'AtWhichOfOurLocationsWouldYouLikeToHaveYourExam' | translate}}</h1>
+                            <div class="sub-heading">{{'ARepresentativeWillContactYou' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="h-24x b" ng-if="isDontSeeExam">{{'SeeMapForConvenientLocation' | translate}}</h3>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <div class="wrapper" style="position:relative">
+                            <div class="row">
+                                <div class="large-4 medium-5 columns">
+                                    <div class="enter-location">
+                                        <h4>{{'SearchByZipCode' | translate}}</h4>
+                                        <div class="search-area">
+										
+                                            <div class="row">
+
+                                        <div class="small-7 columns"><span form-input data-type="text" data-ngkeyup="$event.keyCode == 13 ? filterByDistance() : ''" data-maxlength="50" data-ngenter="searchLocation(searchBox)" data-name="searchBox" data-id="searchBox" data-ngmodel="searchBox" data-required="false"></span>
+                                            <input type="button" ng-click="filterByDistance();" class="search-btn" />
+                                        </div>
+                                        <div class="small-5 columns">
+                                            <div class="selectParent">
+                                            <!--span form-input data-type="select" data-firstoption="{{'Range' | translate}}" data-options='range.name for range in locationRange track by range.id' data-ngdisabled="!searchBox" data-name="range" data-id="range" data-ngmodel="range" data-change="filterByDistance()" data-required="true"></span-->
+                                            <span>
+                                                <select ng-options='range.name for range in locationRange track by range.id' ng-disabled="!searchBox" name="range" id="range" ng-model="range" ng-change="filterByDistance()" required></select>
+                                            </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="content mCustomScrollbar">
+                                        <div class="locations">
+                                            <ul class="no-list">
+                                                <li ng-repeat="data in searchdata" id="row_{{data.ID}}" ng-class="{'active': (data && selectedIndex && data.ID == selectedIndex), 'smil-location': (data.LocationType == 'SMIL'), 'vrl-location': (data.LocationType == 'VRL')}" ng-click="triggerMarker(searchdata, data)" >
+                                                    <div class="location-numbers">{{$index+1}}</div>
+                                                    <div class="location-address">
+                                                        <h5>{{data.AddressLine1}}<!-- <span>Desert Mountain Medical Plaza</span> --></h5>
+							<p ng-if="!data.AddressLine2 && data.Code == 'CDS'">SUITE 101, {{data.City}}, {{data.StateCode}}, {{data.PostalCode}}</p>
+							<p ng-if="!data.AddressLine2 && data.Code == 'UNHO'">SUITE 140, {{data.City}}, {{data.StateCode}}, {{data.PostalCode}}</p>
+							<p ng-if="!data.AddressLine2 && data.Code == 'ARHD'">SUITE K-168, {{data.City}}, {{data.StateCode}}, {{data.PostalCode}}</p>
+                                                        <p ng-if="data.AddressLine2">{{data.AddressLine2.replace('STE', 'SUITE')}}, {{data.City}}, {{data.StateCode}}, {{data.PostalCode}}</p>
+                                                    </div>
+                                                    <div class="location-arrow"></div>
+                                                </li>
+                                                <li ng-if="searchdata.length == 0">{{'NoLocationFound' | translate}}</li>
+                                            </ul>
+                                            
+                                                <div class="spinner" ng-cloak ng-if="inProgress">
+                                                    <h2 class="h-20x dark-gray">{{'SearchingLocations' | translate}}</h2>
+                                                    <div class="bounce1"></div>
+                                                    <div class="bounce2"></div>
+                                                    <div class="bounce3"></div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                <div class="large-8 medium-7 columns"><div id="map"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <div class="action" ng-if="selectedData">
+                            <input type="submit" ng-if="!isDontSeeExam" ng-disabled="inProgress" class="btn btn-green btn-large" ng-click="backToHome()" value="{{'BackToHome' | translate}}">
+                            <input type="submit" ng-if="isDontSeeExam" ng-disabled="inProgress || !selectedIndex" class="btn btn-green btn-large" ng-click="continueToThanks(selectedData)" value="{{'Complete' | translate}}">
+                        </div>
+                    </div>
+                </div>
+                        <span ng-if="donSeeExamError" class="error">
+                             <div class="row">
+                                <div class="medium-9 columns text-right"><div class="not-match"><div>{{donSeeExamError | translate}}</div></div></div>
+                            </div>
+                        </span>
+                        
+            </div>
+        </div>
+    </div>
+</div>
+
+<a id="toggleInvalidLocation" style="display:none;" href="javascript:void(0);" data-reveal-id="invalidLocation"></a>
+<div id="invalidLocation" class="reveal-modal tiny" data-reveal>
+    <div class="row">
+        <div class="medium-12 columns">
+            <h4 class="text-center"> <span>Sorry ! Selected location not fits your selected exams. Please select different location.</span> </h4>
+            <div class="action text-center">
+                <input type="button" value="{{'Ok' | translate}}" onclick="$('#invalidLocation').trigger('reveal:close');" >
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="process-overlay" ng-if="sendingData"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="sendingData">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray">{{'inProgress' | translate}}</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div> 
+<!-- <div class="spinner" ng-if="inProgress">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+</div>
+ -->

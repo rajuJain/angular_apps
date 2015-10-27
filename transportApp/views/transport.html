@@ -1,0 +1,161 @@
+<header ng-include="'views/header.html'"></header>
+<div class="container">
+  <div class="well">
+    <div ng-include="'views/progressBar.html'" class="row"></div>
+    
+    <form rc-submit="next();">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+          <div class="form-group">
+            <div class="row">
+              <label for="inputEmail3" class="col-sm-2 col-sm-offset-8 text-right">File No.</label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control" readonly="readonly" placeholder="File No." ng-model="fileNr" >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <label for="inputEmail3" class="col-md-4 text-left">Port of Loading:</label>
+              <div class="col-md-8">
+                <!--select class="form-control" ng-model="transportData.landingPort"  ng-options = "port[1] for port in ports track by port[0]" validator="[required]">
+                  <option value="">Port of Loading</option>
+                </select-->
+                <!--ui-select id="loading_port" ng-model="transportData.landingPort" theme="selectize"  title="Loading Port" validator="[required]">
+                    <ui-select-match placeholder="Loading Port">{{$select.selected[1]}}</ui-select-match>
+                    <ui-select-choices repeat="port in ports | filter: $select.search">
+                      <span ng-bind-html="port[1] | highlight: $select.search"></span>
+                    </ui-select-choices>
+                  </ui-select-->
+                <input type="text" ng-model="transportData.landingPort" typeahead-select-on-exact="true" typeahead-select-on-blur="true" ng-blur="checkLandingPort(transportData.landingPort);" typeahead="port as port[1] for port in ports | filter:$viewValue | limitTo:8" class="form-control" validator="[required]">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <div class="row">
+              <label for="inputEmail3" class="col-md-4 text-left">Port of Destination:</label>
+              <div class="col-md-8">
+                <!--select class="form-control" ng-model="transportData.destinationPort"  ng-options = "port[1] for port in ports track by port[0]" validator="[required]">
+                  <option value="">Port of Destination</option>
+                </select-->
+                 <!--ui-select ng-model="transportData.destinationPort" theme="selectize"  title="Destination Port" validator="[required]">
+                    <ui-select-match placeholder="Destination Port">{{$select.selected[1]}}</ui-select-match>
+                    <ui-select-choices repeat="port in ports | filter: $select.search">
+                      <span ng-bind-html="port[1] | highlight: $select.search"></span>
+                    </ui-select-choices>
+                  </ui-select-->
+                 <input type="text" ng-model="transportData.destinationPort" typeahead-select-on-exact="true" typeahead-select-on-blur="true" ng-blur="checkDestinationPort(transportData.destinationPort);" typeahead="port as port[1] for port in ports | filter:$viewValue | limitTo:8" class="form-control" validator="[required]">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    <div class="row" ng-repeat="bill in transportData.bl">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="bg-info transport">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <div class="form-group">
+                <label class="gap col-md-2 text-left">Shipper:</label>
+                <div class="col-md-10">
+                  <!--select class="form-control" ng-model="transportData.bl[$index].shipper"  ng-options = "supplier[1] for supplier in suppliers track by supplier[0]" validator="[required]">
+					  <option value="">Select Shipper</option>
+                  </select-->
+                   <!--ui-select id="shipper_{{$index}}" ng-model="transportData.bl[$index].shipper" theme="selectize"  title="Select Shipper" validator="[required]">
+                    <ui-select-match placeholder="Select Shipper">{{$select.selected[1]}}</ui-select-match>
+                    <ui-select-choices repeat="supplier in suppliers | filter: $select.search">
+                      <span ng-bind-html="supplier[1] | highlight: $select.search"></span>
+                    </ui-select-choices>
+                  </ui-select-->
+                   
+                   <input type="text" ng-model="transportData.bl[$index].shipper" typeahead-select-on-exact="true" typeahead-select-on-blur="true" ng-blur="checkValue(transportData.bl[$index].shipper, $index, 'shipper');" typeahead="supplier as supplier[1] for supplier in suppliers | filter:$viewValue | limitTo:8" class="form-control" validator="[required]">
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <div class="form-group">
+                <label class="gap col-md-2 text-left">Consignee:</label>
+                <div class="col-md-10">
+                  <!--select class="form-control" ng-model="transportData.bl[$index].consignee"  ng-options = "supplier[1] for supplier in suppliers track by supplier[0]" validator="[required]">
+					  <option value="">Select Consignee</option>
+                  </select-->
+                  <!--ui-select ng-model="transportData.bl[$index].consignee" theme="selectize"  title="Select Consignee" validator="[required]">
+                    <ui-select-match placeholder="Select Consignee">{{$select.selected[1]}}</ui-select-match>
+                    <ui-select-choices repeat="supplier in suppliers | filter: $select.search">
+                      <span ng-bind-html="supplier[1] | highlight: $select.search"></span>
+                    </ui-select-choices>
+                  </ui-select-->
+                  <input type="text" ng-model="transportData.bl[$index].consignee" typeahead-select-on-exact="true" typeahead-select-on-blur="true" ng-blur="checkValue(transportData.bl[$index].consignee, $index, 'consignee');" typeahead="supplier as supplier[1] for supplier in suppliers | filter:$viewValue | limitTo:8" class="form-control" validator="[required]">
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <div class="form-group">
+                <label class="gap col-md-2 text-left">Notify:</label>
+                <div class="col-md-10">
+                  <!--select class="form-control" ng-model="transportData.bl[$index].notify"  ng-options = "supplier[1] for supplier in suppliers track by supplier[0]" validator="[required]">
+					  <option value="">Select Notify</option>
+                  </select-->
+                  <!--ui-select ng-model="transportData.bl[$index].notify" theme="selectize"  title="Select Notify" validator="[required]">
+                    <ui-select-match placeholder="Select Notify">{{$select.selected[1]}}</ui-select-match>
+                    <ui-select-choices repeat="supplier in suppliers | filter: $select.search">
+                      <span ng-bind-html="supplier[1] | highlight: $select.search"></span>
+                    </ui-select-choices>
+                  </ui-select-->
+                  <input type="text" ng-model="transportData.bl[$index].notify" typeahead-select-on-exact="true" typeahead-select-on-blur="true" ng-blur="checkValue(transportData.bl[$index].notify, $index, 'notify');" typeahead="supplier as supplier[1] for supplier in suppliers | filter:$viewValue | limitTo:8" class="form-control" validator="[required]">
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12" ng-init="transportData.bl[$index].blMap = transportData.bl[$index].blMap || []">
+              <div class="form-group">
+                <label class="gap col-md-2 text-left">&nbsp;</label>
+                <div class="col-md-10">
+                  <div class="table-responsive">
+                    <table width="100%" class="table-bordered table-striped transport-item">
+                      <tr>
+                        <th>Select</th>
+                        <th>Supplier</th>
+                        <th>Description</th>
+                        <th>P.O. No.</th>
+                        <th>QTY.</th>
+                        <th>Gross Weight (kg)</th>
+                        <th>CRD (Cargo Ready Date)</th>
+                      </tr>
+                      <tr ng-repeat="form in goodsForm track by $index"  ng-show="!blMap[$index] || blMap[$index] == ($parent.$index + 1)">
+                        <td><span><input ng-change="addMapIndex($parent.$index, $index);" ng-model="checkbox[$index]" type="checkbox"></span></td>
+                        <td><span ng-if="goodsData[$index] && goodsData[$index].supplier">{{goodsData[$index].supplier[1]}}</span></td>
+                        <td><span ng-if="goodsData[$index] && goodsData[$index].description">{{goodsData[$index].description}}</span></td>
+                        <td><span ng-if="goodsData[$index] && goodsData[$index].po_number">{{goodsData[$index].po_number}}</span></td>
+                        <td><span ng-if="goodsData[$index] && goodsData[$index].quantity">{{goodsData[$index].quantity}} {{goodsData[$index].unit}}</span></td>
+                        <td><span ng-if="goodsData[$index] && goodsData[$index].weight">{{goodsData[$index].weight}}</span></td>
+                        <td><span ng-if="goodsData[$index] && goodsData[$index].cargo_date">{{goodsData[$index].cargo_date}}</span></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <i ng-if="$index == 0" class="fa fa-plus" ng-click="addBL();" ng-show="transportData.bl.length <= (goodsForm.length-1)"></i> 
+          <i ng-if="$index == 0 &&  transportData.bl.length > 1" class="fa fa-minus" ng-click="removeBL($index);" style="left:100px;"></i>
+          <i ng-if="$index != 0 && (transportData.bl.length -1) != $index && transportData.bl.length > 1" class="fa fa-minus" ng-click="removeBL($index);" style="left:100px;"></i>	
+		   </div>
+      </div>
+    </div>
+    
+    <div class="text-right">
+      <button type="button" ng-click="cancel();" class="btn btn-default">Cancel</button>
+      <a href="#/container" class="btn btn-success">Back</a> 
+	  <input type="submit" name="next" value="Next" class="btn btn-success">
+	</div>
+	</form>
+  </div>
+</div>
+ <footer ng-include src="'views/footer.html'" class="text-right"></footer>
+ 

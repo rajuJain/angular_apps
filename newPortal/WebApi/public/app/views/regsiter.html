@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>LearnLux | Registration</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" />
+<script src="jquery.min.js"></script>
+<script src="jquery.autosize.input.js"></script>
+
+<!--<script type="text/javascript">
+$(document).ready(function(){
+ $("#btn1").click(function(){
+  $("#btn1").addClass('hide');
+  $("#slide1").addClass('slider-wrapper-hide');
+  $("#btn2").removeClass('hide');
+   $("#btn2").addClass('next-green');
+    $("#slide2").removeClass('slider-wrapper2');
+  $("#slide2").addClass('slider-wrapper-show');
+ 
+ })
+ 
+ 
+ $("#btn2").click(function(){
+  $("#btn2").addClass('hide');
+  $("#slide2").removeClass('slider-wrapper-show');
+  $("#slide2").addClass('slider-wrapper-hide');
+  $("#btn3").removeClass('hide');
+   $("#btn3").addClass('next-green');
+    $("#slide3").removeClass('slider-wrapper-hide');
+  $("#slide3").addClass('slider-wrapper3-show');
+ })
+})
+</script>--> 
+<script type="text/javascript">
+$(document).ready(function(){
+  //Next button on slide 1 clicked
+	$("#btn1").click(function(){
+		// Slide 1 moves out
+		$("#slide1").removeClass('slide1in');
+		$("#slide1").addClass('slide1out');
+		$("#btn1").removeClass('btn1show');
+		$("#btn1").addClass('btn1hide');
+		
+		// Slide 2 moves in
+		$("#slide2").removeClass('slide2parked');
+		$("#slide2").addClass('slide2in');
+		$("#btn2").removeClass('btn2hide');
+		$("#btn2").addClass('btn2show');
+ })
+ 
+ //Next button on slide 2 clicked
+	$("#btn2").click(function(){
+		//Slide 2 moves out
+		$("#slide2").removeClass('slide2in');
+		$("#slide2").addClass('slide2out');
+		$("#btn2").removeClass('btn2show');
+		$("#btn2").addClass('btn2hide');
+		
+		//Slide 3 moves in
+		$("#slide3").removeClass('slide2parked');
+		$("#slide3").addClass('slide3in');
+		$("#btn3").removeClass('btn3hide');
+		$("#btn3").addClass('btn3show');
+ })
+ 
+ //Next button on slide 3 clicked
+	$("#btn3").click(function(){
+		//Slide 2 moves out
+		$("#slide2").removeClass('slide2in');
+		$("#slide2").addClass('slide2out');
+		$("#btn2").removeClass('btn2show');
+		$("#btn2").addClass('btn2hide');
+		
+		//Slide 3 moves in
+		$("#slide3").removeClass('slide2parked');
+		$("#slide3").addClass('slide3in');
+		$("#btn3").removeClass('btn3hide');
+		$("#btn3").addClass('btn3show');
+ })
+  
+ })
+</script>
+
+</head>
+
+<body>
+
+<div class="container-main">
+<div class="container-td">
+<div class="logo"><img src="images/logo.png" width="45" height="55" /></div>
+
+<!-------------------Registration Slide 1------------------->
+<div id="slide1" class="slide1in">
+<div class="home1">Welcome to LearnLux!! We're glad you are here...</div>
+<div class="home2">My name is  <input type="text" value="first & last" onclick="javascript:if(this.value=='first & last'){this.value=''}" onblur="javascript:if(this.value==''){this.value='first & last'}"   data-autosize-input='{ "space": 0 }' /></div> 
+</div>
+<a href="#" id="btn1" class="btn1show">Next</a>
+
+<!-------------------Registration Slide 2------------------->
+<div id="slide2"  class="slide2parked">
+<div class="register21">Hi Nick!!! <br />What's the best way to keep in touch? </div>
+<div class="register22"><input type="text" value="Email" onclick="javascript:if(this.value=='Email'){this.value=''}" onblur="javascript:if(this.value==''){this.value='Email'}"   data-autosize-input='{ "space": 0 }' /></div> 
+</div>
+<a href="#" id="btn2" class="btn2show">Next</a>
+
+<!-------------------Registration Slide 3------------------->
+<div id="slide3" class="slide3parked">
+<div class="register31">Perfect! To save your information and<br /> get back into your account what password do you want to use?</div>
+<div class="register32"><input type="text" value="Password" onclick="javascript:if(this.value=='Password'){this.value=''}" onblur="javascript:if(this.value==''){this.value='Password'}"   data-autosize-input='{ "space": 0 }' /><div class="register33">Remember to make it secure!</div></div> 
+</div>
+<a href="#" id="btn3" class="btn3show">Next</a>
+
+<!--Do not use this for now!!!!-->
+
+<!--<div class="goal-wrapper">
+
+<div class="band" style="width:100%;"></div>
+<div class="goal-items-box" style="background-image: url(images/car.jpg);">
+<div class="question-text">Want a <span>car?</span></div>
+<div class="radio-no">
+ <input id="radio1" type="radio" name="radio" value="1" ><label for="radio1">No</label></div>
+<div class="radio-yes"><input id="radio2" type="radio" name="radio" value="1" ><label for="radio2">Yes</label></div>
+</div>
+
+</div>-->
+
+
+</div>
+</div>
+
+</body>
+</html>

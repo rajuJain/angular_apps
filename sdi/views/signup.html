@@ -1,0 +1,155 @@
+<div class="main" ng-init="setLanguage(culture)" ng-cloak>
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="wrap">
+
+                <div class="title">
+                    <h1>{{'CreateAccount' | translate}}</h1>
+                </div>
+                <div class="sub-heading">{{'CongratsYouAreVarified' | translate}}</div>
+                <hr />
+                <form id="signupForm" name="signupForm" method="POST" rc-submit="createAccount(userData)" novalidate enctype="multipart/form-data">
+                <div class="field">
+                    <div class="row">
+                        <div class="medium-6 columns end">
+                            <label>{{'DisplayName' | translate}}</label>
+                            <span form-input data-type="text" data-ngclass="{'has-error' : rc.signupForm.needsAttention(userData.displayName)}" data-name="displayName" data-id="displayName" data-ngmodel="userData.displayName" data-maxlength="15" data-required="true" data-ngkeyup="checkNameAvailablity(userData.displayName);"></span>
+                            <span ng-show="displayNameVal" class="error">{{displayNameVal | translate}}</span>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="row">
+                        <div class="medium-6 columns">
+                            <label>{{'CreatePassword' | translate}}</label>
+                            <span form-input data-type="password" data-ngkeyup="checkValidValue(userData.password, 'password')" data-minlength="6" data-maxlength="20" data-ngclass="{'has-error': rc.signupForm.needsAttention(userData.password)}" data-name="password" data-id="password" data-ngmodel="userData.password" data-required="true"></span>
+                        </div>
+                        <div class="medium-6 columns">
+
+                            <label class="gray"><i>{{'Re-enterPassword' | translate}}</i></label>
+                            <span form-input data-type="password" data-ngkeyup="checkValidValue(userData.confirmPassword, 'confirmPassword')" data-minlength="6" data-maxlength="20" data-ngclass="{'has-error': rc.signupForm.needsAttention(userData.confirmPassword)}" data-name="confirmPassword" data-id="confirmPassword" data-ngmodel="userData.confirmPassword" data-required="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--<input type="file" name="profilePic" id="profilePic" on-read-file="showImage($fileContent);" ng-model="userData.profilePic" style="opacity:0;position:absolute;">
+                <div class="action">
+                    <div class="row">
+                        <div class="medium-1 small-2 columns">
+                            <img src="/images/account-image.png" border="0" id="previewImage">
+                        </div>
+                        <div class="medium-11 small-10 columns m-t10">
+                            <input for="profilePic" onclick="$('#profilePic').click();" type="button" value="Select account image" class="btn btn-blue">
+                            <span class="question"><a href="javascript:void(0);"><img src="/images/question.png" align="middle"></a></span>
+                        </div>
+                    </div>
+                </div>-->
+
+                <hr />
+
+                <div class="row m-tb10">
+                    <div class="field">
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <h4><b>{{'SecurityQuestions' | translate}}</b></h4>
+                                <label>
+                                    {{'WeWillSetUpFewQuestion' | translate}}<br><br>
+                                    <strong><b>{{'AnswerAreCaseSenstive' | translate}}</b></strong>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                <label class="gray"><i>{{'Questions' | translate}}</i></label>
+                            </div>
+                            <div class="medium-6 columns">
+                                <label class="gray"><i>{{'Answers' | translate}}</i></label>                            
+                            </div>
+                        </div>
+                    </div>
+                     <div class="field">
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                <div class="selectParent month" ng-class="{'has-error': rc.signupForm.needsAttention(userData.q1)}">
+                                    <span form-input data-type="select" data-ngclass="{'has-error': rc.signupForm.needsAttention(userData.q1)}" data-firstoption="{{'SelectYourFirstQuestion' | translate}}" data-options='option.Question | translate for option in questions'  data-ngclass="{'has-error': rc.returningPatientForm.needsAttention(userdata.q1)}" data-name="q1" data-id="q1" data-ngmodel="userData.q1" data-required="true"></span>    
+                                </div>
+                            </div>
+                            <div class="medium-6 columns">
+                                <span form-input data-type="text" data-ngkeyup="checkInputValue(userData.a1, 'a1', 'answer');" data-maxlength="100" data-ngclass="{'has-error': rc.signupForm.needsAttention(userData.a1)}" data-name="a1" data-id="a1" data-ngmodel="userData.a1" data-required="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                <div class="selectParent month" ng-class="{'has-error': rc.signupForm.needsAttention(userData.q2)}" >
+                                    <span form-input data-type="select" data-ngclass="{'has-error': rc.signupForm.needsAttention(userData.q2)}" data-firstoption="{{'SelectYourSecondQuestion' | translate}}" data-options='option.Question | translate for option in questions' data-ngclass="{'has-error': rc.returningPatientForm.needsAttention(userdata.q2)}" data-name="q2" data-id="q2" data-ngmodel="userData.q2" data-required="true"></span>    
+                                </div>
+                            </div>
+                            <div class="medium-6 columns" ng-class="{'has-error': rc.signupForm.needsAttention(userData.a2)}">
+                                <span form-input data-type="text"  data-ngkeyup="checkInputValue(userData.a2, 'a2', 'answer');" data-maxlength="100" data-ngclass="{'has-error': rc.signupForm.needsAttention(userData.a2)}" data-name="a2" data-id="a2" data-ngmodel="userData.a2" data-required="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                     
+                     <div class="field">
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                <div class="selectParent month" ng-class="{'has-error': rc.signupForm.needsAttention(userData.q3)}">
+                                    <span form-input data-type="select" data-ngclass="{'has-error': rc.signupForm.needsAttention(userData.q3)}" data-firstoption="{{'SelectYourThreeQuestion' | translate}}" data-options='option.Question | translate for option in questions' data-ngclass="{'has-error': rc.returningPatientForm.needsAttention(userdata.q3)}" data-name="q2" data-id="q3" data-ngmodel="userData.q3" data-required="true"></span>    
+                                </div>
+                            </div>
+                            <div class="medium-6 columns">
+                                <span form-input data-type="text" data-ngkeyup="checkInputValue(userData.a3, 'a3', 'answer');" data-maxlength="100" data-ngclass="{'has-error': rc.signupForm.needsAttention(userData.a3)}" data-name="a3" data-id="a3" data-ngmodel="userData.a3" data-required="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="medium-12 columns">
+                        <h4><b>{{'AccountNotificationSettings' | translate}}</b></h4>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="row">
+                        <div class="medium-12 coloums checkbox m-l5">
+                            <span ng-class="userData.WillOptInForSurveys ? 'inactive active' : 'inactive'" form-input data-type="checkbox" data-name="WillOptInForSurveys" data-id="WillOptInForSurveys" data-ngmodel="userData.WillOptInForSurveys" data-ngchecked="userData.WillOptInForSurveys" data-required="false"></span>
+                            <label for="WillOptInForSurveys" class="label">{{'WillOptInForSurveys' | translate}}.</label>
+                        </div>
+                    </div>
+                </div>
+                
+               
+
+                <span ng-show="createAccountSuccess != undefined && createAccountSuccess != ''" class="success">{{createAccountSuccess | translate}}</span>
+                <span ng-show="createAccountError != undefined && createAccountError != ''" class="error">{{createAccountError | translate}}</span>
+
+                <div class="row m-t40">
+                    <div class="medium-12 columns">
+                        <input type="submit" value="{{'CreateAccount' | translate}}" ng-disabled="createAccountProgress != '' && createAccountProgress != undefined" class="btn btn-green btn-medium">
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="process-overlay" ng-if="createAccountProgress"></div>
+<div id="process-loading" ng-cloak class="no-bg" ng-if="createAccountProgress">
+    <div class="spinner">
+        <h2 class="h-20x dark-gray">{{createAccountProgress | translate}}</h2>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+<style type="text/css">
+.has-error1{
+    border-color: red!important;
+}
+</style>

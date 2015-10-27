@@ -1,0 +1,220 @@
+<link href="script/vendor/kendo/css/kendo.common.min.css" rel="stylesheet" />
+<link href="script/vendor/kendo/css/kendo.rtl.min.css" rel="stylesheet" />
+<link href="script/vendor/kendo/css/kendo.silver.min.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+        var first = true;
+
+        // Hide menu once we know its width
+        $('#filter-btn').click(function () {
+            if ($(".k-loading-mask").length == 0) {
+                var $filter = $('#filter-div');
+                if ($filter.is(':visible')) {
+                    // Slide away
+                    $("#filter-div").animate({ "left": "-750px", opacity: "hide" }, 500);
+                }
+                else {
+                    // Slide in
+                    $("#filter-div").animate({ "left": "7px", opacity: "show" }, 500);
+                }
+            }
+        });
+    });
+</script>
+<div class="main">
+    <div class="row">
+        <div class="medium-12 columns">
+            <div class="dashboard">
+                <div class="row">
+                    <div ng-show="error && error != ''" class="error">{{error}}</div>
+                    <div class="large-4 medium-6 columns no-pad-right">
+                        <div class="filter" style="position:relative; overflow:hidden">
+                            <div id="filter-div" style="display: none; position: absolute;">
+                                <div class="row checkbox global-checkbox">
+                                    <div class="medium-12 columns">
+                                        <h3>Division</h3>
+                                        <ul class="large-block-grid-2 medium-block-grid-2 small-block-grid-1">
+                                            <li>
+                                                <span ng-class="div.SMIL ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" ng-model="div.SMIL" id="div_smil" name="div_smil" ng-click="div.ShowAll=false;"></span>
+                                                <label class="label" for="div_smil">SMIL</label>
+                                            </li>
+                                            <li>
+                                                <span ng-class="div.VR ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" id="div_vr" name="div_vr" ng-model="div.VR" ng-click="div.ShowAll=false;"></span>
+                                                <label class="label" for="div_vr">VRL</label>
+                                            </li>
+                                            <li>
+                                                <span ng-class="div.ShowAll ? 'active inactive' : 'inactive'"><input type="checkbox" class="check" id="div_all" name="div_all" ng-model="div.ShowAll" ng-click="div.SMIL=false;div.VR=false;"></span>
+                                                <label class="label" for="div_all">Show All</label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="action">
+                                        <div class="medium-6 columns">
+                                            <input type="button" value="Show All" class="btn btn-black btn-large" ng-click="filterOtherExamUsers('showAll')">
+                                        </div>
+                                        <div class="medium-6 columns text-right">
+                                            <input type="button" value="Done" class="btn btn-green btn-large" ng-click="filterOtherExamUsers()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="medium-12 columns">
+                                    <form id="patientSearchForm" method="POST" novalidate>
+                                        <div class="enter-location">
+                                            <div class="search-area">
+                                                <span form-input data-type="text" data-placeholder="Search by Name" data-ngkeyup="$event.keyCode == 13 ? filterOtherExamUsers() : ''" data-maxlength="50" data-ngenter="filterOtherExamUsers()" data-name="searchKey" data-id="searchKey" data-ngmodel="searchKey" data-required="false"></span>
+                                                <input type="button" ng-disabled="isDisabled" ng-click="filterOtherExamUsers()" class="search-btn" />
+                                            </div>
+                                            <div class="refresh-grid">
+                                                <img ng-click="filterOtherExamUsers('refresh')" width="32px" src="../../Images/refresh.png" title="Grid Refresh" alt="Refresh" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="wrap">
+
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <div class="filter-btn">
+                                            <div class="medium-6 small-6 columns no-pad-left"><input type="submit" ng-disabled="isDisabled" class="btn btn-blue btn-large" id="filter-btn" value="Filter"></div>
+
+                                            <div class="medium-6 small-6 columns">
+                                                <div class="filter-lbl">
+
+                                                    <div class="lbl">
+
+                                                        <b>Division:  </b><span ng-repeat="(key, value) in div" ng-if="value"><span ng-if="key=='VR'">VRL</span><span ng-if="key!='VR'">{{key}}</span> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="medium-12 columns">
+                                        <div style="position:relative">
+                                            <kendo-grid id="examInquiryList" ng-hide="isSearching" class="patientList" options="patientGridOptions"></kendo-grid>
+                                            <div class="spinner" ng-if="isSearching" style="height: 600px">
+                                                <h2 class="h-20x dark-gray">Searching Patients</h2>
+                                                <div class="bounce1"></div>
+                                                <div class="bounce2"></div>
+                                                <div class="bounce3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-8 medium-6 columns no-pad-left">
+                        <div class="result">
+                            <div class="heading">
+                                <div class="row">
+                                    <div class="medium-12 columns" ng-if="patientDetails != ''">
+                                        <h1 ng-if="patientDetails.isAnonymous"><i><img src="script/vendor/theme/Images/patient-icon.png" /></i>Anonymous Patient</h1>
+                                        <h1 ng-if="patientDetails && !patientDetails.isAnonymous"><span class="green-txt">Verified</span> Patient</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" ng-if="patientDetails != ''">
+                                <div class="large-12 medium-12 columns right">
+                                    <div class="wrapper">
+                                        <!-- Patient Information -->
+                                        <div class="patient-info">
+                                            <div class="white-bg">
+                                                <div class="row">
+                                                    <div class="medium-12 columns">
+                                                        <h2>Patient Information</h2>
+                                                        <h4 class="patient-name">{{patientDetails.User.LastName}} {{patientDetails.User.FirstName}} <span class="gen">({{patientDetails.User.Gender}})</span></h4>
+                                                        <div class="row">
+                                                            <div class="medium-6 columns">
+                                                                <p>
+                                                                    <b ng-if="patientDetails.User.PhoneNumber">{{makePhoneFormated(patientDetails.User.PhoneNumber)}}</b><br />
+                                                                    {{patientDetails.User.DateOfBirth}}<br />
+                                                                    <a href="">{{patientDetails.User.Email}}</a><br />
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <h5>MRN: <span ng-if="!patientDetails.User.isAnonymous"> {{patientDetails.User.MRN}} </span></h5>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Location Information -->
+                                        <div class="patient-info">
+                                            <div class="white-bg">
+                                                <div class="row">
+                                                    <div class="medium-12 columns">
+                                                        <h2>Location</h2>
+
+                                                        <h4>{{patientDetails.xLocation.LocationDescription}}</h4>
+                                                        <p>
+                                                            {{patientDetails.xLocation.Address}}<br />
+                                                            {{patientDetails.xLocation.City}}, {{patientDetails.xLocation.State}} {{patientDetails.xLocation.Zipcode}}
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Other Exam reason -->
+                                        <div class="patient-info">
+                                            <div class="white-bg">
+                                                <div class="row">
+                                                    <div class="medium-12 columns">
+                                                        <h2>Reason</h2>
+                                                        <p>
+                                                            {{patientDetails.Reason}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="medium-12 columns">
+
+                                                        <div class="action text-left">
+                                                            <input type="button" onclick="$('#showCompleteNote').click();" value="Complete" class="btn btn-green btn-large">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a id="showCompleteNote" style="display:none;" href="javascript:void(0);" data-reveal-id="completeNote"></a>
+<div id="completeNote" class="reveal-modal tiny" data-reveal>
+    <div class="row">
+        <div class="medium-12 columns">
+            <h4 class="text-center"> <span>Are you sure you want to complete this inquiry?</span> </h4>
+            <div class="action text-center">
+                <input type="button" value="No" onclick="$('#completeNote').trigger('reveal:close');" class="btn">
+                <input type="button" value="Yes" ng-click="inquiryReviewed(patientDetails);" class="btn btn-blue m-l5">
+            </div>
+        </div>
+    </div>
+</div>
+<script src="script/vendor/theme/Scripts/jquery.reveal.js"></script>
+
