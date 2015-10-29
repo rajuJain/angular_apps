@@ -1,6 +1,6 @@
 {
-  "name": "patientportal",
-  "description": "Gate6 Patient Portal",
+  "name": "portal",
+  "description": "Portal",
   "version": "1.0.0",
   "private": false,
   "repository": "No",
