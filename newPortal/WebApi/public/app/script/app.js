@@ -43,7 +43,7 @@ angular.module('AngularDemo', ['ngCookies', 'ngRoute', 'ngApiGateWay', 'ngAuth',
        .config(function(serviceDataProvider){
               var environments = {
                                    prd: {text: 'Production',server: '',serverKeyName : '', serverKeyValue : '', serverTokenName : '',  serverTokenValue : ''},
-                                   dev: {text: 'Development',server: 'http://52.4.210.88:8080',serverKeyName : 'apikey', serverKeyValue : '68F5H7HDKI97855BHJKYSNY68', serverTokenName : '',  serverTokenValue : ''},
+                                   dev: {text: 'Development',server: 'http://localhost:8080',serverKeyName : 'apikey', serverKeyValue : '68F5H7HDKI97855BHJKYSNY68', serverTokenName : '',  serverTokenValue : ''},
                                    localhost: {text: 'Localhost',server: 'http://localhost:8080', serverKeyName : 'apikey', serverKeyValue : '68F5H7HDKI97855BHJKYSNY68', serverTokenName : 'token',  serverTokenValue : ''}
                             };
               var configData = {
